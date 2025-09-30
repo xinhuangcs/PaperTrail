@@ -1,15 +1,17 @@
 """
-添加引用数（OpenAlex）：
-- 有 DOI：OpenAlex（DOI）
-- 无 DOI：OpenAlex 标题搜索（相似度匹配）
-- 引用数拿不到则写 -1，并写明 citation_status
-- 逐行流式处理
-- 切片处理
-- tqdm 显示该切片进度 / 速率 / 预计剩余时间
+Add citation numbers (OpenAlex):
+- With DOI: use OpenAlex (DOI)
+- Without DOI: use OpenAlex title search (similarity matching)
+- If citation count is not available, write -1 and specify citation_status
+- Process line by line (streaming)
+- Slice
+- Use tqdm to show progress / speed / estimated remaining time for each slice
 
-依赖：
+Dependencies:
   pip install requests tqdm
 """
+
+
 
 import json
 import os
@@ -24,26 +26,26 @@ from difflib import SequenceMatcher
 from tqdm import tqdm
 
 
-# ========= 1) 配置=========
+# 1) Configuration
 CONFIG = {
-    # 路径
-    "INPUT_FILE": "/Users/jasonh/Desktop/tools/FinalProject/DataPreprocess/arxiv-metadata-oai-snapshot.json",
-    "OUTPUT_FILE_BASE": "/Users/jasonh/Desktop/tools/FinalProject/DataPreprocess/arxiv-with-citations",  # 加 _slice{idx}.jsonl
-    "CACHE_FILE": "/Users/jasonh/Desktop/tools/FinalProject/DataPreprocess/citation_cache.json",
+    "INPUT_FILE": "/Users/jasonh/Desktop/02807/FinalProject/DataPreprocess/arxiv-cs-data.json",
+    "OUTPUT_FILE_BASE": "/Users/jasonh/Desktop/02807/FinalProject/DataPreprocess/arxiv-cs-data-with-citations",
+    "CACHE_FILE": "/Users/jasonh/Desktop/02807/FinalProject/DataPreprocess/citation_cache.json",
 
-    # 切片（从 0 开始，举例：切成 10 片，跑第 2 片 → SLICE_COUNT=10, SLICE_INDEX=1）
-    "SLICE_COUNT": 10,
+    # Slicing (starting from 0, e.g.: split into 10 slices, run the 2nd slice → SLICE_COUNT=10, SLICE_INDEX=1)
+    "SLICE_COUNT": 140,
     "SLICE_INDEX": 0,
 
-    # 速率控制（避免限流）
-    "SLEEP_SECS": 0.2,    # 每次请求后暂停秒数（建议 0.15–0.25）
-    "SAVE_EVERY": 1000,   # 每处理多少条保存一次缓存
-    "TITLE_SIM_RATIO": 0.90,  # 标题匹配的相似度阈值
+    # Rate control (to avoid throttling)
+    "SLEEP_SECS": 0.2,  # Pause in seconds after each request (recommended 0.15–0.25)
+    "SAVE_EVERY": 1000,  # Save cache after processing this many records
+    "TITLE_SIM_RATIO": 0.90,  # Title similarity threshold
+
 }
 
-# ========= 2) 工具函数 =========
+# 2) Utility functions
 def normalize_doi(raw: Optional[str]) -> Optional[str]:
-    """规范化 DOI：去空白、去掉(https)://doi.org/ 前缀、转小写"""
+    #Normalize DOI: trim whitespace, remove (https)://doi.org/ prefix, convert to lowercase
     if not raw or not isinstance(raw, str):
         return None
     doi = raw.strip()
@@ -59,16 +61,16 @@ def normalize_doi(raw: Optional[str]) -> Optional[str]:
 
 
 def title_similarity(a: str, b: str) -> float:
-    """标题相似度 [0,1]"""
+    #Title similarity [0,1]
     return SequenceMatcher(None, (a or "").lower(), (b or "").lower()).ratio()
 
 
-# ========= 3) OpenAlex 调用 =========
+#3) OpenAlex
 def openalex_get_by_doi(doi: str, session: requests.Session,
                         sleep_secs: float = 0.2,
                         max_retries: int = 3,
                         timeout: float = 20.0) -> Tuple[int, str]:
-    """用 DOI 调 OpenAlex，返回 (citation_count, status)"""
+    #Use DOI to query OpenAlex, return (citation_count, status)
     base = "https://api.openalex.org/works"
     params = {"filter": f"doi:{doi}"}
     attempt = 0
@@ -111,7 +113,7 @@ def openalex_get_by_title(title: str, session: requests.Session,
                           sleep_secs: float = 0.2,
                           timeout: float = 20.0,
                           min_ratio: float = 0.9) -> Tuple[int, str]:
-    """用标题在 OpenAlex 搜索（返回最相近的一条的引用数）"""
+    #Search OpenAlex by title (return citation count of the closest match)
     base = "https://api.openalex.org/works"
     params = {"filter": f"title.search:{title}", "per-page": 5}
     try:
@@ -137,9 +139,9 @@ def openalex_get_by_title(title: str, session: requests.Session,
         return -1, f"openalex_title_exception:{type(e).__name__}"
 
 
-# ========= 4) 缓存 =========
+# 4) Cache
 def load_cache(cache_path: Optional[str]) -> Dict[str, Dict[str, object]]:
-    """加载缓存 JSON：{key: {"count": int, "status": str}}，key 可以是 DOI 或 'title::<title>'"""
+    #Load cache JSON: {key: {"count": int, "status": str}},  where key can be a DOI or 'title::<title>'
     if not cache_path or not os.path.exists(cache_path):
         return {}
     try:
@@ -150,16 +152,15 @@ def load_cache(cache_path: Optional[str]) -> Dict[str, Dict[str, object]]:
 
 
 def atomic_save_json(obj, path: str):
-    """原子写入 JSON，避免中断导致文件损坏"""
     tmp = f"{path}.tmp"
     with open(tmp, "w", encoding="utf-8") as f:
         json.dump(obj, f, ensure_ascii=False)
     shutil.move(tmp, path)
 
 
-# ========= 5) 主流程 =========
+# 5) Main process
 def main():
-    # 读取配置
+    # Load configuration
     INPUT_FILE      = CONFIG["INPUT_FILE"]
     OUTPUT_FILE_BASE= CONFIG["OUTPUT_FILE_BASE"]
     CACHE_FILE      = CONFIG["CACHE_FILE"]
@@ -169,43 +170,43 @@ def main():
     SAVE_EVERY      = int(CONFIG["SAVE_EVERY"])
     TITLE_SIM_RATIO = float(CONFIG["TITLE_SIM_RATIO"])
 
-    # 输出文件按切片编号自动命名
+    # Output file is automatically named based on slice index
     OUTPUT_FILE = f"{OUTPUT_FILE_BASE}_slice{SLICE_INDEX}.jsonl"
 
-    print(f"[i] 参数：")
+    print(f"[i] Parameters:")
     print(f"    INPUT_FILE  = {INPUT_FILE}")
     print(f"    OUTPUT_FILE = {OUTPUT_FILE}")
     print(f"    CACHE_FILE  = {CACHE_FILE}")
     print(f"    SLICE       = {SLICE_INDEX}/{SLICE_COUNT - 1}")
     print(f"    SLEEP_SECS  = {SLEEP_SECS}")
 
-    # 友好退出
+    # Exit handling
     interrupted = {"flag": False}
+
     def handle_sigint(signum, frame):
         interrupted["flag"] = True
-        print("\n 中断，保存缓存", file=sys.stderr)
+        print("\n Interrupted, saving cache", file=sys.stderr)
+
     signal.signal(signal.SIGINT, handle_sigint)
 
-    # 缓存
+    # Cache
     cache = load_cache(CACHE_FILE)
-    print(f"[i] 已加载缓存：{len(cache)} 条")
-
-    # 统计总行数，计算切片范围
+    print(f"[i] Cache loaded: {len(cache)} entries")
+    # Count total lines and compute slice range
     with open(INPUT_FILE, "r", encoding="utf-8") as f:
         total_lines = sum(1 for _ in f)
     if SLICE_COUNT < 1:
         SLICE_COUNT = 1
     if SLICE_INDEX < 0 or SLICE_INDEX >= SLICE_COUNT:
-        print(f"[x] SLICE_INDEX 超出范围 (0..{SLICE_COUNT-1})", file=sys.stderr)
+        print(f"SLICE_INDEX out of range (0..{SLICE_COUNT - 1})", file=sys.stderr)
         sys.exit(2)
-
     lines_per_slice = total_lines // SLICE_COUNT
     start_line = SLICE_INDEX * lines_per_slice + 1
     end_line = (SLICE_INDEX + 1) * lines_per_slice if SLICE_INDEX < SLICE_COUNT - 1 else total_lines
     total_this_slice = end_line - start_line + 1
-    print(f"[i] 总行数={total_lines}, 本片范围={start_line} ~ {end_line}（共 {total_this_slice} 行）")
+    print(f"[i] Total lines={total_lines}, this slice range={start_line} ~ {end_line} (total {total_this_slice} lines)")
 
-    # 输出准备
+    # Output preparation
     out_dir = os.path.dirname(os.path.abspath(OUTPUT_FILE))
     if out_dir:
         os.makedirs(out_dir, exist_ok=True)
@@ -216,7 +217,7 @@ def main():
 
     processed, written, last_cache_dump = 0, 0, 0
 
-    # tqdm 只覆盖当前切片
+    # tqdm only covers the current slice
     with open(INPUT_FILE, "r", encoding="utf-8") as in_f, \
          tqdm(total=total_this_slice, unit="rec", desc=f"Slice {SLICE_INDEX}/{SLICE_COUNT-1}") as pbar:
         for lineno, line in enumerate(in_f, start=1):
@@ -244,16 +245,16 @@ def main():
             citation_count, citation_status = -1, "missing_id"
 
             if doi:
-                # 以 DOI 为缓存 key
+                # Use DOI as cache key
                 if doi in cache:
                     citation_count = cache[doi]["count"]
                     citation_status = cache[doi]["status"]
                 else:
-                    # 仅用 OpenAlex（DOI）
+                    # OpenAlex (DOI only)
                     citation_count, citation_status = openalex_get_by_doi(doi, session, sleep_secs=SLEEP_SECS)
                     cache[doi] = {"count": citation_count, "status": citation_status}
             else:
-                # 无 DOI → 标题搜索（OpenAlex），cache key 用 title::
+                # No DOI → search by title (OpenAlex), cache key uses title::
                 if title:
                     cache_key = f"title::{title}"
                     if cache_key in cache:
@@ -267,7 +268,7 @@ def main():
                 else:
                     citation_count, citation_status = -1, "no_doi_no_title"
 
-            # 写回
+            # Write back
             rec["citation_count"] = citation_count
             rec["citation_status"] = citation_status
             out_f.write(json.dumps(rec, ensure_ascii=False) + "\n")
@@ -275,21 +276,20 @@ def main():
             written += 1
             processed += 1
 
-            # 定期保存缓存
+            # Periodically save cache
             if CACHE_FILE and (processed - last_cache_dump) >= CONFIG["SAVE_EVERY"]:
                 atomic_save_json(cache, CACHE_FILE)
                 last_cache_dump = processed
 
             pbar.update(1)
 
-    # 最终缓存保存
-    if CACHE_FILE:
-        atomic_save_json(cache, CACHE_FILE)
+        # Final cache save
+        if CACHE_FILE:
+            atomic_save_json(cache, CACHE_FILE)
 
-    out_f.close()
-    print(f"处理完成: processed={processed}, written={written}")
-    print(f"输出文件: {OUTPUT_FILE}")
-
+        out_f.close()
+        print(f"Processing completed: processed={processed}, written={written}")
+        print(f"Output file: {OUTPUT_FILE}")
 
 if __name__ == "__main__":
     main()

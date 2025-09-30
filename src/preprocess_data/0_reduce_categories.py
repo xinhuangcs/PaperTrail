@@ -1,21 +1,20 @@
 
-# 过滤 arXiv 快照，只保留 cs.* / stat.* / eess.*
+# Filter arXiv snapshots to retain only cs.* / stat.* / eess.*
 import os
 import gzip
 import json
 from collections import Counter
 from tqdm import tqdm
 
-# ---- 配置：
-INPUT_PATH  = "/Users/jasonh/Desktop/tools/FinalProject/DataPreprocess/arxiv-metadata-oai-snapshot.json"
-OUTPUT_PATH = "/Users/jasonh/Desktop/tools/FinalProject/DataPreprocess/arxiv-cleaned.json"
-LIMIT       = 0                 # >0 写够 N 条匹配后停止
-PRECOUNT    = True              # True 先数总行数，tqdm 才能准确估算剩余时间
-CHUNK_BYTES = 8 * 1024 * 1024   # 分块大小；设为 0 用逐行读取
-USE_ORJSON  = True              # 若装了 orjson，会更快（自动回退内置 json）
+# Configuration:
+INPUT_PATH  = "/Users/jasonh/Desktop/02807/FinalProject/DataPreprocess/arxiv-metadata-oai-snapshot.json"
+OUTPUT_PATH = "/Users/jasonh/Desktop/02807/FinalProject/DataPreprocess/arxiv-cs-data.json"
+LIMIT       = 0
+PRECOUNT    = True              # True: Count total rows to let tqdm estimate remaining time
+CHUNK_BYTES = 8 * 1024 * 1024
+USE_ORJSON  = True
 KEEP_PREFIXES = ("cs.", "stat.", "eess.")
 
-# ---- 更快的 JSON 解析 ----
 if USE_ORJSON:
     try:
         import orjson as _fastjson
@@ -108,16 +107,17 @@ def filter_file(in_path, out_path, limit=0, precount=True, chunk_bytes=8*1024*10
 
 def main():
     stats = filter_file(INPUT_PATH, OUTPUT_PATH, LIMIT, PRECOUNT, CHUNK_BYTES)
-    print("\n=== 摘要 ===")
-    print(f"输入:     {stats['input']}")
-    print(f"输出:     {stats['output']}")
-    print(f"读取:     {stats['total_read']:,}")
-    print(f"保留:     {stats['kept']:,}")
-    print(f"跳过:     {stats['skipped']:,}")
+    print("\n=== Summary ===")
+    print(f"Input:     {stats['input']}")
+    print(f"Output:    {stats['output']}")
+    print(f"Read:      {stats['total_read']:,}")
+    print(f"Kept:      {stats['kept']:,}")
+    print(f"Skipped:   {stats['skipped']:,}")
     if stats["by_domain"]:
-        print("按大类：")
+        print("By category:")
         for k, v in sorted(stats["by_domain"].items(), key=lambda x: (-x[1], x[0])):
             print(f"  - {k}: {v:,}")
+
 
 if __name__ == "__main__":
     main()

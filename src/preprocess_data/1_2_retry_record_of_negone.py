@@ -21,10 +21,10 @@ from tqdm import tqdm
 
 # 1) Configuration
 CONFIG = {
-    "INPUT_FILE": "/Users/jasonh/Desktop/02807/FinalProject/DataPreprocess/arxiv-cs-data-with-citations_merged.json",
-    "OUTPUT_FILE": "/Users/jasonh/Desktop/02807/FinalProject/DataPreprocess/arxiv-cs-data-with-citations-refreshed.json",
-    "CACHE_FILE": "/Users/jasonh/Desktop/02807/FinalProject/DataPreprocess/citation_cache.json",
-    "SLEEP_SECS": 0.2,
+    "INPUT_FILE": "/work3/s242644/PaperTrail/processed/40/arxiv-cs-data-with-citations-refreshed-2.json",
+    "OUTPUT_FILE": "/work3/s242644/PaperTrail/processed/40/arxiv-cs-data-with-citations-refreshed.json",
+    "CACHE_FILE": "/work3/s242644/PaperTrail/processed/40/citation_cache.json",
+    "SLEEP_SECS": 1,
     "SAVE_EVERY": 1000,
     "TITLE_SIM_RATIO": 0.90,
 }
@@ -49,10 +49,18 @@ def normalize_doi(raw: Optional[str]) -> Optional[str]:
 def title_similarity(a: str, b: str) -> float:
     return SequenceMatcher(None, (a or "").lower(), (b or "").lower()).ratio()
 
+
+def get_first_n_words(title: str, n: int = 5) -> str:
+    """Extract first n words from title"""
+    if not title or not isinstance(title, str):
+        return ""
+    words = title.strip().split()
+    return " ".join(words[:n])
+
 #3) OpenAlex
 def openalex_get_by_doi(doi: str, session: requests.Session,
                         sleep_secs: float = 0.2,
-                        max_retries: int = 3,
+                        max_retries: int = 5,
                         timeout: float = 20.0) -> Tuple[int, str]:
     base = "https://api.openalex.org/works"
     params = {"filter": f"doi:{doi}"}
@@ -249,9 +257,25 @@ def main():
                         new_count = cache[cache_key]["count"]
                         new_status = cache[cache_key]["status"]
                     else:
+                        # First try with full title
                         new_count, new_status = openalex_get_by_title(
                             title, session, sleep_secs=SLEEP_SECS, min_ratio=TITLE_SIM_RATIO
                         )
+                        
+                        # If not found, try with first 5 words
+                        if new_count == -1:
+                            short_title = get_first_n_words(title, 5)
+                            if short_title and short_title != title:
+                                cache_key_short = f"title::{short_title}"
+                                if cache_key_short in cache:
+                                    new_count = cache[cache_key_short]["count"]
+                                    new_status = cache[cache_key_short]["status"]
+                                else:
+                                    new_count, new_status = openalex_get_by_title(
+                                        short_title, session, sleep_secs=SLEEP_SECS, min_ratio=TITLE_SIM_RATIO
+                                    )
+                                    cache[cache_key_short] = {"count": new_count, "status": new_status}
+                        
                         cache[cache_key] = {"count": new_count, "status": new_status}
                 else:
                     pass

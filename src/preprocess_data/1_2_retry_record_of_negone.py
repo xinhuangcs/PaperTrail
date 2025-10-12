@@ -1,3 +1,4 @@
+
 """
 Retry and process records where citation_count is -1
 
@@ -307,4 +308,3 @@ def main():
 
 
 if __name__ == "__main__":
-    main()

@@ -14,9 +14,10 @@ from tqdm import tqdm
 # ONFIG
 CONFIG = {
     # Glob pattern to match all slice files
-    "input_glob": "/work3/s242644/PaperTrail/processed/40/arxiv-cs-data-with-citations_slice*.jsonl",
+    "input_glob": "/Users/jasonh/Desktop/02807/FinalProject/DataPreprocess/arxiv-cs-data-with-citations_slice*.json",
     # Merged output file path
-    "output_file": "/work3/s242644/PaperTrail/processed/40/arxiv-cs-data-with-citations_merged.json",
+    "output_file": "/Users/jasonh/Desktop/02807/FinalProject/DataPreprocess/arxiv-cs-data-with-citations_merged.json",
+
     "show_progress": True,
 }
 

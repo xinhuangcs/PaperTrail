@@ -28,13 +28,14 @@ from tqdm import tqdm
 
 # 1) Configuration
 CONFIG = {
-    "INPUT_FILE": "/work3/s242644/PaperTrail/processed_data/arxiv-cs-data.json",
-    "OUTPUT_FILE_BASE": "/work3/s242644/PaperTrail/processed_data/arxiv-cs-data-with-citations",
-    "CACHE_FILE": "/work3/s242644/PaperTrail/processed_data/citation_cache.json",
+    "INPUT_FILE": "/Users/jasonh/Desktop/02807/FinalProject/DataPreprocess/arxiv-cs-data.json",
+    "OUTPUT_FILE_BASE": "/Users/jasonh/Desktop/02807/FinalProject/DataPreprocess/arxiv-cs-data-with-citations",
+    "CACHE_FILE": "/Users/jasonh/Desktop/02807/FinalProject/DataPreprocess/citation_cache.json",
 
     # Slicing (starting from 0, e.g.: split into 10 slices, run the 2nd slice → SLICE_COUNT=10, SLICE_INDEX=1)
     "SLICE_COUNT": 20,
-    "SLICE_INDEX": 5,
+    "SLICE_INDEX": 6,
+
 
     # Rate control (to avoid throttling)
     "SLEEP_SECS": 0.2,  # Pause in seconds after each request (recommended 0.15–0.25)

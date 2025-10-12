@@ -257,6 +257,53 @@ class SimilaritySearch:
         print(f"[INFO] Results saved to: {output_path}")
         return output_path
     
+    def save_results_for_recommend(self, query: str, results: List[Tuple[str, str, float]], 
+                                 output_file: str = None) -> str:
+        """
+        Saves the search results in JSONL format compatible with recommend.py.
+        
+        Args:
+            query: The query text.
+            results: The search results.
+            output_file: The output filename (optional).
+            
+        Returns:
+            The path to the output file.
+        """
+        if output_file is None:
+            timestamp = int(time.time())
+            output_file = f"similarity_for_recommend_{self.method}_{timestamp}.jsonl"
+        
+        output_path = os.path.join(OUTPUT_DIR, output_file)
+        
+        # Create JSONL format (one JSON object per line)
+        with open(output_path, 'w', encoding='utf-8') as f:
+            for i, result in enumerate(results):
+                paper_id, title, score = result
+                
+                # Create paper object compatible with recommend.py
+                paper_obj = {
+                    "id": paper_id,
+                    "title": title,
+                    "sim_score": float(score),  # Similarity score for recommend.py
+                    "score": float(score),      # Alternative field name
+                    "similarity": float(score), # Another alternative field name
+                    "rank": i + 1,
+                    "query": query,
+                    "method": self.method,
+                    # Add placeholder fields that recommend.py might expect
+                    "citation_count": 0,       
+                    "update_date": "",         
+                    "abstract": "",            
+                    "processed_content": ""     
+                }
+                
+                # Write as single line JSON
+                f.write(json.dumps(paper_obj, ensure_ascii=False) + "\n")
+        
+        print(f"[INFO] Results for recommend.py saved to: {output_path}")
+        return output_path
+    
     def print_results(self, query: str, results: List[Tuple[str, str, float]]):
         """
         Prints the search results to the console.
@@ -289,7 +336,7 @@ def main():
 Example usage:
   python similarity_search.py --query "machine learning deep learning" --method tfidf --top_k 10
   python similarity_search.py --query "neural networks" --method lsa --top_k 5
-  python similarity_search.py --query "computer vision" --method tfidf --top_k 20 --output results.json
+  python similarity_search.py --query "computer vision" --method tfidf --top_k 20 --output results.jsonl
         """
     )
     
@@ -327,6 +374,7 @@ Example usage:
         help="Do not save results to a file, only display on the console"
     )
     
+    
     args = parser.parse_args()
     
     try:
@@ -341,7 +389,7 @@ Example usage:
         
         # Save results (unless specified not to)
         if not args.no_save:
-            searcher.save_results(args.query, results, args.output)
+            searcher.save_results_for_recommend(args.query, results, args.output)
         
     except Exception as e:
         print(f"[ERROR] {e}")

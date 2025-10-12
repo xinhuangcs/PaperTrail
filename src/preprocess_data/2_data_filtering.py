@@ -85,32 +85,42 @@ def process_large_dataset_batch(input_file_path: str, batch_size: int = 1000) ->
 
     print(f"Processing large dataset in batches of {batch_size}...")
 
-    with open(input_file_path, 'r', encoding='utf-8') as infile, \
-            open(output_path, 'w', encoding='utf-8') as outfile:
+    def sanitize(s: str) -> str:
+        # 去掉常见的不可见/非法起始字符
+        return s.lstrip('\ufeff').replace('\x00', '').strip()
+
+    with open(input_file_path, 'r', encoding='utf-8-sig') as infile, \
+         open(output_path, 'w', encoding='utf-8') as outfile:
 
         batch = []
         total_processed = 0
+        line_no = 0
 
-        for line in infile:
-            if line.strip():
-                batch.append(json.loads(line))
+        for raw_line in infile:
+            line_no += 1
+            line = sanitize(raw_line)
+            if not line:
+                continue
+            try:
+                obj = json.loads(line)
+            except json.JSONDecodeError as e:
+                print(f"[WARN] JSON decode failed at line {line_no}: {e}")
+                print(f"       Line preview (first 120 chars): {raw_line[:120]!r}")
+                continue
 
-                if len(batch) >= batch_size:
-                    # Process batch
-                    processed_batch = process_papers_parallel(batch)
+            batch.append(obj)
 
-                    # Write batch to output file
-                    for paper in processed_batch:
-                        json.dump(paper, outfile, ensure_ascii=False)
-                        outfile.write('\n')
+            if len(batch) >= batch_size:
+                processed_batch = process_papers_parallel(batch, num_processes=min(cpu_count(), 8))
+                for paper in processed_batch:
+                    json.dump(paper, outfile, ensure_ascii=False)
+                    outfile.write('\n')
+                total_processed += len(batch)
+                print(f"Processed {total_processed} papers...")
+                batch = []
 
-                    total_processed += len(batch)
-                    print(f"Processed {total_processed} papers...")
-                    batch = []
-
-        # Process remaining papers
         if batch:
-            processed_batch = process_papers_parallel(batch)
+            processed_batch = process_papers_parallel(batch, num_processes=min(cpu_count(), 8))
             for paper in processed_batch:
                 json.dump(paper, outfile, ensure_ascii=False)
                 outfile.write('\n')

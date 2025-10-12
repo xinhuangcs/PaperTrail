@@ -17,6 +17,7 @@ CONFIG = {
     "input_glob": "/Users/jasonh/Desktop/02807/FinalProject/DataPreprocess/arxiv-cs-data-with-citations_slice*.json",
     # Merged output file path
     "output_file": "/Users/jasonh/Desktop/02807/FinalProject/DataPreprocess/arxiv-cs-data-with-citations_merged.json",
+
     "show_progress": True,
 }
 

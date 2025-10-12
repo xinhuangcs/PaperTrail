@@ -40,7 +40,7 @@ VECTORIZER_KW = dict(
     sublinear_tf=True,     # log/sublinear TF scaling
     norm="l2",             # 便于用点积作为余弦相似度
     dtype=np.float32,      # halve memory vs float64
-    stop_words=None,       # Data has been cleaned and stemmed; no additional universal stop words are applied here
+    stop_words="english",       # Data has been cleaned and stemmed; no additional universal stop words are applied here
     lowercase=False,       # processed_content already lower
 )
 

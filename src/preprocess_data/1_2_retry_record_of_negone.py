@@ -8,6 +8,7 @@ Dependencies:
 
 import json
 import os
+import re
 import sys
 import time
 import shutil
@@ -21,9 +22,10 @@ from tqdm import tqdm
 
 # 1) Configuration
 CONFIG = {
-    "INPUT_FILE": "/work3/s242644/PaperTrail/processed/40/arxiv-cs-data-with-citations-refreshed-2.json",
-    "OUTPUT_FILE": "/work3/s242644/PaperTrail/processed/40/arxiv-cs-data-with-citations-refreshed.json",
+    "INPUT_FILE": "/work3/s242644/PaperTrail/processed/40/arxiv-cs-data-with-citations_slice7.jsonl",
+    "OUTPUT_FILE": "/work3/s242644/PaperTrail/processed/40/arxiv-cs-data-with-citations_slice7_refreshed.json",
     "CACHE_FILE": "/work3/s242644/PaperTrail/processed/40/citation_cache.json",
+    "EMAIL": "your-email@example.com",  
     "SLEEP_SECS": 1,
     "SAVE_EVERY": 1000,
     "TITLE_SIM_RATIO": 0.90,
@@ -50,17 +52,26 @@ def title_similarity(a: str, b: str) -> float:
     return SequenceMatcher(None, (a or "").lower(), (b or "").lower()).ratio()
 
 
-def get_first_n_words(title: str, n: int = 5) -> str:
+def get_first_n_words(title: str, n: int = 7) -> str:
     """Extract first n words from title"""
     if not title or not isinstance(title, str):
         return ""
     words = title.strip().split()
     return " ".join(words[:n])
 
+
+def sanitize_title_for_api(title: str) -> str:
+    """Removes punctuation that can interfere with API query parameters."""
+    if not title:
+        return ""
+    # Removes commas and other characters that might break API query syntax
+    import re
+    return re.sub(r'[,:;\'"\\/]', '', title)
+
 #3) OpenAlex
 def openalex_get_by_doi(doi: str, session: requests.Session,
                         sleep_secs: float = 0.2,
-                        max_retries: int = 5,
+                        max_retries: int = 10,
                         timeout: float = 20.0) -> Tuple[int, str]:
     base = "https://api.openalex.org/works"
     params = {"filter": f"doi:{doi}"}
@@ -100,18 +111,19 @@ def openalex_get_by_doi(doi: str, session: requests.Session,
             time.sleep(backoff)
 
 
-def openalex_get_by_title(title: str, session: requests.Session,
-                          sleep_secs: float = 0.2,
-                          timeout: float = 20.0,
-                          min_ratio: float = 0.9) -> Tuple[int, str]:
+def openalex_get_by_search(title: str, session: requests.Session,
+                           sleep_secs: float = 0.2,
+                           timeout: float = 20.0,
+                           min_ratio: float = 0.9) -> Tuple[int, str]:
     base = "https://api.openalex.org/works"
-    params = {"filter": f"title.search:{title}", "per-page": 5}
+    
+    params = {"search": title, "per-page": 5}
     try:
         resp = session.get(base, params=params, timeout=timeout)
         if resp.status_code != 200:
-            return -1, f"openalex_title_http_{resp.status_code}"
+            return -1, f"openalex_search_http_{resp.status_code}"
         data = resp.json()
-        results = data.get("results", [])
+        results = data.get("results",)
         best_item, best_sim = None, 0.0
         for item in results:
             cand_title = item.get("title", "") or ""
@@ -123,10 +135,11 @@ def openalex_get_by_title(title: str, session: requests.Session,
             cbc = best_item.get("cited_by_count")
             if isinstance(cbc, int):
                 time.sleep(sleep_secs)
-                return cbc, "ok_openalex_title"
+                return cbc, f"ok_openalex_search_sim_{best_sim:.2f}"
+        
         return -1, "openalex_title_not_found"
     except requests.RequestException as e:
-        return -1, f"openalex_title_exception:{type(e).__name__}"
+        return -1, f"openalex_search_exception:{type(e).__name__}"
 
 
 # 4) Cache
@@ -152,6 +165,7 @@ def main():
     INPUT_FILE      = CONFIG["INPUT_FILE"]
     OUTPUT_FILE     = CONFIG["OUTPUT_FILE"]
     CACHE_FILE      = CONFIG["CACHE_FILE"]
+    EMAIL           = CONFIG["EMAIL"]
     SLEEP_SECS      = float(CONFIG["SLEEP_SECS"])
     SAVE_EVERY      = int(CONFIG["SAVE_EVERY"])
     TITLE_SIM_RATIO = float(CONFIG["TITLE_SIM_RATIO"])
@@ -160,8 +174,12 @@ def main():
     print(f"    INPUT_FILE   = {INPUT_FILE}")
     print(f"    OUTPUT_FILE  = {OUTPUT_FILE}")
     print(f"    CACHE_FILE   = {CACHE_FILE}")
+    print(f"    EMAIL        = {EMAIL}")
     print(f"    SLEEP_SECS   = {SLEEP_SECS}")
     print(f"    TITLE_SIM    = {TITLE_SIM_RATIO}")
+
+    if "your-email@example.com" in EMAIL:
+        print("\n[!] WARNING: Please update the 'EMAIL' in the CONFIG section to join the OpenAlex polite pool.\n", file=sys.stderr)
 
     # Exit handling
     interrupted = {"flag": False}
@@ -206,7 +224,10 @@ def main():
     out_f = open(OUTPUT_FILE, "w", encoding="utf-8")
 
     session = requests.Session()
-    session.headers.update({"User-Agent": "dtuproject-citation-enricher/second-pass/1.0"})
+    session.headers.update({
+        "User-Agent": "dtuproject-citation-enricher/second-pass/2.0",
+        "From": EMAIL 
+    })
 
     processed_neg = 0      # number of -1 records processed
     written_total = 0      # total lines written
@@ -250,37 +271,47 @@ def main():
                 else:
                     new_count, new_status = openalex_get_by_doi(doi, session, sleep_secs=SLEEP_SECS)
                     cache[doi] = {"count": new_count, "status": new_status}
-            else:
-                if title:
-                    cache_key = f"title::{title}"
-                    if cache_key in cache:
-                        new_count = cache[cache_key]["count"]
-                        new_status = cache[cache_key]["status"]
-                    else:
-                        # First try with full title
-                        new_count, new_status = openalex_get_by_title(
-                            title, session, sleep_secs=SLEEP_SECS, min_ratio=TITLE_SIM_RATIO
-                        )
-                        
-                        # If not found, try with first 5 words
-                        if new_count == -1:
-                            short_title = get_first_n_words(title, 5)
-                            if short_title and short_title != title:
-                                cache_key_short = f"title::{short_title}"
-                                if cache_key_short in cache:
-                                    new_count = cache[cache_key_short]["count"]
-                                    new_status = cache[cache_key_short]["status"]
-                                else:
-                                    new_count, new_status = openalex_get_by_title(
-                                        short_title, session, sleep_secs=SLEEP_SECS, min_ratio=TITLE_SIM_RATIO
-                                    )
-                                    cache[cache_key_short] = {"count": new_count, "status": new_status}
-                        
-                        cache[cache_key] = {"count": new_count, "status": new_status}
+            
+            # If DOI lookup fails or no DOI, proceed with title-based fallbacks
+            if new_count == -1 and title:
+                # Tier 2: Full Title Search
+                cache_key = f"title::{title}"
+                if cache_key in cache:
+                    new_count, new_status = cache[cache_key]["count"], cache[cache_key]["status"]
                 else:
-                    pass
+                    new_count, new_status = openalex_get_by_search(
+                        title, session, sleep_secs=SLEEP_SECS, min_ratio=TITLE_SIM_RATIO
+                    )
+                    cache[cache_key] = {"count": new_count, "status": new_status}
 
-            # If found (new_count != -1), update citation_count and citation_status; otherwise keep original
+                # Tier 3: Sanitized Title Search
+                if new_count == -1:
+                    sanitized_title = sanitize_title_for_api(title)
+                    if sanitized_title and sanitized_title!= title:
+                        cache_key = f"title::{sanitized_title}"
+                        if cache_key in cache:
+                            new_count, new_status = cache[cache_key]["count"], cache[cache_key]["status"]
+                        else:
+                            new_count, new_status = openalex_get_by_search(
+                                sanitized_title, session, sleep_secs=SLEEP_SECS, min_ratio=TITLE_SIM_RATIO
+                            )
+                            cache[cache_key] = {"count": new_count, "status": new_status}
+
+                # Tier 4: N-Word Prefix Search
+                if new_count == -1:
+                    short_title = get_first_n_words(title, 7)
+                    if short_title and short_title!= title:
+                        cache_key = f"title::{short_title}"
+                        if cache_key in cache:
+                            new_count, new_status = cache[cache_key]["count"], cache[cache_key]["status"]
+                        else:
+                            new_count, new_status = openalex_get_by_search(
+                                short_title, session, sleep_secs=SLEEP_SECS, min_ratio=TITLE_SIM_RATIO
+                            )
+                            cache[cache_key] = {"count": new_count, "status": new_status}
+     
+
+
             if isinstance(new_count, int) and new_count != -1:
                 rec["citation_count"] = new_count
                 rec["citation_status"] = new_status
@@ -308,3 +339,4 @@ def main():
 
 
 if __name__ == "__main__":
+    main()

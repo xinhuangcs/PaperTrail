@@ -24,9 +24,10 @@ except Exception:
 
 
 # 配置
-REFRESHED_FILE = "/Users/jasonh/Desktop/02807/FinalProject/DataPreprocess/arxiv-cs-data-with-citations_refreshed_20.json"
+REFRESHED_FILE = "/Users/jasonh/Desktop/02807/PaperTrail/data/preprocess/arxiv-cs-data-with-citations-refreshed.json"
 # 切片文件通配
-SLICE_GLOB = "/Users/jasonh/Desktop/02807/FinalProject/DataPreprocess/20/arxiv-cs-data-with-citations_slice*"
+SLICE_GLOB = "/Users/jasonh/Desktop/02807/PaperTrail/data/preprocess/20/arxiv-cs-data-with-citations_slice*"
+
 
 # 输出文件（默认写到当前工作目录）
 timestamp = datetime.now().strftime("%Y%m%d_%H_%M")  # 例如 20250215_23_20

@@ -1,10 +1,11 @@
 import numpy as np
 from scipy import sparse
 from sklearn.decomposition import TruncatedSVD
-
+import joblib
 # Config
-TFIDF_MATRIX_PATH = '/Users/jasonh/Desktop/02807/PaperTrail/data/tf_idf/tfidf_matrix.npz'
-LSA_OUTPUT_PATH   = '/Users/jasonh/Desktop/02807/PaperTrail/data/lsa/lsa_reduced.npz'
+TFIDF_MATRIX_PATH = '/work3/s242644/ds/PaperTrail/data/tf_idf/tfidf_matrix.npz'
+LSA_OUTPUT_PATH   = '/work3/s242644/ds/PaperTrail/data/lsa/lsa_reduced.npz'
+LSA_MODEL_PATH = '/work3/s242644/ds/PaperTrail/data/lsa/lsa_model.joblib'
 
 # Number of latent dimensions for LSA
 N_COMPONENTS = 100  # (Adjustable like 100 or 200)
@@ -27,6 +28,8 @@ def main():
     # 3)Save the reduced matrix to a compressed NPZ file
     np.savez_compressed(LSA_OUTPUT_PATH, X_reduced=X_reduced)
     print(f"[i] LSA reduced matrix saved to {LSA_OUTPUT_PATH}")
+    joblib.dump(svd, LSA_MODEL_PATH)
+    print(f"[i] LSA model (SVD object) saved to {LSA_MODEL_PATH}")
 
 if __name__ == "__main__":
     main()

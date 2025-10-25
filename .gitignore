@@ -1,2 +1,4 @@
 /data/
 .idea/
+.env
+/src/preprocess_data/statistics/

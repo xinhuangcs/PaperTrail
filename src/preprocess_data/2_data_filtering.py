@@ -168,7 +168,7 @@ def main(input_file_path: str) -> None:
 # Example usage
 if __name__ == "__main__":
     ROOT_DIR = Path(__file__).resolve().parents[2]
-    input_path = ROOT_DIR / "data" / "preprocess" / "arxiv-cs-data-with-citations-refreshed.json"
+    input_path = ROOT_DIR / "data" / "preprocess" / "arxiv-cs-data-with-citations-final-dataset.json"
     input_path.parent.mkdir(parents=True, exist_ok=True)
     print("Using batch processing for large dataset...")
     process_large_dataset_batch(input_path, batch_size=1000)

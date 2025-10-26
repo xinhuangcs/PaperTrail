@@ -2,13 +2,21 @@ import numpy as np
 from scipy import sparse
 from sklearn.decomposition import TruncatedSVD
 import joblib
-# Config
-TFIDF_MATRIX_PATH = '/work3/s242644/ds/PaperTrail/data/tf_idf/tfidf_matrix.npz'
-LSA_OUTPUT_PATH   = '/work3/s242644/ds/PaperTrail/data/lsa/lsa_reduced.npz'
-LSA_MODEL_PATH = '/work3/s242644/ds/PaperTrail/data/lsa/lsa_model.joblib'
+from pathlib import Path
+
+
+# 1) Config
+ROOT_DIR = Path(__file__).resolve().parents[2]
+TFIDF_MATRIX_PATH = ROOT_DIR / "data" / "tf_idf" / "tfidf_matrix.npz"
+LSA_OUTPUT_PATH   = ROOT_DIR / "data" / "lsa" / "lsa_reduced.npz"
+LSA_MODEL_PATH = ROOT_DIR / "data" / "lsa" / "lsa_model.joblib"
+LSA_OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
+LSA_MODEL_PATH.parent.mkdir(parents=True, exist_ok=True)
+
+
 
 # Number of latent dimensions for LSA
-N_COMPONENTS = 100  # (Adjustable like 100 or 200)
+N_COMPONENTS = 150  # (Adjustable like 100 or 200)
 
 def main():
     # 1) Load the TF-IDF sparse matrix

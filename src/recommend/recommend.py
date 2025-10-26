@@ -15,10 +15,10 @@ from typing import List, Dict, Tuple
 # CONFIG
 CONFIG = {
     # candidate set (JSONL)
-    "INPUT_JSONL": "/work3/s242644/ds/PaperTrail/data/similarity_results/similarity_for_recommend_tfidf_1760302478.jsonl",
+    "INPUT_JSONL": "/Users/jasonh/Desktop/02807/PaperTrail/data/similarity_results/similarity_for_recommend_lsa_1761492268.jsonl",
 
     # Output dir
-    "OUTPUT_DIR": "/work3/s242644/ds/PaperTrail/data/recommend",
+    "OUTPUT_DIR": "/Users/jasonh/Desktop/02807/PaperTrail/data/recommend",
 
     # Keyword lexicons
     "KW_REVIEW": [

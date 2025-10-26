@@ -5,10 +5,17 @@ import gzip
 import json
 from collections import Counter
 from tqdm import tqdm
+from pathlib import Path
+
+
+
 
 # Configuration:
-INPUT_PATH  = "/Users/jasonh/Desktop/02807/FinalProject/DataPreprocess/arxiv-metadata-oai-snapshot.json"
-OUTPUT_PATH = "/Users/jasonh/Desktop/02807/FinalProject/DataPreprocess/arxiv-cs-data.json"
+ROOT_DIR = Path(__file__).resolve().parents[2]
+INPUT_PATH  = ROOT_DIR / "data" / "preprocess" / "arxiv-metadata-oai-snapshot.json"
+OUTPUT_PATH = ROOT_DIR / "data" / "preprocess" / "arxiv-cs-data.json"
+OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
+
 LIMIT       = 0
 PRECOUNT    = True              # True: Count total rows to let tqdm estimate remaining time
 CHUNK_BYTES = 8 * 1024 * 1024

@@ -1,8 +1,8 @@
 """"
 
 template:
-python /work3/s242644/ds/PaperTrail/src/search/similarity_search.py --query "give me a paper about machine learning deep learning" --method tfidf --top_k 10
-python /work3/s242644/ds/PaperTrail/src/search/similarity_search.py --query "neural networks" --method lsa --top_k 5
+python /Users/jasonh/Desktop/02807/PaperTrail/src/search/similarity_search.py --query "give me a paper about machine learning deep learning" --method tfidf --top_k 10
+python /Users/jasonh/Desktop/02807/PaperTrail/src/search/similarity_search.py --query "neural networks" --method lsa --top_k 5
 """
 
 import argparse
@@ -24,7 +24,7 @@ except ImportError:
     print("[warning] NLTK not installed, will skip stemming step")
 
 # config paths
-BASE_DIR = "/work3/s242644/ds/PaperTrail"
+BASE_DIR = "/Users/jasonh/Desktop/02807/PaperTrail"
 TFIDF_DIR = os.path.join(BASE_DIR, "data/tf_idf")
 LSA_DIR = os.path.join(BASE_DIR, "data/lsa")
 OUTPUT_DIR = os.path.join(BASE_DIR, "data/similarity_results")

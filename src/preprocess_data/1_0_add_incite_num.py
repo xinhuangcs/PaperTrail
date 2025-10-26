@@ -24,13 +24,16 @@ from typing import Optional, Tuple, Dict
 import requests
 from difflib import SequenceMatcher
 from tqdm import tqdm
+from pathlib import Path
 
 
-# 1) Configuration
+
+# 1) Config
+ROOT_DIR = Path(__file__).resolve().parents[2]
 CONFIG = {
-    "INPUT_FILE": "/Users/jasonh/Desktop/02807/FinalProject/DataPreprocess/arxiv-cs-data.json",
-    "OUTPUT_FILE_BASE": "/Users/jasonh/Desktop/02807/FinalProject/DataPreprocess/arxiv-cs-data-with-citations",
-    "CACHE_FILE": "/Users/jasonh/Desktop/02807/FinalProject/DataPreprocess/citation_cache.json",
+    "INPUT_FILE": ROOT_DIR / "data" / "preprocess" / "arxiv-cs-data.json",
+    "OUTPUT_FILE_BASE": ROOT_DIR / "data" / "preprocess" / "arxiv-cs-data-with-citations",
+    "CACHE_FILE": ROOT_DIR / "data" / "preprocess" / "citation_cache.json",
 
     # Slicing (starting from 0, e.g.: split into 10 slices, run the 2nd slice → SLICE_COUNT=10, SLICE_INDEX=1)
     "SLICE_COUNT": 20,
@@ -41,8 +44,8 @@ CONFIG = {
     "SLEEP_SECS": 0.2,  # Pause in seconds after each request (recommended 0.15–0.25)
     "SAVE_EVERY": 1000,  # Save cache after processing this many records
     "TITLE_SIM_RATIO": 0.90,  # Title similarity threshold
-
 }
+CONFIG["OUTPUT_FILE"].parent.mkdir(parents=True, exist_ok=True)
 
 # 2) Utility functions
 def normalize_doi(raw: Optional[str]) -> Optional[str]:

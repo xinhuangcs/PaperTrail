@@ -1,7 +1,15 @@
 import json
 from collections import defaultdict
-#config
-REFRESHED_FILE = "/Users/jasonh/Desktop/02807/PaperTrail/data/preprocess/arxiv-cs-data-with-citations-refreshed-all-even.json"  # 你的文件名
+from pathlib import Path
+
+
+# 1) Config
+ROOT_DIR = Path(__file__).resolve().parents[2]
+CONFIG = {
+     "REFRESHED_FILE": ROOT_DIR / "data" / "preprocess" / "arxiv-cs-data-with-citations_merged_zrk_5.json",
+}
+CONFIG["REFRESHED_FILE"].parent.mkdir(parents=True, exist_ok=True)
+
 
 
 
@@ -9,7 +17,7 @@ def main():
     counts_by_month = defaultdict(int)
     total_minus_one = 0
 
-    with open(REFRESHED_FILE, "r", encoding="utf-8") as f:
+    with open(CONFIG["REFRESHED_FILE"], "r", encoding="utf-8") as f:
         for line in f:
             try:
                 record = json.loads(line)

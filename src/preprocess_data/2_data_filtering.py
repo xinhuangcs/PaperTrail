@@ -14,18 +14,17 @@ stemmer = PorterStemmer()
 
 
 def load_json_file(file_path: str) -> List[Dict[str, Any]]:
-    """Load entire JSON file content from input path."""
+    #Load entire JSON file content from input path.
     with open(file_path, 'r', encoding='utf-8') as file:
         return [json.loads(line) for line in file]
 
 
 def to_lowercase(text: str) -> str:
-    """Convert text to lowercase."""
+    #Convert text to lowercase
     return text.lower()
 
 
 def remove_special_characters(text: str) -> str:
-    """Remove special characters like , . ( ) \n etc."""
     # Remove newlines, extra whitespace, and special punctuation
     cleaned = re.sub(r'[\n\r]+', ' ', text)  # Replace newlines with space
     cleaned = re.sub(r'[^\w\s]', ' ', cleaned)  # Remove punctuation, keep alphanumeric and spaces
@@ -34,21 +33,20 @@ def remove_special_characters(text: str) -> str:
 
 
 def stem_text(text: str) -> str:
-    """Apply stemming to reduce words to their root form."""
+    #Apply stemming to reduce words to their root form
     words = text.split()
     stemmed_words = [stemmer.stem(word) for word in words]
     return ' '.join(stemmed_words)
 
 
 def combine_title_abstract(paper: Dict[str, Any]) -> str:
-    """Combine title and abstract fields."""
+    #Combine title and abstract fields
     title = paper.get('title', '')
     abstract = paper.get('abstract', '')
     return f"{title} {abstract}"
 
 
 def process_paper_content(paper: Dict[str, Any]) -> str:
-    """Process a single paper's content through the pipeline."""
     # Combine title and abstract
     combined_text = combine_title_abstract(paper)
 
@@ -64,7 +62,7 @@ def process_paper_content(paper: Dict[str, Any]) -> str:
 
 
 def process_papers_parallel(papers: List[Dict[str, Any]], num_processes: int = 8) -> List[Dict[str, Any]]:
-    """Process all papers through the content pipeline using parallel processing."""
+    #Process all papers through the content pipeline using parallel processing
 
     with Pool(processes=num_processes) as pool:
         results = pool.map(process_paper_content, papers)
@@ -80,7 +78,6 @@ def process_papers_parallel(papers: List[Dict[str, Any]], num_processes: int = 8
 
 
 def process_large_dataset_batch(input_file_path: str, batch_size: int = 1000) -> None:
-    """Process large datasets in batches to manage memory usage."""
     output_path = get_output_path(input_file_path)
 
     print(f"Processing large dataset in batches of {batch_size}...")
@@ -131,7 +128,7 @@ def process_large_dataset_batch(input_file_path: str, batch_size: int = 1000) ->
 
 
 def save_preprocessed_data(papers: List[Dict[str, Any]], output_path: str) -> None:
-    """Save preprocessed papers to a new JSON file."""
+    #Save preprocessed papers to a new JSON file
     with open(output_path, 'w', encoding='utf-8') as file:
         for paper in papers:
             json.dump(paper, file, ensure_ascii=False)
@@ -140,14 +137,14 @@ def save_preprocessed_data(papers: List[Dict[str, Any]], output_path: str) -> No
 
 
 def get_output_path(input_path: str) -> str:
-    """Generate output path with _preprocessed suffix."""
+    #Generate output path with _preprocessed suffix
     path = Path(input_path)
     output_path = path.parent / f"{path.stem}_preprocessed{path.suffix}"
     return str(output_path)
 
 
 def main(input_file_path: str) -> None:
-    """Main function to load and process papers."""
+    #Main function to load and process papers
     # 1. Load JSON file content
     print("Loading papers...")
     papers = load_json_file(input_file_path)

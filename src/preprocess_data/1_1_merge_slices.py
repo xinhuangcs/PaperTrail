@@ -10,16 +10,21 @@ import glob
 import os
 import sys
 from tqdm import tqdm
+from pathlib import Path
 
-# ONFIG
+
+
+# 1) Config
+ROOT_DIR = Path(__file__).resolve().parents[2]
 CONFIG = {
     # Glob pattern to match all slice files
-    "input_glob": "/Users/jasonh/Desktop/02807/FinalProject/DataPreprocess/arxiv-cs-data-with-citations_slice*.json",
+    "input_glob": ROOT_DIR / "data" / "preprocess" / "arxiv-cs-data-with-citations-refreshed-*.json",
     # Merged output file path
-    "output_file": "/Users/jasonh/Desktop/02807/FinalProject/DataPreprocess/arxiv-cs-data-with-citations_merged.json",
+    "output_file": ROOT_DIR / "data" / "preprocess" / "arxiv-cs-data-with-citations-refreshed-all-even.json",
 
     "show_progress": True,
 }
+CONFIG["OUTPUT_FILE"].parent.mkdir(parents=True, exist_ok=True)
 
 
 def parse_args():

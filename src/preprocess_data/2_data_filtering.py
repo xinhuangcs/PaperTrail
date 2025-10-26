@@ -8,6 +8,7 @@ from functools import reduce
 from multiprocessing import Pool, cpu_count
 from pathlib import Path
 import os
+from pathlib import Path
 
 # Initialize stemmer for word stemming
 stemmer = PorterStemmer()
@@ -166,8 +167,8 @@ def main(input_file_path: str) -> None:
 
 # Example usage
 if __name__ == "__main__":
-    # Replace with your actual file path
-    input_path = "/Users/jasonh/Desktop/02807/FinalProject/DataPreprocess/arxiv-cs-data-with-citations-refreshed.json"
-
+    ROOT_DIR = Path(__file__).resolve().parents[2]
+    input_path = ROOT_DIR / "data" / "preprocess" / "arxiv-cs-data-with-citations-refreshed.json"
+    input_path.parent.mkdir(parents=True, exist_ok=True)
     print("Using batch processing for large dataset...")
     process_large_dataset_batch(input_path, batch_size=1000)

@@ -24,7 +24,7 @@ from scipy import sparse
 import joblib
 
 #Config
-INPUT_JSONL = "/Users/jasonh/Desktop/02807/FinalProject/DataPreprocess/arxiv-cs-data-with-citations-refreshed_preprocessed.json"
+INPUT_JSONL = "/Users/jasonh/Desktop/02807/PaperTrail/data/preprocess/arxiv-cs-data-with-citations-final-dataset_preprocessed.json"
 OUT_DIR = "/Users/jasonh/Desktop/02807/PaperTrail/data/tf_idf"
 TFIDF_NPZ_PATH = os.path.join(OUT_DIR, "tfidf_matrix.npz")
 VECTORIZER_PKL_PATH = os.path.join(OUT_DIR, "tfidf_vectorizer.joblib")

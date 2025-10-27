@@ -18,13 +18,12 @@ from pathlib import Path
 ROOT_DIR = Path(__file__).resolve().parents[2]
 CONFIG = {
     # Glob pattern to match all slice files
-    "input_glob": ROOT_DIR / "data" / "preprocess" / "arxiv-cs-data-with-citations-refreshed-*.json",
-    # Merged output file path
-    "output_file": ROOT_DIR / "data" / "preprocess" / "arxiv-cs-data-with-citations-refreshed-all-even.json",
+    "input_glob": ROOT_DIR / "data" / "preprocess" / "arxiv-cs-data-with-citations-final-dataset-*.json",
+    "output_file": ROOT_DIR / "data" / "preprocess" / "arxiv-cs-data-with-citations-final-dataset.json",
 
     "show_progress": True,
 }
-CONFIG["OUTPUT_FILE"].parent.mkdir(parents=True, exist_ok=True)
+CONFIG["output_file"].parent.mkdir(parents=True, exist_ok=True)
 
 
 def parse_args():
@@ -39,7 +38,7 @@ def parse_args():
 def main():
     args = parse_args()
     show_progress = CONFIG["show_progress"] and (not args.no_progress)
-    files = glob.glob(args.input_glob)
+    files = glob.glob(str(CONFIG["input_glob"]))
     if not files:
         print(f"No files matched: {args.input_glob}", file=sys.stderr)
         sys.exit(2)

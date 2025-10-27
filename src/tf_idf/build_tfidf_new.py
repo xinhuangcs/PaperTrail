@@ -28,7 +28,7 @@ ROOT_DIR = Path(__file__).resolve().parents[2]
 
 INPUT_JSONL = ROOT_DIR / "data" / "merge" / "arxiv-cs-data-with-citations_merged_all_preprocessed.json"
 
-OUT_DIR = ROOT_DIR / "data" / "tf_idf_manual"
+OUT_DIR = ROOT_DIR / "data" / "tf_idf_test"
 TFIDF_NPZ_PATH = OUT_DIR / "tfidf_matrix.npz"
 VECTORIZER_PKL_PATH = OUT_DIR / "tfidf_vectorizer.joblib"
 DOC_IDS_NPY = OUT_DIR / "doc_ids.npy"

@@ -11,6 +11,7 @@ TFIDF_DIR = DATA_DIR / "tf_idf"
 LSA_DIR = DATA_DIR / "lsa"
 OUT_DIR = DATA_DIR / "similarity_results" / "similarity_results_v2"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
+
 # 2) inputs (big matrices)
 DOC_IDS_PATH = TFIDF_DIR / "doc_ids.npy"
 DOC_TITLES_PATH = TFIDF_DIR / "doc_titles.npy"
@@ -25,6 +26,8 @@ SVD_COMPONENTS_NPY = OUT_DIR / "svd_components.npy"
 NCOMP_TXT = OUT_DIR / "n_components.txt"
 TFIDF_ROW_NORMS_NPY = OUT_DIR / "row_l2_norms.npy"
 LSA_PRENORM_NPZ = OUT_DIR / "lsa_reduced_l2norm.npz"
+
+RAW_JSONL_PATH = DATA_DIR / "preprocess" / "arxiv-cs-data-with-citations-final-dataset.json"
 
 def preprocess_query(q: str) -> str:
     # lowercase + keep [a-z0-9] + collapse spaces
@@ -122,19 +125,31 @@ def search_lsa(query: str, top_k: int) -> List[Tuple[str, str, float]]:
     return results
 
 def save_results_jsonl(query: str, method: str, results: List[Tuple[str, str, float]]) -> Path:
-    # write jsonl for recommend.py
+    # 收集需要的 paper id
+    need_ids = {pid for (pid, _title, _s) in results}
+    raw_meta = load_raw_meta(need_ids)
+
+    # 输出文件路径（仍然是 jsonl 格式内容）
     ts = int(time.time())
-    out_path = OUT_DIR / f"similarity_for_recommend_{method}_{ts}.jsonl"
+    out_path = OUT_DIR / f"similarity_for_recommend_{method}_{ts}.json"
+
     with out_path.open("w", encoding="utf-8") as f:
         for rank, (pid, title, sc) in enumerate(results, 1):
-            obj = {
-                "id": pid, "title": title,
-                "sim_score": float(sc), "score": float(sc), "similarity": float(sc),
-                "rank": rank, "query": query, "method": method,
-                "citation_count": 0, "update_date": "", "abstract": "", "processed_content": ""
-            }
-            f.write(json.dumps(obj, ensure_ascii=False) + "\n")
+            base = raw_meta.get(pid, {})
+            base.update({
+                "sim_score": float(sc),
+                "score": float(sc),
+                "similarity": float(sc),
+                "rank": rank,
+                "query": query,
+                "method": method,
+            })
+            f.write(json.dumps(base, ensure_ascii=False) + "\n")
+
+    print(f"saved to: {out_path}")
     return out_path
+
+
 
 def print_results(query: str, method: str, results: List[Tuple[str, str, float]]):
     # simple pretty print
@@ -148,6 +163,32 @@ def print_results(query: str, method: str, results: List[Tuple[str, str, float]]
         print(f"    score: {sc:.4f}")
     if not results:
         print("hmm no hit, maybe try other words")
+
+
+def load_raw_meta(need_ids: set) -> dict:
+    hit = {}
+    if not RAW_JSONL_PATH.exists():
+        print("raw file not found, skip extra fields")
+        return hit
+    found = 0
+    target = len(need_ids)
+    with RAW_JSONL_PATH.open("r", encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                obj = json.loads(line)
+            except Exception:
+                continue
+            pid = obj.get("id")
+            if pid in need_ids:
+                hit[pid] = obj
+                found += 1
+                if found >= target:
+                    break
+    return hit
+
 
 def main():
     # interactive cli

@@ -1,20 +1,29 @@
 from pathlib import Path
 import json, re
 from typing import List, Dict, Optional
+from datetime import datetime, UTC
 
 #Config
 ROOT_DIR = Path(__file__).resolve().parents[3]
+
+
+timestamp = datetime.now(UTC).strftime("%Y-%m-%d_%H%M")
 CONFIG = {
     #pick the newest recommend_*.json
     "INPUT_DIR": ROOT_DIR / "data" / "recommend",
     "INPUT_PATTERN": "recommend_*.json",
     "OUTPUT_DIR": ROOT_DIR / "data" / "ai_advice",
     "MAX_ABSTRACT_CHARS": 3000,
+    "MAX_QUERY_CHARS": 200,
 }
 CONFIG["OUTPUT_DIR"].mkdir(parents=True, exist_ok=True)
 
 
 #tools
+def pick_query(r: Dict, max_len: int) -> str:
+    q = r.get("query")
+    return normalize_text(q, max_len)
+
 def newest_recommend_file(input_dir: Path, pattern: str) -> Path:
     files = sorted(input_dir.glob(pattern), key=lambda p: p.stat().st_mtime, reverse=True)
     if not files:
@@ -40,7 +49,7 @@ def extract_year(r: Dict) -> int:
             return int(m.group(1))
     return 0
 
-def to_minimal_record(r: Dict, max_abs_len: int) -> Dict:
+def to_minimal_record(r: Dict, max_abs_len: int, max_query_len: int) -> Dict:
     # make a small, stable schema for LLM input
     pid = r.get("id") or r.get("_id") or ""
     title = (r.get("title") or "").strip()
@@ -59,6 +68,7 @@ def to_minimal_record(r: Dict, max_abs_len: int) -> Dict:
 
     authors = r.get("authors") or r.get("authors_parsed")
     categories = r.get("categories")
+    query = pick_query(r, max_query_len)
 
     rec = {
         "id": pid,
@@ -69,6 +79,7 @@ def to_minimal_record(r: Dict, max_abs_len: int) -> Dict:
         "score": score,
         "authors": authors,
         "categories" : categories,
+        "query": query,
     }
     return rec
 
@@ -90,9 +101,15 @@ def build_selected_papers() -> Path:
             if not pid or pid in seen:
                 continue
             seen.add(pid)
-            rows.append(to_minimal_record(r, CONFIG["MAX_ABSTRACT_CHARS"]))
+            rows.append(
+                to_minimal_record(
+                    r,
+                    max_abs_len=CONFIG["MAX_ABSTRACT_CHARS"],
+                    max_query_len=CONFIG["MAX_QUERY_CHARS"],
+                )
+            )
 
-    out_path = CONFIG["OUTPUT_DIR"] / "standardize_input.json"
+    out_path = CONFIG["OUTPUT_DIR"] / f"standardize_input_{timestamp}.json"
     with out_path.open("w", encoding="utf-8") as wf:
         for rec in rows:
             wf.write(json.dumps(rec, ensure_ascii=False) + "\n")

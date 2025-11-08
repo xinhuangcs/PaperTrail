@@ -9,12 +9,36 @@ from sentence_transformers import SentenceTransformer
 import hdbscan
 from sklearn.preprocessing import normalize
 from sklearn.metrics import silhouette_score
+import csv
+import datetime
+from typing import Dict, Any, Optional
+import warnings
+warnings.filterwarnings(
+    "ignore",
+    message="'force_all_finite' was renamed to 'ensure_all_finite'"
+)
 
-# Minimal, readable SBERT + HDBSCAN pipeline (lite)
+class CsvLogger:
+    def __init__(self, filepath: Path, fieldnames: list):
+        self.filepath = filepath
+        self.fieldnames = fieldnames
+        with self.filepath.open("w", newline="", encoding="utf-8") as f:
+            writer = csv.DictWriter(f, fieldnames=self.fieldnames)
+            writer.writeheader()
+
+    def log(self, data: Dict[str, Any]):
+        # Ensure all keys in data are in fieldnames to avoid errors
+        filtered_data = {k: data.get(k) for k in self.fieldnames}
+        with self.filepath.open("a", newline="", encoding="utf-8") as f:
+            writer = csv.DictWriter(f, fieldnames=self.fieldnames)
+            writer.writerow(filtered_data)
+
+
+
 
 # Paths
 REPO_ROOT = Path(__file__).resolve().parents[2]
-INPUT_JSONL = REPO_ROOT / "data" / "merge" / "arxiv-cs-data-with-citations_merged_first_50000.json"
+INPUT_JSONL = REPO_ROOT / "data" / "merge" / "arxiv-cs-data-with-citations_merged_first_100000.json"
 
 OUT_DIR = REPO_ROOT / "data" / "sbert_hdbscan_test"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
@@ -32,10 +56,10 @@ MIN_TEXT_CHARS = 100
 # UMAP pre-reduction (fixed small config)
 UMAP_ENABLED = True
 UMAP_DIM = 50
-UMAP_METRIC = "cosine"  # UMAP *does* support cosine, this is fine
+UMAP_METRIC = "cosine"  
 
 # Sampled parameter search (broader and smarter)
-PARAM_SEARCH = False
+PARAM_SEARCH = True
 PARAM_SAMPLE_SIZE = 10000
 # Baseline ranges (dynamic ranges are built inside search as well)
 MIN_CLUSTER_SIZE_RANGE = [5, 10, 20, 30, 50, 100]
@@ -76,7 +100,7 @@ def build_or_load_embeddings(texts):
         X = model.encode(texts, convert_to_numpy=True, show_progress_bar=True, batch_size=32)
         np.save(EMBEDDINGS_PATH, X)
         print(f"[i] Saved embeddings: {EMBEDDINGS_PATH}")
-    # Key step: Normalization
+
     X = normalize(X, norm="l2", axis=1)
     try:
         np.save(EMBEDDINGS_NORM_PATH, X)
@@ -98,7 +122,7 @@ def maybe_umap(X: np.ndarray) -> np.ndarray:
     Z = reducer.fit_transform(X)
     joblib.dump(reducer, OUT_DIR / "umap_reducer.joblib")
     print(f"[i] Saved UMAP reducer model to: {OUT_DIR / 'umap_reducer.joblib'}")
-    # Re-normalize after UMAP
+
 
     Z = normalize(Z, norm="l2", axis=1)
     print(f"[i] UMAP shape: {Z.shape}")
@@ -106,7 +130,7 @@ def maybe_umap(X: np.ndarray) -> np.ndarray:
 
 
 def run_hdbscan(X: np.ndarray, min_cluster_size: int, min_samples: int | None, method: str, eps: float):
-    # Metric is hardcoded to 'euclidean' because data is normalized
+
     kwargs = dict(min_cluster_size=min_cluster_size, metric="euclidean", cluster_selection_method=method,
                   prediction_data=True)
     if min_samples is not None:
@@ -125,14 +149,14 @@ def quick_metrics(X: np.ndarray, labels: np.ndarray):
     k = len(np.unique(labels[labels != -1]))
     sil = None
     if clustered > 0 and k > 1:
-        # Metric is hardcoded to 'euclidean' because data is normalized
+       
         sil = float(silhouette_score(X[labels != -1], labels[labels != -1], metric="euclidean"))
     noise_rate = noise / n if n else 1.0
     coverage = clustered / n if n else 0.0
     return dict(n=n, noise=noise, clustered=clustered, k=k, silhouette=sil, noise_rate=noise_rate, coverage=coverage)
 
 
-def sampled_param_search(X: np.ndarray):
+def sampled_param_search(X: np.ndarray, csv_logger: Optional[CsvLogger] = None):
     if not PARAM_SEARCH:
         return None
     Xs = X
@@ -152,7 +176,7 @@ def sampled_param_search(X: np.ndarray):
     })
 
     def score(m):
-        # Higher silhouette and coverage are better; moderate number of clusters preferred
+       
         sil = m["silhouette"] if m["silhouette"] is not None else -1.0
         coverage = m["coverage"]
         k = m["k"]
@@ -162,17 +186,33 @@ def sampled_param_search(X: np.ndarray):
     best = None
     best_score = -1e9
 
-    # Removed the 'metric' loop, as 'euclidean' is all we need
+    
     for mcs in dyn_mcs:
         for ms in MIN_SAMPLES_RANGE:
             for method in METHODS:
                 for eps in EPS_RANGE:
                     try:
-                        # Hardcode metric to 'euclidean'
+                       
                         metric = "euclidean"
                         _, labels = run_hdbscan(Xs, mcs, ms, method, eps)
-                        metr = quick_metrics(Xs, labels)  # Will also use 'euclidean'
+                        metr = quick_metrics(Xs, labels) 
                         sc = score(metr)
+
+                        if csv_logger:
+                            log_data = {
+                                "score": sc,
+                                "silhouette": metr["silhouette"],
+                                "num_clusters": metr["k"],
+                                "clustered_percentage": metr["coverage"],
+                                "noise_rate": metr["noise_rate"],
+                                "min_cluster_size": mcs,
+                                "min_samples": ms,
+                                "method": method,
+                                "eps": eps,
+                                "metric": metric,
+                            }
+                            csv_logger.log(log_data)
+
                         if sc > best_score:
                             best_score = sc
                             best = dict(min_cluster_size=mcs, min_samples=ms, method=method, eps=eps, metric=metric,
@@ -180,7 +220,7 @@ def sampled_param_search(X: np.ndarray):
                             sil_txt = "NA" if metr["silhouette"] is None else f"{metr['silhouette']:.4f}"
                             print(
                                 f"  best so far: score={best_score:.4f} sil={sil_txt} k={metr['k']} coverage={metr['coverage']:.2f} noise_rate={metr['noise_rate']:.2f} params={{'min_cluster_size':{mcs},'min_samples':{ms},'method':'{method}','eps':{eps},'metric':'{metric}'}}")
-                        # Early stop if good enough
+
                         if (metr["silhouette"] is not None and metr["silhouette"] >= TARGET_SILHOUETTE and
                                 metr["coverage"] >= 0.6 and metr["k"] >= 10):
                             return best
@@ -206,12 +246,23 @@ def main():
     Z = maybe_umap(X)
 
     print("\n[4] Parameter search (sampled)...")
-    params = sampled_param_search(Z)
+    csv_logger = None
+    if PARAM_SEARCH:
+        ts = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+        LOG_CSV_PATH = OUT_DIR / f"hdbscan_search_log_{ts}.csv"
+        print(f"[i] Logging parameter search to: {LOG_CSV_PATH}")
+        log_fieldnames = [
+            "score", "silhouette", "num_clusters", "clustered_percentage", "noise_rate",
+            "min_cluster_size", "min_samples", "method", "eps", "metric"
+        ]
+        csv_logger = CsvLogger(LOG_CSV_PATH, log_fieldnames)
+
+    params = sampled_param_search(Z, csv_logger)
     if params is None:
-        # Default to euclidean
+       
         params = dict(min_cluster_size=5, min_samples=20, method="eom", eps=0.0, metric="euclidean")
 
-    # Persist chosen params and (if present) metrics
+   
     try:
         to_dump = dict(params={k: v for k, v in params.items() if k != "metrics"}, metrics=params.get("metrics"))
         with (OUT_DIR / "hdbscan_params.json").open("w", encoding="utf-8") as f:
@@ -219,7 +270,7 @@ def main():
     except Exception as e:
         print(f"[warn] Failed to save params json: {e}")
 
-    # Ensure metric is set for the final run
+    
     final_metric = params.get("metric", "euclidean")
     print(
         f"[i] Params used: {{'min_cluster_size': {params['min_cluster_size']}, 'min_samples': {params['min_samples']}, 'method': '{params['method']}', 'eps': {params['eps']}, 'metric': '{final_metric}'}}")

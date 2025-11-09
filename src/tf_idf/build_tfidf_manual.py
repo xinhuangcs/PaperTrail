@@ -18,21 +18,22 @@ import json
 import os
 import numpy as np
 from tqdm import tqdm
-
-from sklearn.feature_extraction.text import TfidfVectorizer
-from scipy import sparse
-import joblib
 from pathlib import Path
-#Config
+from scipy import sparse
+from my_tfidf import MyTfidfVectorizer
+import joblib
 
+# 1) Config
 ROOT_DIR = Path(__file__).resolve().parents[2]
-INPUT_JSONL = ROOT_DIR / "data" / "preprocess" / "arxiv-cs-data-with-citations-final-dataset_preprocessed.json"
-OUT_DIR = ROOT_DIR / "data" / "tf_idf"
+
+INPUT_JSONL = ROOT_DIR / "data" / "merge" / "arxiv-cs-data-with-citations_merged_all_preprocessed.json"
+
+OUT_DIR = ROOT_DIR / "data" / "tf_idf_manual"
 TFIDF_NPZ_PATH = OUT_DIR / "tfidf_matrix.npz"
 VECTORIZER_PKL_PATH = OUT_DIR / "tfidf_vectorizer.joblib"
 DOC_IDS_NPY = OUT_DIR / "doc_ids.npy"
 DOC_TITLES_NPY = OUT_DIR / "doc_titles.npy"
-CUSTOM_STOPWORDS_PATH = ROOT_DIR / "src" / "custom_stopwords.txt"
+CUSTOM_STOPWORDS_PATH = ROOT_DIR / "src" / "custom_stopwords_manual.txt"
 
 # Recommended params for ~900k CS papers (tune if needed)
 def load_custom_stopwords(path: Path) -> list[str]:
@@ -56,7 +57,7 @@ VECTORIZER_KW = dict(
     max_features=100_000,  #cap vocab size to control memory
     ngram_range=(1, 2),    # # Only unigrams; change to (1,2) for phrases (significantly increases scale)
     sublinear_tf=True,     # log/sublinear TF scaling
-    norm="l2",             # 
+    norm="l2",             
     dtype=np.float32,      # halve memory vs float64
     stop_words=None,       # Data has been cleaned and stemmed; no additional universal stop words are applied here
     lowercase=False,       # processed_content already lower
@@ -69,23 +70,21 @@ TOP_TERMS_PER_DOC = 5     # show top-K terms per doc
 
 def read_corpus_and_meta(jsonl_path):
     """
-    读取语料与元数据：返回 texts(list), ids(list), titles(list)
     Read corpus & metadata: return (texts, ids, titles)
     """
     texts, ids, titles = [], [], []
     with open(jsonl_path, "r", encoding="utf-8") as f:
         for line in tqdm(f, desc="Reading JSONL"):
-            # ---- 修复：空行/坏行保护 / guard for blank or malformed lines ----
+          
             line = line.strip()
             if not line:
                 continue
             try:
                 rec = json.loads(line)
             except json.JSONDecodeError:
-                # 可选：打印警告定位问题行
-                # print("[warn] malformed JSON line skipped")
+               
                 continue
-            # --------------------------------------------------------------
+           
             text = rec.get("processed_content") or ""
             paper_id = rec.get("id") or ""
             title = rec.get("title") or ""
@@ -96,7 +95,7 @@ def read_corpus_and_meta(jsonl_path):
 
 
 def main():
-    os.makedirs(OUT_DIR, exist_ok=True)
+    OUT_DIR.mkdir(parents=True, exist_ok=True)
     custom_stopwords = load_custom_stopwords(CUSTOM_STOPWORDS_PATH)
     if custom_stopwords:
         VECTORIZER_KW["stop_words"] = custom_stopwords
@@ -104,7 +103,7 @@ def main():
     texts, ids, titles = read_corpus_and_meta(INPUT_JSONL)
     print(f"[i] Loaded documents: {len(texts):,}")
     # 2)TF-IDF:Fit + transform
-    vectorizer = TfidfVectorizer(**VECTORIZER_KW)
+    vectorizer = MyTfidfVectorizer(**VECTORIZER_KW)
     X = vectorizer.fit_transform(texts)
     print(f"[i] TF-IDF shape: {X.shape}, nnz={X.nnz:,}, dtype={X.dtype}, type={type(X)}")
     # 3)Persist to disk

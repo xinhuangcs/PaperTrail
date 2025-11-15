@@ -1,0 +1,33 @@
+name: "Request: Generate Learning Plan"
+description: "Submit a topic to generate a learning plan"
+title: "Plan request: "
+labels: ["plan-request"]
+body:
+  - type: input
+    id: goal
+    attributes:
+      label: What is your topic?
+      description: "What is your topic?"
+      placeholder: "e.g., graph neural networks for molecules"
+    validations:
+      required: true
+  - type: dropdown
+    id: top_k
+    attributes:
+      label: How many papers dou you want to learn?
+      options:
+        - "3"
+        - "5"
+        - "10"
+        - "15"
+        - "20"
+      default: 1
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes (optional)
+      placeholder: "Any extra detail..."
+    validations:
+      required: false

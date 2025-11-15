@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Learning Plan Viewer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial; padding: 24px; line-height: 1.45; }
+    .muted { color:#777; }
+    .wrap { max-width: 900px; margin: 0 auto; }
+    h1,h2 { margin: 0.4em 0; }
+    .card { border: 1px solid #ddd; border-radius: 12px; padding: 16px; margin: 14px 0; }
+    ul { margin: 6px 0 6px 20px; }
+    pre { background: #0a0f19; color: #e6edf3; padding: 8px; border-radius: 8px; overflow: auto; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Learning Plan</h1>
+    <p id="meta" class="muted"></p>
+
+    <div class="card" id="overview"></div>
+    <div class="card" id="reading"></div>
+    <div class="card" id="actions"></div>
+    <div class="card" id="metrics"></div>
+    <div class="card" id="timeline"></div>
+    <div class="card" id="risks"></div>
+
+    <details class="card">
+      <summary>Raw JSON</summary>
+      <pre id="raw"></pre>
+    </details>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(location.search);
+    const id = params.get('id');
+    const url = id ? `plans/${id}.json` : null;
+
+    function el(id){ return document.getElementById(id); }
+    function h2(txt){ const n=document.createElement('h2'); n.textContent=txt; return n; }
+
+    async function run(){
+      if(!url){ el('raw').textContent = "Missing ?id=..."; return; }
+      el('meta').textContent = "Fetching: " + url;
+      const plan = await fetch(url).then(r=>r.json());
+
+      // overview
+      const o = el('overview');
+      o.innerHTML = "";
+      o.appendChild(h2("Overview"));
+      const p1 = document.createElement('p');
+      p1.innerHTML = `<b>Goal:</b> ${plan.goal || ""}`;
+      const p2 = document.createElement('p');
+      p2.innerHTML = `<b>Study level:</b> ${plan.study_level || ""}`;
+      const p3 = document.createElement('p');
+      p3.innerHTML = `<b>Source papers:</b> ${(plan.source_papers||[]).join(", ")}`;
+      const p4 = document.createElement('p');
+      p4.innerHTML = `<b>Plan overview:</b><br>${(plan.plan_overview || "").replace(/\n/g,"<br>")}`;
+      o.appendChild(p1); o.appendChild(p2); o.appendChild(p3); o.appendChild(p4);
+
+      // reading order
+      const r = el('reading'); r.innerHTML = ""; r.appendChild(h2("Reading order"));
+      const ulr = document.createElement('ul');
+      (plan.reading_order||[]).forEach((it, idx)=>{
+        const li = document.createElement('li');
+        li.innerHTML = `<b>${idx+1}. ${it.paper_id}</b> — ${it.why_first || ""}<br><i>Questions:</i> ${(it.key_questions||[]).join("; ")}`;
+        ulr.appendChild(li);
+      });
+      r.appendChild(ulr);
+
+      // actions
+      const a = el('actions'); a.innerHTML = ""; a.appendChild(h2("Actions"));
+      const ula = document.createElement('ul');
+      (plan.actions||[]).forEach(it=>{
+        const li = document.createElement('li');
+        li.innerHTML = `<b>${it.label}</b><br>${it.how_to}<br><i>Expected:</i> ${it.expected_outcome}`;
+        ula.appendChild(li);
+      });
+      a.appendChild(ula);
+
+      // metrics
+      const m = el('metrics'); m.innerHTML = ""; m.appendChild(h2("Metrics"));
+      const ulm = document.createElement('ul');
+      (plan.metrics||[]).forEach(s=>{ const li=document.createElement('li'); li.textContent=s; ulm.appendChild(li);});
+      m.appendChild(ulm);
+
+      // timeline
+      const t = el('timeline'); t.innerHTML = ""; t.appendChild(h2("Timeline"));
+      const ult = document.createElement('ul');
+      (plan.timeline_weeks||[]).forEach(w=>{
+        const li = document.createElement('li');
+        li.innerHTML = `<b>Week ${w.week}:</b> ${w.focus} — <i>${w.deliverable}</i>`;
+        ult.appendChild(li);
+      });
+      t.appendChild(ult);
+
+      // risks
+      const k = el('risks'); k.innerHTML = ""; k.appendChild(h2("Risks"));
+      const ulk = document.createElement('ul');
+      (plan.risks||[]).forEach(x=>{
+        const li=document.createElement('li');
+        li.innerHTML = `<b>${x.risk}</b> — ${x.mitigation}`;
+        ulk.appendChild(li);
+      });
+      k.appendChild(ulk);
+
+      // raw json
+      el('raw').textContent = JSON.stringify(plan, null, 2);
+    }
+    run();
+  </script>
+</body>
+</html>

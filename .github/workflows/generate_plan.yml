@@ -1,0 +1,75 @@
+name: Generate Learning Plan
+
+on:
+  issues:
+    types: [opened, edited, reopened, labeled]
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  run-pipeline:
+    if: contains(github.event.issue.labels.*.name, 'plan-request')
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Extract inputs from issue
+        id: parse
+        run: |
+          python - << 'PY'
+            import os, re
+            body = os.environ.get("ISSUE_BODY","")
+            goal_m = re.search(r'(?m)^### Topic \(Goal\)\s*\n+(.+)', body)
+            topk_m = re.search(r'(?m)^### How many papers \(Top-K\)\s*\n+(.+)', body)
+            goal = goal_m.group(1).strip() if goal_m else ""
+            topk = topk_m.group(1).strip() if topk_m else "10"
+            print(f"goal={goal}\ntop_k={topk}")
+            with open(os.environ["GITHUB_OUTPUT"],"a") as f:
+                f.write(f"goal={goal}\n")
+                f.write(f"top_k={topk}\n")
+            PY
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+
+      - name: Run fake pipeline
+        run: |
+          python scripts/run_pipeline.py \
+            --goal "${{ steps.parse.outputs.goal }}" \
+            --top_k "${{ steps.parse.outputs.top_k }}" \
+            --issue "${{ github.event.issue.number }}"
+
+      - name: Commit artifacts to website/plans/
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add website/plans/*.json || true
+          git commit -m "Plan: #${{ github.event.issue.number }}" || echo "nothing to commit"
+          git push
+
+      - name: Comment with links
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issue = context.payload.issue.number;
+            const repo = context.repo.repo;
+            const owner = context.repo.owner;
+            const base = `https://${owner}.github.io/${repo}/website`;
+            const planUrl = `${base}/plans/${issue}.json`;
+            const viewer  = `${base}/plan.html?id=${issue}`;
+            const msg = [
+              `✅ Fake plan generated for #${issue} (pipeline test)`,
+              ``,
+              `- JSON: ${planUrl}`,
+              `- Viewer: ${viewer}`,
+            ].join("\n");
+            github.rest.issues.createComment({ issue_number: issue, owner, repo, body: msg });

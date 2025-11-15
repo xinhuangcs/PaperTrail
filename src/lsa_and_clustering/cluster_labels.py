@@ -7,6 +7,9 @@ import numpy as np
 from pathlib import Path
 import joblib
 from collections import defaultdict
+import umap
+import hdbscan
+
 
 #config
 TFIDF_DIR = Path("/Users/jasonh/Desktop/02807/PaperTrail/data/tf_idf")
@@ -97,6 +100,7 @@ def main():
     # open JSONL outputs
     kw_f = (OUT_DIR / "cluster_keywords.json").open("w", encoding="utf-8")
     cp_f = (OUT_DIR / "cluster_papers.json").open("w", encoding="utf-8")
+    subtopic_f = (OUT_DIR / "cluster_subtopics.json").open("w", encoding="utf-8")
 
     try:
         for c_label, idxs in clusters.items():
@@ -128,9 +132,56 @@ def main():
             cp_f.write(json.dumps(cp_record, ensure_ascii=False) + "\n")
 
             print(f"[i] Cluster {c_label}: size={len(idxs)}, top_keywords={keywords[:8]} ...")
+
+            # ====== Subtopic discovery with UMAP + HDBSCAN ======
+            # 1) Extract LSA vectors of this cluster
+            X_sub = X_lsa[idxs]   # shape: (n_cluster_docs, n_components)
+
+            # 2) UMAP reduction (fast + preserves semantic structure)
+            reducer = umap.UMAP(
+                n_components=10,
+                n_neighbors=15,
+                min_dist=0.1,
+                random_state=42
+            )
+            X_umap = reducer.fit_transform(X_sub)
+
+            # 3) HDBSCAN to find subclusters (automatic number of clusters)
+            hdb = hdbscan.HDBSCAN(
+                min_cluster_size=50,   # 如果 cluster 小可以调更小
+                min_samples=10
+            )
+            sub_labels = hdb.fit_predict(X_umap)
+
+            # 4) Group documents by subtopic
+            subtopic_dict = defaultdict(list)
+            for doc_idx, s_lab in zip(idxs, sub_labels):
+                if s_lab == -1:
+                    continue  # ignore noise
+                subtopic_dict[int(s_lab)].append(doc_idx)
+
+            # 5) Extract top keywords for each subtopic
+            for sub_id, sub_doc_idxs in subtopic_dict.items():
+                # centroid in LSA
+                sub_centroid = X_lsa[sub_doc_idxs].mean(axis=0)
+                term_scores_sub = backproject_centroid(sub_centroid, components)
+                sub_keywords, sub_scores = top_k_terms(term_scores_sub, terms, TOP_K_TERMS)
+
+                # papers
+                sub_papers = [{"id": str(doc_ids[i]), "title": str(doc_titles[i])} for i in sub_doc_idxs]
+
+                # write JSONL
+                subtopic_f.write(json.dumps({
+                    "cluster": int(c_label),
+                    "subtopic": int(sub_id),
+                    "keywords": sub_keywords,
+                    "papers": sub_papers
+                }, ensure_ascii=False) + "\n")
+
     finally:
         kw_f.close()
         cp_f.close()
+        subtopic_f.close()
 
     print("Saved JSON to:", OUT_DIR)
 

@@ -1,7 +1,7 @@
 from pathlib import Path
 import re, time, json
 import numpy as np
-from typing import List, Tuple
+from typing import List, Tuple, Optional, Dict
 from sentence_transformers import SentenceTransformer
 import nltk
 from nltk.corpus import stopwords
@@ -19,11 +19,14 @@ OUT_DIR.mkdir(parents=True, exist_ok=True)
 DOC_IDS_PATH = SBERT_DIR / "doc_ids.npy"
 DOC_TITLES_PATH = SBERT_DIR / "doc_titles.npy"
 SBERT_EMBEDDINGS_PATH = SBERT_DIR / "sbert_embeddings_norm.npy"
+CLUSTER_LABELS_PATH = SBERT_DIR / "hdbscan_labels.npy"
+CLUSTER_TOP_TERMS_PATH = SBERT_DIR / "cluster_top_terms.json"
 
 
 # 3) SBERT model name
 SBERT_MODEL_NAME = "all-MiniLM-L6-v2"
 RAW_JSONL_PATH = DATA_DIR / "preprocess" / "arxiv-cs-data-with-citations-final-dataset.json"
+CUSTOM_STOPWORDS_PATH = ROOT_DIR / "src" / "custom_stopwords.txt"
 
 
 # --- Smart Stop Words Handling ---
@@ -37,7 +40,33 @@ except LookupError:
     print("[i] Download complete.")
 
 
-STOP_WORDS = set(stopwords.words('english'))
+def load_stopwords():
+    """Load stopwords from NLTK and custom stopwords file."""
+    # Load NLTK stopwords
+    nltk_stopwords = set(stopwords.words('english'))
+    
+    # Load custom stopwords
+    custom_stopwords = set()
+    if CUSTOM_STOPWORDS_PATH.exists():
+        try:
+            custom_stopwords = {
+                line.strip().lower()
+                for line in CUSTOM_STOPWORDS_PATH.read_text(encoding="utf-8").splitlines()
+                if line.strip()
+            }
+            print(f"[i] Loaded {len(custom_stopwords)} custom stopwords.")
+        except Exception as exc:
+            print(f"[warn] Failed to load custom stopwords: {exc}")
+    else:
+        print(f"[warn] Custom stopwords file not found: {CUSTOM_STOPWORDS_PATH}")
+    
+    # Merge stopwords
+    all_stopwords = nltk_stopwords | custom_stopwords
+    print(f"[i] Total stopwords: {len(all_stopwords)} (NLTK: {len(nltk_stopwords)}, custom: {len(custom_stopwords)})")
+    return all_stopwords
+
+
+STOP_WORDS = load_stopwords()
 
 
 
@@ -60,7 +89,37 @@ def load_sbert_artifacts():
     doc_embeddings = np.load(SBERT_EMBEDDINGS_PATH)
     print(f"[i] Loaded {len(doc_ids)} doc IDs/titles.")
     print(f"[i] Loaded doc embeddings matrix with shape: {doc_embeddings.shape}")
-    return doc_ids, doc_titles, doc_embeddings
+    cluster_labels: Optional[np.ndarray] = None
+    if CLUSTER_LABELS_PATH.exists():
+        cluster_labels = np.load(CLUSTER_LABELS_PATH)
+        if cluster_labels.shape[0] != doc_ids.shape[0]:
+            print(
+                f"[warn] cluster labels length mismatch ({cluster_labels.shape[0]} vs {doc_ids.shape[0]}); ignoring"
+            )
+            cluster_labels = None
+    else:
+        print("[warn] cluster labels file not found; cluster context unavailable.")
+
+    cluster_topics: Dict[int, List[str]] = {}
+    if CLUSTER_TOP_TERMS_PATH.exists():
+        try:
+            raw = json.loads(CLUSTER_TOP_TERMS_PATH.read_text(encoding="utf-8"))
+            if isinstance(raw, dict):
+                for key, value in raw.items():
+                    try:
+                        cid = int(key)
+                    except (TypeError, ValueError):
+                        continue
+                    if isinstance(value, list):
+                        cluster_topics[cid] = [str(v) for v in value]
+                    elif value is not None:
+                        cluster_topics[cid] = [str(value)]
+        except Exception as exc:
+            print(f"[warn] failed to load cluster top terms: {exc}")
+    else:
+        print("[warn] cluster top terms file not found; cluster topics will be empty.")
+
+    return doc_ids, doc_titles, doc_embeddings, cluster_labels, cluster_topics
 
 
 def l2_normalize_dense(A: np.ndarray) -> np.ndarray:
@@ -82,9 +141,9 @@ def get_sbert_model():
     return _SBERT_MODEL
 
 
-def search_sbert(query: str, top_k: int) -> List[Tuple[str, str, float]]:
+def search_sbert(query: str, top_k: int) -> List[Tuple[str, str, float, Optional[int], Optional[List[str]]]]:
     # sbert retrieval
-    doc_ids, doc_titles, doc_embeddings = load_sbert_artifacts()
+    doc_ids, doc_titles, doc_embeddings, cluster_labels, cluster_topics = load_sbert_artifacts()
 
     # Preprocess and encode query
     processed_query = preprocess_query(query)
@@ -106,18 +165,40 @@ def search_sbert(query: str, top_k: int) -> List[Tuple[str, str, float]]:
         top_indices = np.argpartition(-sims, top_k)[:top_k]
         top_indices = top_indices[np.argsort(-sims[top_indices])]
 
-    results: List[Tuple[str, str, float]] = []
+    results: List[Tuple[str, str, float, Optional[int], Optional[List[str]]]] = []
     for i in top_indices:
         # We can set a threshold if we want, e.g., > 0.3
         if sims[i] > 0.1:
-            results.append((str(doc_ids[i]), str(doc_titles[i]), float(sims[i])))
+            cluster_id: Optional[int] = None
+            cluster_topics_list: Optional[List[str]] = None
+            if cluster_labels is not None and i < cluster_labels.shape[0]:
+                try:
+                    lbl = int(cluster_labels[i])
+                except (TypeError, ValueError):
+                    lbl = -1
+                if lbl >= 0:
+                    cluster_id = lbl
+                    cluster_topics_list = cluster_topics.get(lbl)
+            results.append(
+                (
+                    str(doc_ids[i]),
+                    str(doc_titles[i]),
+                    float(sims[i]),
+                    cluster_id,
+                    cluster_topics_list,
+                )
+            )
 
     return results
 
 
-def save_results_jsonl(query: str, method: str, results: List[Tuple[str, str, float]]) -> Path:
+def save_results_jsonl(
+    query: str,
+    method: str,
+    results: List[Tuple[str, str, float, Optional[int], Optional[List[str]]]],
+) -> Path:
     # 收集需要的 paper id
-    need_ids = {pid for (pid, _title, _s) in results}
+    need_ids = {pid for (pid, _title, _s, _cid, _topics) in results}
     raw_meta = load_raw_meta(need_ids)
 
     # 输出文件路径（仍然是 jsonl 格式内容）
@@ -125,7 +206,7 @@ def save_results_jsonl(query: str, method: str, results: List[Tuple[str, str, fl
     out_path = OUT_DIR / f"similarity_for_recommend_{method}_{ts}.json"
 
     with out_path.open("w", encoding="utf-8") as f:
-        for rank, (pid, title, sc) in enumerate(results, 1):
+        for rank, (pid, title, sc, cluster_id, cluster_topics_list) in enumerate(results, 1):
             base = raw_meta.get(pid, {})
             base.update({
                 "sim_score": float(sc),
@@ -134,6 +215,8 @@ def save_results_jsonl(query: str, method: str, results: List[Tuple[str, str, fl
                 "rank": rank,
                 "query": query,
                 "method": method,
+                "sbert_cluster_id": int(cluster_id) if cluster_id is not None else None,
+                "cluster_topics": cluster_topics_list if cluster_topics_list is not None else None,
             })
             f.write(json.dumps(base, ensure_ascii=False) + "\n")
 
@@ -142,16 +225,24 @@ def save_results_jsonl(query: str, method: str, results: List[Tuple[str, str, fl
 
 
 
-def print_results(query: str, method: str, results: List[Tuple[str, str, float]]):
+def print_results(
+    query: str,
+    method: str,
+    results: List[Tuple[str, str, float, Optional[int], Optional[List[str]]]],
+):
     # simple pretty print
     print("\n" + "=" * 70)
     print(f"query: {query}")
     print(f"model: {method}")
     print(f"top {len(results)} here ↓")
     print("=" * 70)
-    for i, (pid, title, sc) in enumerate(results, 1):
+    for i, (pid, title, sc, cluster_id, cluster_topics_list) in enumerate(results, 1):
         print(f"{i:2d}. [{pid}] {title}")
-        print(f"    score: {sc:.4f}")
+        cluster_str = "N/A" if cluster_id is None else str(cluster_id)
+        print(f"    score: {sc:.4f} | cluster: {cluster_str}")
+        if cluster_topics_list:
+            pretty_topics = ", ".join(cluster_topics_list)
+            print(f"    topics: {pretty_topics}")
     if not results:
         print("hmm no hit, maybe try other words")
 

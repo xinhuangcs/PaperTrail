@@ -2,10 +2,753 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>PaperTrail</title>
-  <meta http-equiv="refresh" content="0; url=website/index.html">
+  <title>PaperTrail – CS Paper Learning Plans</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    :root {
+      --bg-page: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #6b7280;
+      --accent: #2E93EE;
+      --accent-soft: #eff6ff;
+      --border-subtle: #e5e7eb;
+      --radius-lg: 18px;
+      --shadow-soft: 0 20px 45px rgba(15, 23, 42, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, system-ui, "SF Pro Text", Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg-page);
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 18px 56px;
+    }
+
+    /* ===== Introduction ====== */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-top: 40px;
+      padding-bottom: 56px;
+    }
+
+    .hero-inner {
+      width: 100%;
+      max-width: 960px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+
+    .hero-title {
+      margin: 0 0 18px;
+      font-size: clamp(56px, 7.5vw, 80px);
+      font-weight: 800;
+      letter-spacing: -0.07em;
+      line-height: 1.03;
+      background: linear-gradient(120deg, #1d4ed8, #38bdf8, #22c55e);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 12px 36px rgba(37, 99, 235, 0.45);
+    }
+
+
+    .authors {
+      margin-top: 4px;
+      font-size: 15px;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .authors span.label {
+      font-weight: 500;
+      color: #4b5563;
+    }
+
+    .authors a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .authors a:hover {
+      text-decoration: underline;
+    }
+
+    .authors-school {
+      margin-top: 4px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* Repository URL + Icon */
+    .repo-strip {
+      margin-top: 10px;
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .repo-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      background: var(--accent-soft);
+    }
+
+    .repo-icon {
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      background: #111827;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .repo-icon svg {
+      width: 12px;
+      height: 12px;
+      fill: #f9fafb;
+    }
+
+    .repo-link {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .repo-link:hover {
+      text-decoration: underline;
+    }
+
+    /* ===== intro ===== */
+    .hero-intro {
+      margin: 30px auto 0;
+      max-width: 780px;
+      color: #4b5563;
+      text-align: left;
+    }
+
+    .hero-intro-tagline {
+      text-align: center;
+      font-size: 13px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #6b7280;
+      margin-bottom: 10px;
+    }
+
+    .hero-intro-tagline span {
+      background: #eff6ff;
+      color: #1d4ed8;
+      padding: 3px 12px;
+      border-radius: 999px;
+      font-weight: 600;
+    }
+
+    .hero-intro-body {
+      padding-left: 4px;
+    }
+
+    .hero-intro-lead {
+      margin: 0 0 6px;
+      font-size: 15px;
+      font-weight: 600;
+      color: #111827;
+    }
+
+    .hero-intro-p {
+      margin: 4px 0 0;
+      font-size: 14px;
+      line-height: 1.9;
+      color: #4b5563;
+    }
+
+    /* 最后一段字体大一号 */
+    .hero-intro-p-last {
+      font-size: 15px;
+    }
+
+    .hero-intro-p strong {
+      color: #111827;
+    }
+
+    @media (max-width: 640px) {
+      .hero-intro {
+        text-align: left;
+      }
+    }
+
+    /* 技术标签 */
+    .hero-tags {
+      margin: 20px auto 0;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 12px;
+    }
+
+    .pill {
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: #eef2ff;
+      color: #3730a3;
+    }
+
+    /* User Interface */
+    .request-card {
+      margin: 40px auto 0;
+      width: 100%;
+      max-width: 960px;
+      background: #ffffff;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-soft);
+      padding: 28px 26px 24px;
+      text-align: left;
+    }
+
+    @media (min-width: 880px) {
+      .request-card {
+        padding: 30px 32px 26px;
+      }
+    }
+
+    .request-header {
+      margin-bottom: 12px;
+    }
+
+    .request-header h2 {
+      margin: 0;
+      font-size: 22px;
+      font-weight: 600;
+      color: #111827;
+    }
+
+    .request-sub {
+      margin: 6px 0 0;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .form-row-group {
+      display: grid;
+      gap: 16px;
+      margin-top: 14px;
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    label {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: #374151;
+      margin-bottom: 6px;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 11px 13px;
+      font-size: 14px;
+      border-radius: 10px;
+      border: 1px solid #d1d5db;
+      background: #f9fafb;
+      color: #111827;
+      outline: none;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+    }
+
+    input::placeholder {
+      color: #9ca3af;
+    }
+
+    input:focus,
+    select:focus {
+      background: #ffffff;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.18);
+    }
+
+    .input-hint {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    button {
+      margin-top: 22px;
+      padding: 11px 22px;
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: 999px;
+      border: none;
+      background: #2E93EE;
+      color: #f9fafb;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      box-shadow: 0 12px 24px rgba(37, 99, 235, 0.35);
+    }
+
+    button span.icon {
+      font-size: 15px;
+      transform: translateY(0.5px);
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 16px 30px rgba(37, 99, 235, 0.45);
+    }
+
+    button:active {
+      transform: translateY(0);
+      box-shadow: 0 10px 20px rgba(37, 99, 235, 0.35);
+    }
+
+    .form-note {
+      margin-top: 12px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .form-note a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .form-note a:hover { text-decoration: underline; }
+
+    /* ===== PROJECT ===== */
+    .section {
+      padding-top: 40px;
+      margin-top: 10px;
+    }
+
+    .section-header {
+      text-align: left;
+      margin-bottom: 16px;
+    }
+
+    .section-kicker {
+      margin: 0;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+    }
+
+    .section-title {
+      margin: 4px 0 0;
+      font-size: 24px;
+      font-weight: 600;
+      color: #111827;
+    }
+
+    .section-panel {
+      margin-top: 6px;
+      background: #ffffff;
+      border-radius: 22px;
+      border: 1px solid #e5e7eb;
+      padding: 22px 20px 22px;
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+    }
+
+    @media (min-width: 900px) {
+      .section-panel {
+        padding: 26px 26px 24px;
+      }
+    }
+
+    .project-main-title {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 600;
+      color: #111827;
+    }
+
+    .project-main-sub {
+      margin: 4px 0 0;
+      font-size: 14px;
+      color: #4b5563;
+    }
+
+    .project-main-body {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #374151;
+    }
+
+    .project-main-body p {
+      margin: 0 0 8px;
+    }
+
+    .project-main-body strong {
+      color: #111827;
+    }
+
+    .project-keywords {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 12px;
+    }
+
+    .keyword {
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: #eff6ff;
+      color: #2E93EE;
+      font-weight: 500;
+    }
+
+    .project-grid {
+      margin-top: 18px;
+      position: relative;
+      padding-left: 28px;
+      display: grid;
+      gap: 14px;
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .project-grid::before {
+      content: "";
+      position: absolute;
+      left: 12px;
+      top: 4px;
+      bottom: 4px;
+      width: 2px;
+      background: linear-gradient(180deg, #e5e7eb, #bfdbfe);
+    }
+
+    .project-card {
+      position: relative;
+      background: #f9fafb;
+      border-radius: 16px;
+      border: 1px solid #e5e7eb;
+      padding: 10px 12px 10px 16px;
+      font-size: 13px;
+      color: #4b5563;
+    }
+
+    .project-card-marker {
+      position: absolute;
+      left: -24px;
+      top: 10px;
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      background: #2E93EE;
+      color: #e5e7eb;
+      font-size: 11px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .project-card-key {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: #2E93EE;
+      color: #e5e7eb;
+      font-size: 11px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .project-card-title {
+      margin: 0 0 4px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #111827;
+    }
+
+    .project-card p {
+      margin: 0;
+    }
+
+    footer {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    footer a:hover { text-decoration: underline; }
+  </style>
 </head>
 <body>
-  <p>If you are not redirected, <a href="website/index.html">click here</a>.</p>
+  <div class="page">
+
+    <section class="hero">
+      <div class="hero-inner">
+        <h1 class="hero-title">PaperTrail</h1>
+
+        <div class="authors">
+          <span class="label">Authors:</span>
+          <a href="https://github.com/xinhuangcs" target="_blank">Xin Huang</a>
+          <span>·</span>
+          <a href="https://github.com/laolaorkkkkk" target="_blank">Ruikang Zhao</a>
+        </div>
+
+        <div class="authors-school">
+          DTU · Technical University of Denmark
+        </div>
+
+        <div class="repo-strip">
+          <div class="repo-pill">
+            <div class="repo-icon">
+              <svg viewBox="0 0 16 16" aria-hidden="true">
+                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47
+                7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49
+                -2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13
+                -.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72
+                1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07
+                -1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15
+                -.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82A7.54 7.54 0 0 1 8 3.13
+                c.68.003 1.37.092 2.01.27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82
+                1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48
+                0 1.07-.01 1.93-.01 2.19 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8
+                c0-4.42-3.58-8-8-8Z"></path>
+              </svg>
+            </div>
+            <span>Open-source on</span>
+            <a class="repo-link" href="https://github.com/xinhuangcs/PaperTrail" target="_blank">
+              Github
+            </a>
+          </div>
+        </div>
+
+        <div class="hero-intro">
+          <div class="hero-intro-body">
+            <p class="hero-intro-lead">
+              PaperTrail is an intelligent literature exploration tool designed for academic researchers.
+            </p>
+            <p class="hero-intro-p">
+              <strong>Based on the topics you care about, it quickly identifies the most relevant papers from over 700,000
+              recent computer science publications and maps out a clear, step-by-step reading path. </strong>
+            </p>
+            <p class="hero-intro-p hero-intro-p-last">
+              By combining multiple relevance signals, PaperTrail generates personalized paper recommendations to help
+              you focus on what truly matters. Powered by state-of-the-art large language models, it also provides clear
+              reading guidance for each paper, making your literature review faster, more accurate, and more directed.
+            </p>
+          </div>
+        </div>
+
+
+        <div class="hero-tags">
+          <span class="pill">TF-IDF & LSA</span>
+          <span class="pill">Semantic Search</span>
+          <span class="pill">Document Clustering</span>
+          <span class="pill">Personalized Recommendation</span>
+          <span class="pill">LLM-based Learning Planning</span>
+          <span class="pill">MMR & Multi-feature Ranking</span>
+          <span class="pill">GitHub Actions workflows</span>
+        </div>
+
+        <div class="request-card">
+          <div class="request-header">
+            <h2>Request a learning plan</h2>
+            <p class="request-sub">
+              Describe what you want to learn and how many papers to base the plan on.
+            </p>
+          </div>
+
+          <div class="form-row-group">
+            <div>
+              <label for="goal">What is your topic? </label>
+              <input
+                id="goal"
+                type="text"
+                placeholder="e.g. graph neural networks for molecular property prediction"
+              />
+            </div>
+
+            <div>
+              <label for="topk">How many papers dou you want to learn? </label>
+              <select id="topk">
+                <option>3</option>
+                <option>5</option>
+                <option selected>10</option>
+                <option>15</option>
+                <option>20</option>
+              </select>
+            </div>
+          </div>
+
+          <button type="button" onclick="openIssue()" style="display:block;margin:20px auto 0;">
+            <span>Generate Learning Plan</span>
+            <span class="icon">↗</span>
+          </button>
+
+
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="project">
+      <div class="section-header">
+        <p class="section-kicker">Learn more about our project</p>
+        <h2 class="section-title">How PaperTrail works under the hood</h2>
+      </div>
+
+      <div class="section-panel">
+        <h3 class="project-main-title">Technical overview</h3>
+        <div class="project-main-body">
+          <p>
+            PaperTrail is a research prototype that explores how to turn a large arXiv CS corpus into guided learning
+            experiences. Instead of returning a long list of search results, the system tries to construct a small
+            reading path that can be used as a starting syllabus.
+          </p>
+          <p>
+            All heavy computation happens in offline GitHub Actions pipelines, which makes the system easy to inspect
+            and reproduce. The front-end stays simple and stable, while the retrieval models and ranking logic
+            can evolve in the background.
+          </p>
+          <p>
+            Behind this setup, PaperTrail runs a fairly standard data-science pipeline: we clean and preprocess more
+            than 700k arXiv papers, build TF-IDF features, and use LSA to get a compact semantic representation of
+            the corpus. We also run topic discovery with K-Means and HDBSCAN so that related papers are grouped together
+            in a meaningful way. For retrieval, we combine several methods—TF-IDF, LSA, LSH, and SBERT—and mix in simple
+            metadata such as citations, recency, and paper type. After ranking the candidates with an MMR-based approach
+            to avoid duplicates, we pass the final recommendation to an LLM, which turns them into a structured study
+            plan, completing a reproducible end-to-end system that integrates large-scale data processing with AI-driven
+            guidance.
+          </p>
+        </div>
+
+        <div class="project-keywords">
+          <span class="keyword">TF-IDF & LSA</span>
+          <span class="keyword">Semantic Search</span>
+          <span class="keyword">Clustering</span>
+          <span class="keyword">Personalized Recommendation</span>
+          <span class="keyword">LLM-based Learning Planning</span>
+          <span class="keyword">MMR & Multi-feature Ranking</span>
+          <span class="keyword">GitHub Actions workflows</span>
+        </div>
+
+        <div class="project-grid">
+          <div class="project-card">
+            <div class="project-card-marker">01</div>
+            <div class="project-card-key">Data Processing</div>
+            <p class="project-card-title">large-scale corpus /preprocessing /TF-IDF / sparse matrix / LSA</p>
+            <p>
+              PaperTrail is built on a large, real-world scientific corpus—over 700,000 computer science papers from the
+              arXiv dataset. From each paper, we extract key fields such as the title, abstract, authors, and
+              categories, and then run a full preprocessing pipeline that includes lowercasing, symbol filtering,
+              stopword removal, and Porter stemming. After preprocessing, the text is converted into TF-IDF features
+              with a vocabulary capped at 100,000 terms, covering both unigrams and bigrams. Extremely common or rare
+              terms are filtered using max_df and min_df, and we also include a custom stopword list. The final output
+              is a highly sparse CSR matrix (less than 1% density), which keeps memory usage low and makes later
+              computations efficient. Because the original TF-IDF space is too high-dimensional, we apply Truncated SVD
+              to perform LSA, reducing the vectors from around 100,000 dimensions to about 1,000. In this semantic
+              space, relationships between papers reflect thematic similarity rather than just shared words. All
+              reduced vectors are L2-normalized to support fast similarity search. Topic keywords are also extracted
+              through LSA’s back-projection mechanism, which lets us identify representative terms directly from the
+              reduced space.
+            </p>
+          </div>
+
+          <div class="project-card">
+            <div class="project-card-marker">02</div>
+            <div class="project-card-key">Classification and Search</div>
+            <p class="project-card-title">semantic search /TF-IDF / LSA retrieval /LSH acceleration /topic filtering (40 research themes)</p>
+            <p>
+              To support different kinds of user queries, PaperTrail implements several complementary retrieval methods. Traditional TF-IDF search works well for keyword-driven queries, using cosine similarity and precomputed norms to rank results quickly at scale. For more meaning-focused searches, LSA projects the query into the 1,000-dimensional semantic space before computing similarity, helping match papers that phrase the same idea differently. To keep latency low on a corpus this large, we also incorporate LSH, hashing papers into multiple buckets using random hyperplanes and running exact ranking only within narrowed candidate sets.
+All user queries go through the same cleaning pipeline as the training data to ensure consistency. In addition, clustering information is integrated directly into search: each paper’s similarity to the 40 discovered research themes is computed with TF-IDF, allowing us to identify the most relevant topic for the query and filter out unrelated ones. This keeps the final result set focused and more useful for learning.
+            </p>
+          </div>
+
+          <div class="project-card">
+            <div class="project-card-marker">03</div>
+            <div class="project-card-key">Recommendation Algorithm</div>
+            <p class="project-card-title">multi-feature ranking /citation modeling /pairwise logistic loss  /MMR diversity control</p>
+            <p>
+              After gathering the initial candidate set, we refine ranking using a richer set of signals. For every candidate paper, we compute nine major feature groups, including semantic similarity, title and abstract matching, research category, citation count and time-based citation statistics, smoothed citation estimates for new papers, paper type (review / application / theory), and data reliability. Citation data is smoothed using a Bayesian estimator so that newly published papers aren’t heavily penalized.
+The ranking model is trained using pairwise logistic loss, learning separate weights for each recommendation view (default, review-focused, application-focused, theory-focused, and trending). Because this approach doesn’t rely on human labels, it scales well to large scientific corpora. After ranking, we apply MMR to introduce diversity and avoid returning a list of near-duplicate papers, ensuring that recommendations are both relevant and broad in coverage.
+            </p>
+          </div>
+
+          <div class="project-card">
+            <div class="project-card-marker">04</div>
+            <div class="project-card-key">AI Model</div>
+            <p class="project-card-title">LLM /Schema /prompt control /reproducibility (trace ID) /automated archiving (GitHub Actions)</p>
+            <p>
+              For the final stage, the user-selected papers are sent to an LLM, which generates a structured learning plan. A system prompt enforces the required schema, field formats, and the set of papers that must be used. The LLM output is then validated against a JSON Schema so that the generated study plan is always well-structured. Each generation is logged with a trace ID for reproducibility. To manage cost and token usage, paper abstracts are truncated to a reasonable length, and all inputs and outputs are automatically archived through GitHub Actions, making debugging and user-experience improvements easier.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      PaperTrail · Prototype interface ·
+      <a href="https://github.com/your-owner/PaperTrail" target="_blank">View source on GitHub</a>
+    </footer>
+  </div>
+
+  <script>
+    const OWNER = "<xinhuangcs>";
+    const REPO  = "<PaperTrail>";
+    const TEMPLATE = "plan_request.yml";
+
+    function openIssue() {
+      const goal = (document.getElementById('goal').value || '').trim();
+      const topk = document.getElementById('topk').value;
+
+      if (!goal) {
+        alert("Please enter a topic.");
+        return;
+      }
+
+      const title = encodeURIComponent(`Plan request: ${goal}`);
+      const url =
+        `https://github.com/${OWNER}/${REPO}/issues/new` +
+        `?template=${encodeURIComponent(TEMPLATE)}` +
+        `&title=${title}` +
+        `&goal=${encodeURIComponent(goal)}` +
+        `&top_k=${encodeURIComponent(topk)}`;
+
+      window.open(url, "_blank");
+    }
+  </script>
 </body>
 </html>

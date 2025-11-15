@@ -26,7 +26,7 @@ import joblib
 # 1) Config
 ROOT_DIR = Path(__file__).resolve().parents[2]
 
-INPUT_JSONL = ROOT_DIR / "data" / "merge" / "arxiv-cs-data-with-citations_merged_all_preprocessed.json"
+INPUT_JSONL = ROOT_DIR / "data" / "preprocess" / "arxiv-cs-data-with-citations-final-dataset_preprocessed.json"
 
 OUT_DIR = ROOT_DIR / "data" / "tf_idf_manual"
 TFIDF_NPZ_PATH = OUT_DIR / "tfidf_matrix.npz"

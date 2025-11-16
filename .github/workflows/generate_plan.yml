@@ -63,6 +63,35 @@ jobs:
             exit 1
           fi
 
+      - name: Download data bundle from release
+        run: |
+          TAG="data-v1"
+          BASE_URL="https://github.com/${{ github.repository }}/releases/download/$TAG"
+
+          echo "Base URL: $BASE_URL"
+
+          mkdir -p data_bundle
+          cd data_bundle
+
+          for part in papertrail_data.tar.gz.aa papertrail_data.tar.gz.ab papertrail_data.tar.gz.ac; do
+            echo "Downloading $part ..."
+            curl -L -O "$BASE_URL/$part"
+          done
+
+          echo "Downloaded parts:"
+          ls -lh
+
+          cat papertrail_data.tar.gz.* > papertrail_data.tar.gz
+
+          echo "Combined archive:"
+          ls -lh papertrail_data.tar.gz
+
+          tar -xzf papertrail_data.tar.gz -C ..
+
+          cd ..
+          echo "Data directory content (root/data):"
+          ls data
+
       - name: Run pipeline
         run: |
           python scripts/run_pipeline.py \

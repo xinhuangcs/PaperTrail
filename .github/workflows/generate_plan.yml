@@ -35,39 +35,52 @@ jobs:
           echo "Downloading dataset from GitHub Release..."
 
           TAG="data-v1"
-          BASE_URL="https://github.com/${{ github.repository }}/releases/download/$TAG"
+
+          REPO_FULL="xinhuangcs/PaperTrail"
+          BASE_URL="https://github.com/${REPO_FULL}/releases/download/$TAG"
+          echo "BASE_URL = $BASE_URL"
 
           mkdir -p data_bundle
           cd data_bundle
 
-          # Download all split parts (make sure names EXACTLY match Release)
           for part in papertrail_data.tar.gz.aa papertrail_data.tar.gz.ab papertrail_data.tar.gz.ac; do
-            echo "Downloading $part ..."
-            curl -L -O "$BASE_URL/$part"
+            URL="$BASE_URL/$part"
+            echo "Downloading $URL ..."
+
+            http_code=$(curl -sSL -w "%{http_code}" -o "$part" "$URL")
+            echo "HTTP status for $part: $http_code"
+
+            if [ "$http_code" -ne 200 ]; then
+              echo "Failed to download $part (status $http_code)"
+              exit 1
+            fi
           done
 
           echo "Downloaded parts:"
           ls -lh
 
-          # Combine into a single archive
+          for f in papertrail_data.tar.gz.*; do
+            size=$(stat -c%s "$f")
+            echo "$f size = $size bytes"
+            if [ "$size" -lt 100000000 ]; then
+              echo "File $f is too small, download likely failed."
+              exit 1
+            fi
+          done
+
           cat papertrail_data.tar.gz.* > papertrail_data.tar.gz
 
           echo "Combined archive:"
           ls -lh papertrail_data.tar.gz
 
-          # Extract dataset
           tar -xzf papertrail_data.tar.gz
 
-          # Move extracted 'data/' folder to repo root
           mv data ../data
           cd ..
 
           echo "Extracted dataset content:"
           ls data
-
-      ####################################################################
-      # END NEW STEP
-      ####################################################################
+      
 
       - name: Extract goal and top_k from issue body
         id: parse

@@ -48,7 +48,7 @@ def get_latest_plan_schema() -> Path:
     return max(files, key=lambda f: f.stat().st_mtime)
 
 CONFIG = {
-    "MODEL": os.environ.get("OPENAI_MODEL", "gpt-4o"),
+    "MODEL": os.environ.get("OPENAI_MODEL", "gpt-4.1"),
     "TEMPERATURE": float(os.environ.get("OPENAI_TEMPERATURE", "0.2")),
     "TIMEOUT_SEC": int(os.environ.get("OPENAI_TIMEOUT", "60")),
     "MAX_RETRIES": int(os.environ.get("OPENAI_MAX_RETRIES", "5")),

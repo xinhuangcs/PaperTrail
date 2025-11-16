@@ -2,7 +2,7 @@ name: Generate Learning Plan
 
 on:
   issues:
-    types: [opened, edited, reopened, labeled]
+    types: [opened]   # only when a new issue is created
 
 permissions:
   contents: write
@@ -10,9 +10,10 @@ permissions:
 
 jobs:
   run-pipeline:
-    if: contains(github.event.issue.labels.*.name, 'plan-request')
+    # only handle issues whose title starts with "Plan request:"
+    if: startsWith(github.event.issue.title, 'Plan request:')
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
 
     steps:
       - name: Checkout
@@ -23,25 +24,46 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Extract inputs from issue
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt || true
+          pip install jsonschema
+
+      - name: Extract goal and top_k from issue body
         id: parse
         run: |
           python - << 'PY'
-            import os, re
-            body = os.environ.get("ISSUE_BODY","")
-            goal_m = re.search(r'(?m)^### Topic \(Goal\)\s*\n+(.+)', body)
-            topk_m = re.search(r'(?m)^### How many papers \(Top-K\)\s*\n+(.+)', body)
-            goal = goal_m.group(1).strip() if goal_m else ""
-            topk = topk_m.group(1).strip() if topk_m else "10"
-            print(f"goal={goal}\ntop_k={topk}")
-            with open(os.environ["GITHUB_OUTPUT"],"a") as f:
-                f.write(f"goal={goal}\n")
-                f.write(f"top_k={topk}\n")
-            PY
+          import os, re
+
+          body = os.environ.get("ISSUE_BODY", "")
+
+          def extract_block(name, default=""):
+              pattern = rf"(?mi)^{name}:\s*\n+(.+)"
+              m = re.search(pattern, body)
+              return m.group(1).strip() if m else default
+
+          goal = extract_block("Goal", "")
+          top_k = extract_block("Top-K", "10")
+
+          print("goal =", goal)
+          print("top_k =", top_k)
+
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as f:
+              f.write(f"goal={goal}\n")
+              f.write(f"top_k={top_k}\n")
+          PY
         env:
           ISSUE_BODY: ${{ github.event.issue.body }}
 
-      - name: Run fake pipeline
+      - name: Fail if goal is empty
+        run: |
+          if [ -z "${{ steps.parse.outputs.goal }}" ]; then
+            echo "No Goal found in issue body. Expected a 'Goal:' block."
+            exit 1
+          fi
+
+      - name: Run pipeline
         run: |
           python scripts/run_pipeline.py \
             --goal "${{ steps.parse.outputs.goal }}" \
@@ -67,7 +89,7 @@ jobs:
             const planUrl = `${base}/plans/${issue}.json`;
             const viewer  = `${base}/plan.html?id=${issue}`;
             const msg = [
-              `✅ Fake plan generated for #${issue} (pipeline test)`,
+              `Plan generated for #${issue}`,
               ``,
               `- JSON: ${planUrl}`,
               `- Viewer: ${viewer}`,

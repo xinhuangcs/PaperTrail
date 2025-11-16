@@ -5,6 +5,8 @@ from typing import Dict, List, Optional, Tuple
 from collections import defaultdict
 from scipy import sparse
 from importlib import import_module
+import argparse
+
 
 try:
     PorterStemmer = import_module("nltk.stem").PorterStemmer
@@ -36,7 +38,7 @@ DOC_TITLES_PATH = TFIDF_DIR / "doc_titles.npy"
 TFIDF_MATRIX_PATH = TFIDF_DIR / "tfidf_matrix.npz"
 LSA_MATRIX_PATH = LSA_DIR / "lsa_reduced.npz"  # expects 'X_reduced'
 LSA_CLUSTER_LABELS_PATH = LSA_DIR / "cluster_labels.npy"
-LSA_CLUSTER_TOPICS_JSON = ROOT_DIR / "src" / "cluster_topics.json"
+LSA_CLUSTER_TOPICS_JSON = ROOT_DIR /"src"/"cluster_topics.json"
 
 # 3) artifacts (read them from similarity_results_v2)
 VOCAB_JSON = OUT_DIR / "vocab.json"
@@ -47,7 +49,7 @@ NCOMP_TXT = OUT_DIR / "n_components.txt"
 TFIDF_ROW_NORMS_NPY = OUT_DIR / "row_l2_norms.npy"
 LSA_PRENORM_NPZ = OUT_DIR / "lsa_reduced_l2norm.npz"
 
-RAW_JSONL_PATH = DATA_DIR / "preprocess" / "arxiv-metadata-oai-snapshot_preprocessed.json"
+RAW_JSONL_PATH = DATA_DIR / "preprocess" / "arxiv-cs-data-with-citations-final-dataset_preprocessed.json"
 CUSTOM_STOPWORDS_PATH = ROOT_DIR / "src" / "custom_stopwords.txt"
 
 
@@ -56,7 +58,7 @@ def load_custom_stopwords() -> set:
     if not CUSTOM_STOPWORDS_PATH.exists():
         print(f"[warn] Custom stopwords file not found: {CUSTOM_STOPWORDS_PATH}")
         return set()
-
+    
     try:
         stopwords_set = {
             line.strip().lower()
@@ -71,7 +73,6 @@ def load_custom_stopwords() -> set:
 
 
 _CUSTOM_STOPWORDS: Optional[set] = None
-
 
 def get_custom_stopwords() -> set:
     """Get custom stopwords (cached)."""
@@ -100,38 +101,12 @@ def preprocess_query(q: str) -> str:
 
     return " ".join(tokens)
 
-
 def load_minimal_artifacts():
     # load small pieces
-    # Check required files exist before loading
-    missing_files = []
-    if not VOCAB_JSON.exists():
-        missing_files.append(str(VOCAB_JSON))
-    if not IDF_NPY.exists():
-        missing_files.append(str(IDF_NPY))
-    if not SVD_COMPONENTS_NPY.exists():
-        missing_files.append(str(SVD_COMPONENTS_NPY))
-    if not NCOMP_TXT.exists():
-        missing_files.append(str(NCOMP_TXT))
-    if not USE_L2_TXT.exists():
-        missing_files.append(str(USE_L2_TXT))
-    if not DOC_IDS_PATH.exists():
-        missing_files.append(str(DOC_IDS_PATH))
-    if not DOC_TITLES_PATH.exists():
-        missing_files.append(str(DOC_TITLES_PATH))
-
-    if missing_files:
-        error_msg = (
-            f"Missing required files for similarity search:\n"
-            f"  {chr(10).join('  - ' + f for f in missing_files)}\n"
-            f"Please ensure these files are generated before running the search pipeline."
-        )
-        raise FileNotFoundError(error_msg)
-
     vocab = json.loads(VOCAB_JSON.read_text(encoding="utf-8"))
     idf = np.load(IDF_NPY)
     use_l2 = USE_L2_TXT.read_text().strip() == "1"
-    comps = np.load(SVD_COMPONENTS_NPY)  # (k, V)
+    comps = np.load(SVD_COMPONENTS_NPY)   # (k, V)
     ncomp = int(NCOMP_TXT.read_text().strip() or comps.shape[0])
     doc_ids = np.load(DOC_IDS_PATH, allow_pickle=True)
     doc_titles = np.load(DOC_TITLES_PATH, allow_pickle=True)
@@ -178,7 +153,6 @@ def load_minimal_artifacts():
         cluster_topics,
     )
 
-
 def query_to_tfidf_vec(query: str, vocab: dict, idf: np.ndarray, verbose: bool = False) -> sparse.csr_matrix:
     # tf (relative) * idf, then l2 norm
     tokens = query.split()
@@ -204,7 +178,6 @@ def query_to_tfidf_vec(query: str, vocab: dict, idf: np.ndarray, verbose: bool =
         vec /= norm
     return vec
 
-
 def cosine_topk_sparse(q: sparse.csr_matrix, D: sparse.csr_matrix, k: int, D_row_norms=None):
     # cosine for sparse: (q @ D.T) then divide by ||D_i||
     sims = (q @ D.T).toarray().ravel()
@@ -218,7 +191,6 @@ def cosine_topk_sparse(q: sparse.csr_matrix, D: sparse.csr_matrix, k: int, D_row
         top = np.argpartition(-sims, k)[:k]
         top = top[np.argsort(-sims[top])]
     return top, sims
-
 
 def l2_normalize_dense(A: np.ndarray) -> np.ndarray:
     # row-wise l2 norm
@@ -309,7 +281,6 @@ def _lsh_candidates(q_lsa: np.ndarray, cache: Dict[str, object]) -> List[int]:
             cand.update(bucket)
     return list(cand)
 
-
 def search_tfidf(query: str, top_k: int) -> List[Tuple[str, str, float, Optional[int], Optional[List[str]]]]:
     # tfidf retrieval
     (
@@ -349,7 +320,6 @@ def search_tfidf(query: str, top_k: int) -> List[Tuple[str, str, float, Optional
             )
     return results
 
-
 def search_lsa(query: str, top_k: int) -> List[Tuple[str, str, float, Optional[int], Optional[List[str]]]]:
     # lsa retrieval
     (
@@ -370,11 +340,11 @@ def search_lsa(query: str, top_k: int) -> List[Tuple[str, str, float, Optional[i
     else:
         Xr = l2_normalize_dense(Xr)
     q_tfidf = query_to_tfidf_vec(preprocess_query(query), vocab, idf, verbose=False).toarray()
-
+    
     # Check and adjust dimensions to match comps
     vocab_size = q_tfidf.shape[1]
     comps_vocab_size = comps.shape[1]
-
+    
     if vocab_size != comps_vocab_size:
         # Pad or truncate q_tfidf to match comps dimensions
         if vocab_size < comps_vocab_size:
@@ -385,7 +355,7 @@ def search_lsa(query: str, top_k: int) -> List[Tuple[str, str, float, Optional[i
             # Truncate if vocab is larger
             q_tfidf = q_tfidf[:, :comps_vocab_size]
         print(f"[warn] vocab size mismatch: {vocab_size} vs {comps_vocab_size}, adjusted")
-
+    
     q_lsa = q_tfidf @ comps.T
     q_lsa = l2_normalize_dense(q_lsa)
     sims = (q_lsa @ Xr.T).ravel()
@@ -418,9 +388,9 @@ def search_lsa(query: str, top_k: int) -> List[Tuple[str, str, float, Optional[i
 
 
 def search_lsa_lsh(
-        query: str,
-        top_k: int,
-        max_candidates: Optional[int] = None,
+    query: str,
+    top_k: int,
+    max_candidates: Optional[int] = None,
 ) -> List[Tuple[str, str, float, Optional[int], Optional[List[str]]]]:
     (
         vocab,
@@ -445,17 +415,17 @@ def search_lsa_lsh(
         print(f"[info] All query terms were filtered out (likely stopwords)")
         print(f"[info] Try using more specific technical terms")
         return []
-
+    
     # Show preprocessing result and check vocabulary match
     preprocessed_tokens = preprocessed.split()
     missing_tokens = [t for t in preprocessed_tokens if t not in vocab]
     found_tokens = [t for t in preprocessed_tokens if t in vocab]
-
+    
     if found_tokens:
         print(f"[info] Query tokens found in vocabulary: {found_tokens}")
     if missing_tokens:
         print(f"[info] Query tokens not in vocabulary: {missing_tokens}")
-
+    
     q_tfidf = query_to_tfidf_vec(preprocessed, vocab, idf, verbose=False).toarray()
     # Check if vector has any meaningful non-zero elements (using L2 norm check instead of sum)
     q_tfidf_norm = np.linalg.norm(q_tfidf)
@@ -473,11 +443,11 @@ def search_lsa_lsh(
         print(f"       - Use technical terms that appear in academic papers")
         print(f"       - Try synonyms or related terms")
         return []
-
+    
     # Check and adjust dimensions to match comps
     vocab_size = q_tfidf.shape[1]
     comps_vocab_size = comps.shape[1]
-
+    
     if vocab_size != comps_vocab_size:
         # Pad or truncate q_tfidf to match comps dimensions
         if vocab_size < comps_vocab_size:
@@ -488,12 +458,12 @@ def search_lsa_lsh(
             # Truncate if vocab is larger
             q_tfidf = q_tfidf[:, :comps_vocab_size]
         print(f"[warn] vocab size mismatch: {vocab_size} vs {comps_vocab_size}, adjusted")
-
+    
     q_lsa = q_tfidf @ comps.T
     q_lsa_norm_before = np.linalg.norm(q_lsa)
     q_lsa = l2_normalize_dense(q_lsa)
     q_lsa_norm_after = np.linalg.norm(q_lsa)
-
+    
     # Check if LSA transformation resulted in zero vector
     if q_lsa_norm_before < 1e-10:
         print(f"[warn] Query LSA vector is near zero (norm={q_lsa_norm_before:.2e})")
@@ -515,7 +485,7 @@ def search_lsa_lsh(
     if sims.size == 0:
         print(f"[error] No candidates to compute similarity with")
         return []
-
+    
     # Find the maximum similarity to check if we have meaningful matches
     max_sim = np.max(sims) if sims.size > 0 else 0.0
     if max_sim <= 0:
@@ -556,12 +526,11 @@ def search_lsa_lsh(
         )
     return results
 
-
-def save_results_jsonl(query: str, method: str,
-                       results: List[Tuple[str, str, float, Optional[int], Optional[List[str]]]]) -> Path:
+def save_results_jsonl(query: str, method: str, results: List[Tuple[str, str, float, Optional[int], Optional[List[str]]]]) -> Path:
     need_ids = {pid for (pid, _title, _s, _cluster, _topics) in results}
     raw_meta = load_raw_meta(need_ids)
-
+    
+ 
     vocab = json.loads(VOCAB_JSON.read_text(encoding="utf-8"))
     idf = np.load(IDF_NPY)
 
@@ -583,7 +552,7 @@ def save_results_jsonl(query: str, method: str,
         else:
             for rank, (pid, title, sc, cluster_id, cluster_topics_list) in enumerate(results, 1):
                 base = raw_meta.get(pid, {})
-
+                
                 # calculate the most matching topic and remove it from the list
                 filtered_topics = None
                 matched_topic = None
@@ -591,15 +560,15 @@ def save_results_jsonl(query: str, method: str,
                     paper_title = base.get("title", title)
                     paper_abstract = base.get("abstract", "")
                     paper_text = f"{paper_title} {paper_abstract}"
-
+                    
                     # use TF-IDF similarity to find the most matching topic
                     matched_topic = find_best_matching_topic(paper_text, cluster_topics_list, vocab, idf)
-
+                    
                     if matched_topic and matched_topic in cluster_topics_list:
                         filtered_topics = [t for t in cluster_topics_list if t != matched_topic]
                     else:
                         filtered_topics = cluster_topics_list.copy()
-
+                
                 base.update({
                     "sim_score": float(sc),
                     "score": float(sc),
@@ -609,12 +578,13 @@ def save_results_jsonl(query: str, method: str,
                     "method": method,
                     "lsa_cluster_id": int(cluster_id) if cluster_id is not None else None,
                     "topics": filtered_topics,
-                    "matched_topic": matched_topic,
+                    "matched_topic": matched_topic, 
                 })
                 f.write(json.dumps(base, ensure_ascii=False) + "\n")
 
     print(f"saved to: {out_path}")
     return out_path
+
 
 
 def print_results(query: str, method: str, results: List[Tuple[str, str, float, Optional[int], Optional[List[str]]]]):
@@ -669,67 +639,92 @@ def load_raw_meta(need_ids: set) -> dict:
 
 
 def find_best_matching_topic(
-        paper_text: str,
-        topics: List[str],
-        vocab: Dict[str, int],
-        idf: np.ndarray
+    paper_text: str, 
+    topics: List[str], 
+    vocab: Dict[str, int],
+    idf: np.ndarray
 ) -> Optional[str]:
+
     if not topics or not paper_text:
         return None
-
+    
     paper_preprocessed = preprocess_query(paper_text)
     paper_vec = query_to_tfidf_vec(paper_preprocessed, vocab, idf, verbose=False)
-
+    
     if paper_vec.sum() == 0:
         return None
-
+    
     topic_scores = []
-
+    
     for topic in topics:
         topic_preprocessed = preprocess_query(topic)
         topic_vec = query_to_tfidf_vec(topic_preprocessed, vocab, idf, verbose=False)
-
+        
         if topic_vec.sum() == 0:
             continue
-
+        
         similarity = (paper_vec @ topic_vec.T).toarray()[0, 0]
         topic_scores.append((similarity, topic))
-
+    
     if not topic_scores:
         return None
-
+    
     topic_scores.sort(reverse=True, key=lambda x: x[0])
     best_topic = topic_scores[0][1]
     if topic_scores[0][0] < 0.01:
         return None
-
+    
     return best_topic
 
 
 def main():
-    # interactive cli
-    print("similarity search")
-    method = input("model? (tfidf/lsa/lsa_lsh): ").strip().lower()
-    if method not in {"tfidf", "lsa", "lsa_lsh"}:
-        print("oops, pick tfidf, lsa, or lsa_lsh")
-        return
-    query = input("type your query: ").strip()
-    top_k_s = input("top-k? (default 10): ").strip()
-    top_k = int(top_k_s) if top_k_s.isdigit() and int(top_k_s) > 0 else 10
+    print("=== similarity search (non-interactive mode) ===")
 
+    # ----------------------------
+    # 1) Read CLI arguments
+    # ----------------------------
+    args = parse_args()
+    query = args.query.strip()
+    top_k = args.top_k
+    method = args.method
+
+    print(f"[info] query  = {query}")
+    print(f"[info] top_k = {top_k}")
+    print(f"[info] method = {method}")
+
+    # ----------------------------
+    # 2) Dispatch method
+    # ----------------------------
     t0 = time.time()
+
     if method == "tfidf":
         results = search_tfidf(query, top_k)
     elif method == "lsa":
         results = search_lsa(query, top_k)
-    else:
+    else:  # lsa_lsh
         results = search_lsa_lsh(query, top_k)
+
     dt = time.time() - t0
 
+    # ----------------------------
+    # 3) Print + Save JSONL output
+    # ----------------------------
     print_results(query, method, results)
     out_file = save_results_jsonl(query, method, results)
-    print(f"saved to: {out_file}")
-    print(f"time: {dt:.2f}s")
+
+    print(f"[ok] Saved results to: {out_file}")
+    print(f"[ok] Time spent: {dt:.2f}s")
+
+
+
+def parse_args():
+    ap = argparse.ArgumentParser(description="Similarity search (tfidf/lsa/lsa_lsh).")
+    ap.add_argument("--query", required=True, help="Query string for search")
+    ap.add_argument("--top_k", type=int, default=10, help="How many papers to retrieve")
+    ap.add_argument("--method", type=str, default="lsa_lsh",
+                    choices=["tfidf", "lsa", "lsa_lsh"],
+                    help="Search method (default: lsa_lsh)")
+    return ap.parse_args()
 
 
 if __name__ == "__main__":

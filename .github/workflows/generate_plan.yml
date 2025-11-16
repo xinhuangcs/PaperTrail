@@ -24,6 +24,12 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Restore data cache
+        uses: actions/cache@v4
+        with:
+          path: data
+          key: papertrail-data-v1
+
       - name: Install deps
         run: |
           python -m pip install --upgrade pip
@@ -32,10 +38,15 @@ jobs:
 
       - name: Download data bundle from Release
         run: |
-          echo "Downloading dataset from GitHub Release..."
+          echo "Checking dataset cache / downloading from GitHub Release..."
+
+          if [ -d "data" ] && [ -f "data/MERGE_OK" ]; then
+            echo "Cache hit: data/ exists and MERGE_OK found. Skip download."
+            ls -lh data
+            exit 0
+          fi
 
           TAG="data-v1"
-
           REPO_FULL="xinhuangcs/PaperTrail"
           BASE_URL="https://github.com/${REPO_FULL}/releases/download/$TAG"
           echo "BASE_URL = $BASE_URL"
@@ -77,10 +88,10 @@ jobs:
 
           mv data ../data
           cd ..
+          touch data/MERGE_OK
 
           echo "Extracted dataset content:"
           ls data
-      
 
       - name: Extract goal and top_k from issue body
         id: parse
@@ -116,6 +127,8 @@ jobs:
           fi
 
       - name: Run pipeline
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
           python scripts/run_pipeline.py \
             --goal "${{ steps.parse.outputs.goal }}" \

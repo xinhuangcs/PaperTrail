@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>papertrail – CS Paper Learning Plans</title>
+  <title>testpapertrail – CS Paper Learning Plans</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <style>
@@ -519,7 +519,7 @@
 
     <section class="hero">
       <div class="hero-inner">
-        <h1 class="hero-title">papertrail</h1>
+        <h1 class="hero-title">testpapertrail</h1>
 
         <div class="authors">
           <span class="label">Authors:</span>
@@ -550,7 +550,7 @@
               </svg>
             </div>
             <span>Open-source on</span>
-            <a class="repo-link" href="https://github.com/xinhuangcs/papertrail" target="_blank">
+            <a class="repo-link" href="https://github.com/xinhuangcs/testpapertrail" target="_blank">
               Github
             </a>
           </div>
@@ -559,14 +559,14 @@
         <div class="hero-intro">
           <div class="hero-intro-body">
             <p class="hero-intro-lead">
-              papertrail is an intelligent literature exploration tool designed for academic researchers.
+              testpapertrail is an intelligent literature exploration tool designed for academic researchers.
             </p>
             <p class="hero-intro-p">
               <strong>Based on the topics you care about, it quickly identifies the most relevant papers from over 700,000
               recent computer science publications and maps out a clear, step-by-step reading path. </strong>
             </p>
             <p class="hero-intro-p hero-intro-p-last">
-              By combining multiple relevance signals, papertrail generates personalized paper recommendations to help
+              By combining multiple relevance signals, testpapertrail generates personalized paper recommendations to help
               you focus on what truly matters. Powered by state-of-the-art large language models, it also provides clear
               reading guidance for each paper, making your literature review faster, more accurate, and more directed.
             </p>
@@ -627,14 +627,14 @@
     <section class="section" id="project">
       <div class="section-header">
         <p class="section-kicker">Learn more about our project</p>
-        <h2 class="section-title">How papertrail works under the hood</h2>
+        <h2 class="section-title">How testpapertrail works under the hood</h2>
       </div>
 
       <div class="section-panel">
         <h3 class="project-main-title">Technical overview</h3>
         <div class="project-main-body">
           <p>
-            papertrail is a research prototype that explores how to turn a large arXiv CS corpus into guided learning
+            testpapertrail is a research prototype that explores how to turn a large arXiv CS corpus into guided learning
             experiences. Instead of returning a long list of search results, the system tries to construct a small
             reading path that can be used as a starting syllabus.
           </p>
@@ -644,7 +644,7 @@
             can evolve in the background.
           </p>
           <p>
-            Behind this setup, papertrail runs a fairly standard data-science pipeline: we clean and preprocess more
+            Behind this setup, testpapertrail runs a fairly standard data-science pipeline: we clean and preprocess more
             than 700k arXiv papers, build TF-IDF features, and use LSA to get a compact semantic representation of
             the corpus. We also run topic discovery with K-Means and HDBSCAN so that related papers are grouped together
             in a meaningful way. For retrieval, we combine several methods—TF-IDF, LSA, LSH, and SBERT—and mix in simple
@@ -671,7 +671,7 @@
             <div class="project-card-key">Data Processing</div>
             <p class="project-card-title">large-scale corpus /preprocessing /TF-IDF / sparse matrix / LSA</p>
             <p>
-              papertrail is built on a large, real-world scientific corpus—over 700,000 computer science papers from the
+              testpapertrail is built on a large, real-world scientific corpus—over 700,000 computer science papers from the
               arXiv dataset. From each paper, we extract key fields such as the title, abstract, authors, and
               categories, and then run a full preprocessing pipeline that includes lowercasing, symbol filtering,
               stopword removal, and Porter stemming. After preprocessing, the text is converted into TF-IDF features
@@ -692,7 +692,7 @@
             <div class="project-card-key">Classification and Search</div>
             <p class="project-card-title">semantic search /TF-IDF / LSA retrieval /LSH acceleration /topic filtering (40 research themes)</p>
             <p>
-              To support different kinds of user queries, papertrail implements several complementary retrieval methods. Traditional TF-IDF search works well for keyword-driven queries, using cosine similarity and precomputed norms to rank results quickly at scale. For more meaning-focused searches, LSA projects the query into the 1,000-dimensional semantic space before computing similarity, helping match papers that phrase the same idea differently. To keep latency low on a corpus this large, we also incorporate LSH, hashing papers into multiple buckets using random hyperplanes and running exact ranking only within narrowed candidate sets.
+              To support different kinds of user queries, testpapertrail implements several complementary retrieval methods. Traditional TF-IDF search works well for keyword-driven queries, using cosine similarity and precomputed norms to rank results quickly at scale. For more meaning-focused searches, LSA projects the query into the 1,000-dimensional semantic space before computing similarity, helping match papers that phrase the same idea differently. To keep latency low on a corpus this large, we also incorporate LSH, hashing papers into multiple buckets using random hyperplanes and running exact ranking only within narrowed candidate sets.
 All user queries go through the same cleaning pipeline as the training data to ensure consistency. In addition, clustering information is integrated directly into search: each paper’s similarity to the 40 discovered research themes is computed with TF-IDF, allowing us to identify the most relevant topic for the query and filter out unrelated ones. This keeps the final result set focused and more useful for learning.
             </p>
           </div>
@@ -720,14 +720,14 @@ The ranking model is trained using pairwise logistic loss, learning separate wei
     </section>
 
     <footer>
-      papertrail · Prototype interface ·
-      <a href="https://github.com/xinhuangcs/papertrail" target="_blank">View source on GitHub</a>
+      testpapertrail · Prototype interface ·
+      <a href="https://github.com/xinhuangcs/testpapertrail" target="_blank">View source on GitHub</a>
     </footer>
   </div>
 
   <script>
     const OWNER = "xinhuangcs";
-    const REPO = "papertrail";
+    const REPO = "testpapertrail";
     const TEMPLATE = "plan_request.yml";
 
       function openIssue() {

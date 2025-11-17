@@ -234,6 +234,46 @@
       text-align: left;
     }
 
+    /*tan cahung*/
+    .redirect-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.35);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 50;
+    }
+
+    .redirect-modal {
+      background: #ffffff;
+      border-radius: 18px;
+      padding: 22px 26px;
+      max-width: 380px;
+      width: calc(100% - 40px);
+      box-shadow: 0 22px 50px rgba(15, 23, 42, 0.30);
+      text-align: center;
+    }
+
+    .redirect-modal h2 {
+      margin: 0 0 8px;
+      font-size: 20px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .redirect-modal p {
+      margin: 4px 0;
+      font-size: 14px;
+      color: #4b5563;
+    }
+
+    .redirect-countdown span {
+      font-weight: 600;
+      color: #2563eb;
+    }
+
+
     @media (min-width: 880px) {
       .request-card {
         padding: 30px 32px 26px;
@@ -515,6 +555,96 @@
   </style>
 </head>
 <body>
+
+
+  <div class="redirect-overlay" id="redirect-overlay">
+    <div class="redirect-modal" style="
+        background:#ffffff;
+        border-radius:16px;
+        padding:26px 28px;
+        max-width:550px;
+        width:90%;
+        box-shadow:0 18px 40px rgba(15,23,42,0.18);
+        text-align:left;
+        font-size:14px;
+        color:#1f2937;
+        line-height:1.55;
+    ">
+      <h2 style="
+          margin:0 0 10px;
+          font-size:20px;
+          font-weight:700;
+          color:#0f172a;
+          text-align:center;
+      ">
+        Redirecting in <span id="redirect-seconds">3</span> seconds
+      </h2>
+
+
+
+
+      <p style="
+          margin-top:14px;
+          padding:10px 12px;
+          background:#F9FAFB;
+          border-left:3px solid #3B82F6;
+          border-radius:6px;
+          font-size:14px;
+          color:#374151;
+          line-height:1.55;
+      ">
+        <strong style="color:#1E3A8A;">1)</strong>
+        To begin generating your learning plan, this page will automatically redirect you to the GitHub Issue page.
+      </p>
+
+      <p style="
+          margin-top:12px;
+          padding:10px 12px;
+          background:#F9FAFB;
+          border-left:3px solid #10B981;
+          border-radius:6px;
+          font-size:14px;
+          color:#374151;
+          line-height:1.55;
+      ">
+        <strong style="color:#065F46;">2)</strong>
+        After the redirect, please click the
+        <span style="
+            background:#22c55e;
+            color:white;
+            padding:2px 6px;
+            border-radius:6px;
+            font-weight:600;
+            font-size:13px;
+        ">Create</span>
+        button at the bottom-right. Then, the system will start working.
+      </p>
+
+      <p style="
+          margin-top:12px;
+          padding:10px 12px;
+          background:#F9FAFB;
+          border-left:3px solid #6366F1;
+          border-radius:6px;
+          font-size:14px;
+          color:#374151;
+          line-height:1.55;
+      ">
+        <strong style="color:#4338CA;">3)</strong>
+        When your learning plan is ready, you will receive an email and can open the same Issue to view the final result.
+      </p>
+
+      <p style="margin-top:14px; font-weight:700; text-align:center;">
+        Thank you for your support!
+      </p>
+
+
+
+    </div>
+  </div>
+
+
+
   <div class="page">
 
     <section class="hero">
@@ -614,10 +744,43 @@
             </div>
           </div>
 
+
+
+          <!-- spacing line -->
+          <div style="height:14px;"></div>
+          <!-- small grey info bar -->
+          <div style="
+            display:flex;
+            align-items:center;
+            gap:6px;
+            background:#F8FAFC;
+            border:1px solid #E5E7EB;
+            padding:3px 8px;
+            border-radius:8px;
+            margin-top:6px;
+            color:#6B7280;
+            font-size:8px;
+            line-height:1.2;
+          ">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 viewBox="0 0 20 20" fill="#9CA3AF"
+                 style="width:14px; height:14px; flex-shrink:0;">
+              <path fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm-.75-9.5a.75.75 0 011.5 0v5a.75.75 0 01-1.5 0v-5zm.75-4a1 1 0 110 2 1 1 0 010-2z"
+                    clip-rule="evenodd" />
+            </svg>
+            <div>
+              When you ,<strong>click the button below</strong>, your request and the generated result will be saved as a GitHub issue to help us improve the system. <br>Continuing means you agree to this process.
+            </div>
+          </div>
+
           <button type="button" onclick="openIssue()" style="display:block;margin:20px auto 0;">
             <span>Generate Learning Plan</span>
             <span class="icon">↗</span>
           </button>
+
+
+
 
 
         </div>
@@ -730,31 +893,63 @@ The ranking model is trained using pairwise logistic loss, learning separate wei
     const REPO = "papertrail";
     const TEMPLATE = "plan_request.yml";
 
+
+      let redirectTimer = null;
+      const REDIRECT_SECONDS = 15;
+
       function openIssue() {
-      const goal = (document.getElementById('goal').value || '').trim();
-      const topk = (document.getElementById('topk').value || '').trim();
+        const goal = (document.getElementById('goal').value || '').trim();
+        const topk = (document.getElementById('topk').value || '').trim();
 
-      if (!goal) {
-      alert("Please enter a topic.");
-      return;
-    }
+        if (!goal) {
+          alert("Please enter a topic.");
+          return;
+        }
 
-      const title = `Plan request: ${goal}`;
+        const title = `Plan request: ${goal}`;
 
-      // 这里直接用 body 预填 Issue 内容
-      const body =
-      `Goal:\n` +
-      `${goal}\n\n` +
-      `Top-K:\n` +
-      `${topk}\n`;
+        const body =
+          `Goal:\n` +
+          `${goal}\n\n` +
+          `Top-K:\n` +
+          `${topk}\n`;
 
-      const url =
-      `https://github.com/${OWNER}/${REPO}/issues/new` +
-      `?title=${encodeURIComponent(title)}` +
-      `&body=${encodeURIComponent(body)}`;
+        const url =
+          `https://github.com/${OWNER}/${REPO}/issues/new` +
+          `?title=${encodeURIComponent(title)}` +
+          `&body=${encodeURIComponent(body)}`;
 
-      window.open(url, "_blank");
-    }
+        const overlay = document.getElementById("redirect-overlay");
+        const secondsSpan = document.getElementById("redirect-seconds");
+
+        if (!overlay || !secondsSpan) {
+          window.open(url, "_blank");
+          return;
+        }
+
+        overlay.style.display = "flex";
+
+        let remaining = REDIRECT_SECONDS;
+        secondsSpan.textContent = remaining;
+
+        if (redirectTimer) {
+          clearInterval(redirectTimer);
+        }
+
+        redirectTimer = setInterval(() => {
+          remaining -= 1;
+          if (remaining <= 0) {
+            clearInterval(redirectTimer);
+            window.open(url, "_blank");
+            overlay.style.display = "none";
+          } else {
+            secondsSpan.textContent = remaining;
+          }
+        }, 1000);
+      }
+
+
+
   </script>
 
 

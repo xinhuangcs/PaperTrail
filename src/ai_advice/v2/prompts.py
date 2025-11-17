@@ -45,15 +45,19 @@ Hard requirements (read carefully):
   goal, study_level, source_papers, metadata, plan_overview, reading_order, actions, metrics, timeline_weeks, risks.
 - Use ONLY the provided papers. Do NOT invent or cite any paper that is not in the provided list.
 - All values in reading_order[].paper_id MUST be chosen from source_papers,
-  and source_papers MUST be a subset of the provided paper IDs.
+  and source_papers MUST include ALL provided paper IDs (no missing IDs, no invented IDs).
 - Be concise and execution-oriented (clear steps, measurable outcomes).
 - If information is insufficient, use fewer items and add a risk item explaining the limitation.
 - Do NOT add any extra fields not defined by the schema.
 
+Language and style:
+- When referring to the learner, always address them directly as “You”.
+- Do NOT describe the learner in the third person (e.g., “a junior computer science student”).
+
 Schema guidance:
 - goal: copy the user goal faithfully in meaning.
 - study_level: choose from ["beginner","intermediate","advanced"]; if unsure, prefer "intermediate".
-- source_papers: list only paper_id strings from the provided list that you actually use.
+- source_papers: MUST contain all paper_id strings from the provided list (do not drop any, do not invent IDs).
 - metadata:
   - prompt_version: provided by tooling.
   - model: provided by tooling.
@@ -106,7 +110,7 @@ def build_user_prompt(
 
     papers: List[Dict[str, Any]],
     *,
-    audience: str = "junior computer science student",
+    audience: str = "you",
     study_level_hint: Optional[str] = None,  # "beginner" | "intermediate" | "advanced" | None
     model_id: str = "gpt-5",
     prompt_version: str = PROMPT_VERSION,
@@ -152,9 +156,12 @@ def build_user_prompt(
 
     # Explicit schema fields to return (aligned with plan_schema.json)
     # We also pass runtime hints so the model can fill metadata correctly.
-    lines.append("Return a single JSON object that strictly conforms to the provided JSON schema. "
-                 "Choose source_papers ONLY from AllowedPaperIDsJSON; "
-                 "all reading_order[].paper_id MUST be chosen from source_papers.")
+    lines.append(
+        "Return a single JSON object that strictly conforms to the provided JSON schema. "
+        "Set source_papers to contain ALL IDs listed in AllowedPaperIDsJSON (do not drop any, do not invent IDs). "
+        "Design reading_order so that EVERY paper_id from source_papers appears at least once, "
+        "and the sequence forms a coherent learning path for the user."
+    )
 
     return "\n".join(lines)
 
@@ -162,7 +169,7 @@ def build_messages(
     goal: str,
     papers: List[Dict[str, Any]],
     *,
-    audience: str = "junior computer science student",
+    audience: str = "you",
     study_level_hint: Optional[str] = None,
     model_id: str = "gpt-4.1",
     prompt_version: str = PROMPT_VERSION,

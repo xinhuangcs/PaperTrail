@@ -344,10 +344,18 @@ def main():
     try:
         plan = json.loads(text)
     except json.JSONDecodeError as e:
-        # if it is not json, write debug snippet and fail
         debug_path = CONFIG["ARTIFACT_DIR"] / f"bad_output_{trace_id}.txt"
         debug_path.write_text(text, encoding="utf-8")
         raise ValueError(f"model did not return valid JSON (see {debug_path})") from e
+
+    all_ids: List[str] = [p.get("id") for p in papers if p.get("id")]
+    plan["source_papers"] = all_ids
+
+    meta = plan.get("metadata") or {}
+    meta["prompt_version"] = PROMPT_VERSION
+    meta["model"] = CONFIG["MODEL"]
+    meta["created_at"] = datetime.now(timezone.utc).isoformat()
+    plan["metadata"] = meta
 
     # 4) validate schema + runtime constraints
     validate_against_schema(schema, plan)

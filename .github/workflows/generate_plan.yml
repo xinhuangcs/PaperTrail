@@ -57,7 +57,7 @@ jobs:
           mkdir -p data_bundle
           cd data_bundle
 
-          for part in papertrail_data.tar.gz.aa papertrail_data.tar.gz.ab papertrail_data.tar.gz.ac papertrail_data.tar.gz.ad; do
+          for part in papertrail_data.tar.gz.aa papertrail_data.tar.gz.ab papertrail_data.tar.gz.ac; do
             URL="$BASE_URL/$part"
             echo "Downloading $URL ..."
 

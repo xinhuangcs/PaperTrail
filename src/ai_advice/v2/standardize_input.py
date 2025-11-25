@@ -2,16 +2,23 @@ from pathlib import Path
 import json, re
 from typing import List, Dict, Optional
 from datetime import datetime, UTC
+import argparse
 
 #Config
 ROOT_DIR = Path(__file__).resolve().parents[3]
+
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--mode", choices=["application", "review", "trending", "theory"], required=True, help="Select Recommended Mode")
+args = parser.parse_args()
+mode = args.mode
 
 
 timestamp = datetime.now(UTC).strftime("%Y-%m-%d_%H%M")
 CONFIG = {
     #pick the newest recommend_*.json
     "INPUT_DIR": ROOT_DIR / "data" / "recommend",
-    "INPUT_PATTERN": "recommend_*.json",
+    "INPUT_PATTERN": f"recommend_{mode}.json",
     "OUTPUT_DIR": ROOT_DIR / "data" / "ai_advice",
     "MAX_ABSTRACT_CHARS": 3000,
     "MAX_QUERY_CHARS": 200,

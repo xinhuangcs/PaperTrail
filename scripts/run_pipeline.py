@@ -94,6 +94,7 @@ def main() -> None:
     print(f"Goal:   {args.goal}")
     print(f"Top-K:  {args.top_k}")
     print(f"Method: {args.method}")
+    print(f"Mode:   {args.mode}")
     print(f"Issue:  {issue_id}")
     print("=" * 70)
 

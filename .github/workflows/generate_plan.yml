@@ -111,7 +111,7 @@ jobs:
 
           goal = extract_block("Goal", "")
           top_k = extract_block("Top-K", "10")
-          mode  = extract_block("Mode", "trending") 
+          mode  = extract_block("Mode", "trending")
 
           print("goal =", goal)
           print("top_k =", top_k)
@@ -120,6 +120,7 @@ jobs:
           with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as f:
               f.write(f"goal={goal}\n")
               f.write(f"top_k={top_k}\n")
+              f.write(f"mode={mode}\n")
           PY
         env:
           ISSUE_BODY: ${{ github.event.issue.body }}

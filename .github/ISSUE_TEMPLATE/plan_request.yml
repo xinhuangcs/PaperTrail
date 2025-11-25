@@ -21,9 +21,22 @@ body:
         - "10"
         - "15"
         - "20"
-      default: 1
+      default: 2
     validations:
       required: true
+  - type: dropdown
+      id: mode
+      attributes:
+        label: What kind of papers do you prefer?
+        description: "This will decide whether we use trending, review, application, or theory papers as input."
+        options:
+          - "trending"
+          - "review"
+          - "application"
+          - "theory"
+        default: 0
+      validations:
+        required: true
   - type: textarea
     id: notes
     attributes:

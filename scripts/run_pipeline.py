@@ -74,6 +74,13 @@ def main() -> None:
         required=True,
         help="GitHub issue number; used as the plan id and filename",
     )
+    parser.add_argument(
+        "--mode",
+        type=str,
+        default="trending",
+        choices=["trending", "review", "application", "theory"],
+        help="Which paper view to use when standardizing input"
+    )
     args = parser.parse_args()
 
     issue_id = str(args.issue).strip()
@@ -113,7 +120,12 @@ def main() -> None:
 
     # 3) standardize_input.py
     std_script = ROOT / "src" / "ai_advice" / "v2" / "standardize_input.py"
-    std_cmd = [python_exe, str(std_script)]
+    std_cmd = [
+        python_exe,
+        str(std_script),
+        "--mode",
+        args.mode,
+    ]
     run_step("standardize_input", std_cmd)
 
     # 4) generate_plan_v3.py

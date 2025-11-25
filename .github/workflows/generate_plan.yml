@@ -28,7 +28,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: data
-          key: papertrail-data-v1
+          key: papertrail-data-action-v2
 
       - name: Install deps
         run: |
@@ -46,7 +46,7 @@ jobs:
             exit 0
           fi
 
-          TAG="data-v1"
+          TAG="data-action-v2"
           REPO_FULL="xinhuangcs/PaperTrail"
           BASE_URL="https://github.com/${REPO_FULL}/releases/download/$TAG"
           echo "BASE_URL = $BASE_URL"
@@ -54,7 +54,7 @@ jobs:
           mkdir -p data_bundle
           cd data_bundle
 
-          for part in papertrail_data.tar.gz.aa papertrail_data.tar.gz.ab papertrail_data.tar.gz.ac; do
+          for part in papertrail_data.tar.gz.aa papertrail_data.tar.gz.ab papertrail_data.tar.gz.ac papertrail_data.tar.gz.ad; do
             URL="$BASE_URL/$part"
             echo "Downloading $URL ..."
 
@@ -108,9 +108,11 @@ jobs:
 
           goal = extract_block("Goal", "")
           top_k = extract_block("Top-K", "10")
+          mode  = extract_block("Mode", "trending") 
 
           print("goal =", goal)
           print("top_k =", top_k)
+          print("mode  =", mode)
 
           with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as f:
               f.write(f"goal={goal}\n")
@@ -133,6 +135,7 @@ jobs:
           python scripts/run_pipeline.py \
             --goal "${{ steps.parse.outputs.goal }}" \
             --top_k "${{ steps.parse.outputs.top_k }}" \
+            --mode "${{ steps.parse.outputs.mode }}" \
             --issue "${{ github.event.issue.number }}"
 
       - name: Commit artifacts to website/plans/

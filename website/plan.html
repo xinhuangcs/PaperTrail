@@ -541,7 +541,15 @@
   <script>
     const params = new URLSearchParams(location.search);
     const id = params.get('id');
-    const url = id ? `plans/${id}.json` : null;
+
+    const owner  = "xinhuangcs";
+    const repo   = "PaperTrail";
+    const branch = "main";
+
+    // JSON 实际位置：main/website/plans/<id>.json
+    const url = id
+      ? `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/website/plans/${id}.json`
+      : null;
 
     const el = (id) => document.getElementById(id);
 

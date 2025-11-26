@@ -1,5 +1,11 @@
 [
   {
+    "id": 97,
+    "goal": "paper review",
+    "top_k": 15,
+    "ts_utc": "2025-11-26T19:35:39.643786+00:00"
+  },
+  {
     "id": 93,
     "goal": "paper trail",
     "top_k": 3,

@@ -1,0 +1,272 @@
+{
+  "goal": "paper review",
+  "study_level": "intermediate",
+  "source_papers": [
+    "2111.06099",
+    "2406.10059",
+    "2412.15259",
+    "1909.13485",
+    "1407.5648",
+    "1305.6995",
+    "1110.5863",
+    "1007.3572",
+    "1612.00241",
+    "0912.3953",
+    "1204.5963",
+    "2005.11134",
+    "2212.06034",
+    "2307.00692",
+    "1807.01408"
+  ],
+  "metadata": {
+    "prompt_version": "PT-20251102-1",
+    "model": "gpt-4.1-mini",
+    "created_at": "2025-11-26T19:35:39.530533+00:00"
+  },
+  "plan_overview": "This learning plan guides you through a comprehensive review of peer review systems, code review practices, and review datasets across computer science and related fields. Starting with foundational concepts and biases in peer review, it progresses through experimental studies, datasets, and domain-specific reviews to build a holistic understanding. The plan emphasizes critical reading, comparison of methodologies, and practical analysis of review processes and datasets.",
+  "reading_order": [
+    {
+      "paper_id": "1807.01408",
+      "why_first": "Introduces the fundamental issues and biases in peer review, setting the context for understanding the need for improved review systems.",
+      "key_questions": [
+        "What biases affect single-blind peer review?",
+        "How does double-blind review mitigate these biases?",
+        "What are the limitations of double-blind review?"
+      ],
+      "paper_title": "Case for the double-blind peer review"
+    },
+    {
+      "paper_id": "2406.10059",
+      "why_first": "Builds on the double-blind review concept specifically in robotics, providing recent experimental insights and recommendations.",
+      "key_questions": [
+        "What are the benefits and costs of double-anonymous review in robotics?",
+        "How do these findings compare to general peer review research?",
+        "What recommendations are made for robotics publication?"
+      ],
+      "paper_title": "Double-Anonymous Review for Robotics"
+    },
+    {
+      "paper_id": "2111.06099",
+      "why_first": "Presents a novel peer review system using Monte Carlo simulations, offering an experimental approach to improving review effectiveness.",
+      "key_questions": [
+        "How does the proposed peer review system work?",
+        "What advantages does the parallel model provide?",
+        "What are the key findings from the simulation experiments?"
+      ],
+      "paper_title": "On Novel Peer Review System for Academic Journals: Experimental Study\n  Based on Social Computing"
+    },
+    {
+      "paper_id": "1204.5963",
+      "why_first": "Introduces a Bayesian model for reliable peer review, focusing on truthful disclosure and consensus building.",
+      "key_questions": [
+        "How does the Bayesian model represent reviewer uncertainty?",
+        "What scoring functions encourage truthful reviews?",
+        "How can consensus be reached using these scores?"
+      ],
+      "paper_title": "On a Reliable Peer-Review Process"
+    },
+    {
+      "paper_id": "1612.00241",
+      "why_first": "Discusses a novel peer review process from biology that could inform physics and other fields, illustrating cross-disciplinary insights.",
+      "key_questions": [
+        "What is unique about the eLife review process?",
+        "How could this process benefit physics journals?",
+        "What lessons can be drawn for peer review improvements?"
+      ],
+      "paper_title": "A biology journal that can teach physicists a lesson in peer review"
+    },
+    {
+      "paper_id": "1407.5648",
+      "why_first": "Focuses on code review practices among scientists, highlighting practical challenges and effective strategies.",
+      "key_questions": [
+        "What are the main findings about scientists' attitudes toward code review?",
+        "Why is just-in-time review more effective?",
+        "How can code review be better demonstrated to scientists?"
+      ],
+      "paper_title": "Code Review For and By Scientists"
+    },
+    {
+      "paper_id": "2307.00692",
+      "why_first": "Explores advances in identifying useful code review comments, linking peer review to software development quality.",
+      "key_questions": [
+        "How is usefulness of code review comments defined and measured?",
+        "What machine learning methods are used to predict comment usefulness?",
+        "What challenges remain in recognizing useful comments?"
+      ],
+      "paper_title": "Exploring the Advances in Identifying Useful Code Review Comments"
+    },
+    {
+      "paper_id": "2412.15259",
+      "why_first": "Introduces a large Arabic app reviews dataset, illustrating data collection and analysis methods relevant to review research.",
+      "key_questions": [
+        "How was the GLARE dataset collected and processed?",
+        "What exploratory data analysis techniques were applied?",
+        "What potential use cases does the dataset support?"
+      ],
+      "paper_title": "GLARE: Google Apps Arabic Reviews Dataset"
+    },
+    {
+      "paper_id": "2212.06034",
+      "why_first": "Presents a dataset focused on spoiler detection in movie reviews, showing a specific application of review analysis.",
+      "key_questions": [
+        "What challenges does spoiler detection address?",
+        "How was the dataset constructed and annotated?",
+        "What research questions can this dataset help answer?"
+      ],
+      "paper_title": "IMDB Spoiler Dataset"
+    },
+    {
+      "paper_id": "0912.3953",
+      "why_first": "Reviews empirical literature on access to scholarly information, providing context on how reviews and citations impact dissemination.",
+      "key_questions": [
+        "What are the main findings about access to scholarly information?",
+        "How do downloads and citations relate to access?",
+        "What surveys of authors inform this review?"
+      ],
+      "paper_title": "Studies on access: a review"
+    },
+    {
+      "paper_id": "1110.5863",
+      "why_first": "Offers a literature review on Wikipedia research, demonstrating a structured approach to reviewing a large body of work.",
+      "key_questions": [
+        "What is the structure of Wikipedia relevant to research?",
+        "What are current trends in Wikipedia studies?",
+        "How can this review inform literature review methodology?"
+      ],
+      "paper_title": "A Wikipedia Literature Review"
+    },
+    {
+      "paper_id": "1305.6995",
+      "why_first": "Provides a review of a statistical book, illustrating critical evaluation of technical literature.",
+      "key_questions": [
+        "What are the key points of the book reviewed?",
+        "What strengths and weaknesses does the reviewer identify?",
+        "How does this review inform your approach to technical book reviews?"
+      ],
+      "paper_title": "Review of: Mixed Effects Models and Extensions in Ecology with R"
+    },
+    {
+      "paper_id": "1007.3572",
+      "why_first": "Reviews applications of quasigroups in cryptology, showing domain-specific review techniques and summarization.",
+      "key_questions": [
+        "What are quasigroups and their cryptologic applications?",
+        "How does the review organize known results?",
+        "What gaps or future directions are identified?"
+      ],
+      "paper_title": "Quasigroups in cryptology"
+    },
+    {
+      "paper_id": "1909.13485",
+      "why_first": "Reviews a foundational AI book, demonstrating review of influential theoretical work.",
+      "key_questions": [
+        "What are the main contributions of 'The Book of Why'?",
+        "How does the review assess its impact?",
+        "What insights does it provide for causal reasoning?"
+      ],
+      "paper_title": "The Book of Why: Review"
+    },
+    {
+      "paper_id": "2005.11134",
+      "why_first": "Reviews quadruped robots for dynamic locomotion, exemplifying review of technical systems and control methods.",
+      "key_questions": [
+        "What are the main quadruped robots reviewed?",
+        "What mechanical and control features are highlighted?",
+        "How does this review inform robotics research?"
+      ],
+      "paper_title": "Review of Quadruped Robots for Dynamic Locomotion"
+    }
+  ],
+  "actions": [
+    {
+      "label": "Summarize peer review biases and mitigation",
+      "how_to": "Read papers 1807.01408 and 2406.10059; write a summary comparing single-blind and double-blind review benefits and limitations.",
+      "expected_outcome": "A concise document outlining peer review biases and how double-anonymous review addresses them."
+    },
+    {
+      "label": "Analyze novel peer review models",
+      "how_to": "Study papers 2111.06099 and 1204.5963; extract key modeling approaches and simulation results; compare their effectiveness.",
+      "expected_outcome": "A comparative analysis report on novel peer review system models and their implications."
+    },
+    {
+      "label": "Evaluate cross-disciplinary peer review innovations",
+      "how_to": "Read paper 1612.00241; identify unique features of the eLife process and potential adoption strategies.",
+      "expected_outcome": "A brief proposal on applying biology journal peer review innovations to other fields."
+    },
+    {
+      "label": "Review code review practices and comment usefulness",
+      "how_to": "Examine papers 1407.5648 and 2307.00692; summarize challenges and machine learning approaches to comment evaluation.",
+      "expected_outcome": "A report detailing effective code review practices and automated comment usefulness detection."
+    },
+    {
+      "label": "Explore review datasets and applications",
+      "how_to": "Analyze papers 2412.15259 and 2212.06034; document dataset creation, features, and research questions enabled.",
+      "expected_outcome": "A summary of review datasets with potential applications in NLP and spoiler detection."
+    },
+    {
+      "label": "Conduct literature review methodology study",
+      "how_to": "Read papers 0912.3953 and 1110.5863; note literature review structures and empirical survey techniques.",
+      "expected_outcome": "A guideline document on conducting empirical literature reviews in computer science."
+    },
+    {
+      "label": "Practice technical book and domain-specific review",
+      "how_to": "Study papers 1305.6995, 1007.3572, 1909.13485, and 2005.11134; write critical reviews focusing on content, strengths, and weaknesses.",
+      "expected_outcome": "Four critical reviews demonstrating ability to evaluate technical books and domain-specific literature."
+    }
+  ],
+  "metrics": [
+    "Number of summaries and reports completed",
+    "Depth of understanding demonstrated in comparative analyses",
+    "Ability to identify key contributions and limitations in reviews",
+    "Quality and clarity of written review documents",
+    "Completion of all assigned reading and review tasks",
+    "Application of review insights to propose improvements"
+  ],
+  "timeline_weeks": [
+    {
+      "week": 1,
+      "focus": "Understand peer review biases and double-blind review",
+      "deliverable": "Summary document on peer review biases and double-anonymous review benefits"
+    },
+    {
+      "week": 2,
+      "focus": "Analyze novel peer review system models",
+      "deliverable": "Comparative analysis report on peer review models"
+    },
+    {
+      "week": 3,
+      "focus": "Explore cross-disciplinary peer review innovations",
+      "deliverable": "Proposal for adopting biology journal review processes"
+    },
+    {
+      "week": 4,
+      "focus": "Review code review practices and comment usefulness",
+      "deliverable": "Report on code review challenges and automated comment evaluation"
+    },
+    {
+      "week": 5,
+      "focus": "Examine review datasets and their applications",
+      "deliverable": "Summary of review datasets and research questions"
+    },
+    {
+      "week": 6,
+      "focus": "Study literature review methodologies",
+      "deliverable": "Guideline document on empirical literature review techniques"
+    },
+    {
+      "week": 7,
+      "focus": "Practice technical and domain-specific reviews",
+      "deliverable": "Four critical reviews of books and domain literature"
+    }
+  ],
+  "risks": [
+    {
+      "risk": "The diversity of topics across papers may challenge coherent integration into a single review framework.",
+      "mitigation": "Focus on thematic clusters and explicitly relate each cluster to the overall goal of understanding peer review and review practices."
+    },
+    {
+      "risk": "Some papers have zero citations and limited prior validation, which may affect the reliability of their findings.",
+      "mitigation": "Critically assess methodologies and cross-reference findings with better-established papers where possible."
+    }
+  ],
+  "_topics_suggestion": "The selected papers may also cover research areas including: Applied Machine Learning, Bayesian Inference, General Algorithms, Reinforcement Learning. You may gain a broader understand of the field by exploring these related research directions"
+}

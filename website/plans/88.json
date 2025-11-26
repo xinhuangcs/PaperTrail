@@ -1,0 +1,217 @@
+{
+  "goal": "deep learning",
+  "study_level": "beginner",
+  "source_papers": [
+    "1908.02130",
+    "1312.5548",
+    "2205.01069",
+    "1705.03921",
+    "1701.05549",
+    "1806.07908",
+    "2304.12602",
+    "1212.2686",
+    "2002.01053",
+    "1808.09772"
+  ],
+  "metadata": {
+    "prompt_version": "PT-20251102-1",
+    "model": "gpt-4.1-mini",
+    "created_at": "2025-11-26T02:07:27.116966+00:00"
+  },
+  "plan_overview": "This learning plan guides you from foundational concepts and history of deep learning to practical implementations and advanced interpretability topics. Starting with historical context and basic principles ensures a solid understanding before progressing to theoretical insights, practical coding examples, and specialized applications such as NLP and interpretable architectures. The plan balances theory and practice to build a comprehensive skill set in deep learning.",
+  "reading_order": [
+    {
+      "paper_id": "1312.5548",
+      "why_first": "Provides a historical timeline and foundational context for deep learning, essential for understanding its evolution and key milestones.",
+      "key_questions": [
+        "What were the early milestones in deep learning development?",
+        "How did initial deep learning systems function?",
+        "What historical challenges shaped modern deep learning?"
+      ],
+      "paper_title": "My First Deep Learning System of 1991 + Deep Learning Timeline 1962-2013"
+    },
+    {
+      "paper_id": "1701.05549",
+      "why_first": "Introduces deep neural networks and their history, building on the timeline to deepen your understanding of architectures and concepts.",
+      "key_questions": [
+        "What are the main types of deep neural networks?",
+        "How has the architecture of deep networks evolved?",
+        "What are the key concepts behind deep neural networks?"
+      ],
+      "paper_title": "Deep Neural Networks - A Brief History"
+    },
+    {
+      "paper_id": "2205.01069",
+      "why_first": "Offers a beginner-friendly introduction to deep learning basics and practical Python implementations, enabling hands-on experience.",
+      "key_questions": [
+        "What are the fundamental components of deep neural networks?",
+        "How to implement basic deep learning models in Python?",
+        "What are common training techniques and challenges?"
+      ],
+      "paper_title": "Deep Learning: From Basics to Building Deep Neural Networks with Python"
+    },
+    {
+      "paper_id": "1806.07908",
+      "why_first": "Explains how deep learning works, including theoretical background and practical training issues, deepening your conceptual understanding.",
+      "key_questions": [
+        "Why do deep networks perform well?",
+        "What are the limitations of deep learning?",
+        "How does one transition from shallow to deep networks?"
+      ],
+      "paper_title": "Como funciona o Deep Learning"
+    },
+    {
+      "paper_id": "1705.03921",
+      "why_first": "Provides insights into why and when deep learning works, exploring expressiveness and limitations from a research perspective.",
+      "key_questions": [
+        "What factors influence deep learning success?",
+        "How does network geometry affect expressiveness?",
+        "What are interpretability challenges in deep learning?"
+      ],
+      "paper_title": "Why & When Deep Learning Works: Looking Inside Deep Learnings"
+    },
+    {
+      "paper_id": "1212.2686",
+      "why_first": "Introduces joint training of deep Boltzmann machines, offering insight into advanced training methods for deep generative models.",
+      "key_questions": [
+        "What is a deep Boltzmann machine?",
+        "How does joint training improve performance?",
+        "What are the challenges in training deep generative models?"
+      ],
+      "paper_title": "Joint Training of Deep Boltzmann Machines"
+    },
+    {
+      "paper_id": "2002.01053",
+      "why_first": "Demonstrates an interpretable deep learning architecture combining classical methods and deep networks, highlighting model-aware design.",
+      "key_questions": [
+        "What is deep unfolding in neural networks?",
+        "How can interpretability be integrated into deep models?",
+        "What are practical applications of model-aware deep learning?"
+      ],
+      "paper_title": "Deep-URL: A Model-Aware Approach To Blind Deconvolution Based On Deep\n  Unfolded Richardson-Lucy Network"
+    },
+    {
+      "paper_id": "1808.09772",
+      "why_first": "Focuses on deep learning applications in natural language processing, expanding your knowledge to domain-specific uses.",
+      "key_questions": [
+        "How is deep learning applied to NLP tasks?",
+        "What architectures are common in NLP?",
+        "What challenges arise in NLP deep learning?"
+      ],
+      "paper_title": "Notes on Deep Learning for NLP"
+    },
+    {
+      "paper_id": "1908.02130",
+      "why_first": "Presents a roadmap for the future of deep learning, including the concept of deep cortical learning, inspiring advanced exploration.",
+      "key_questions": [
+        "What is deep cortical learning?",
+        "How might deep learning and cortical learning converge?",
+        "What are future directions in deep learning research?"
+      ],
+      "paper_title": "Deep learning research landscape & roadmap in a nutshell: past, present\n  and future -- Towards deep cortical learning"
+    },
+    {
+      "paper_id": "2304.12602",
+      "why_first": "Offers a perspective on deep learning's utility for pure mathematicians, broadening your view on interdisciplinary applications.",
+      "key_questions": [
+        "How can deep learning assist pure mathematics?",
+        "What are the limitations of deep learning in mathematical research?",
+        "What should mathematicians expect when using deep learning tools?"
+      ],
+      "paper_title": "Is deep learning a useful tool for the pure mathematician?"
+    }
+  ],
+  "actions": [
+    {
+      "label": "Summarize deep learning history",
+      "how_to": "Read papers 1312.5548 and 1701.05549, then write a timeline summary highlighting key developments and architectures.",
+      "expected_outcome": "A clear timeline document that contextualizes deep learning evolution."
+    },
+    {
+      "label": "Implement basic deep learning models",
+      "how_to": "Follow examples in paper 2205.01069 to code simple neural networks in Python, experimenting with training on sample datasets.",
+      "expected_outcome": "Hands-on experience coding and training basic deep networks."
+    },
+    {
+      "label": "Analyze deep learning theory and limitations",
+      "how_to": "Study papers 1806.07908 and 1705.03921, then list key theoretical insights and known limitations of deep learning.",
+      "expected_outcome": "A report detailing why deep learning works and its current challenges."
+    },
+    {
+      "label": "Explore advanced training techniques",
+      "how_to": "Read paper 1212.2686 and implement or simulate joint training of deep Boltzmann machines if possible.",
+      "expected_outcome": "Understanding of advanced generative model training methods."
+    },
+    {
+      "label": "Investigate interpretable deep learning",
+      "how_to": "Study paper 2002.01053 and summarize how model-aware architectures improve interpretability.",
+      "expected_outcome": "A summary explaining interpretable deep learning approaches."
+    },
+    {
+      "label": "Apply deep learning to NLP",
+      "how_to": "Review paper 1808.09772 and experiment with simple NLP deep learning models using available frameworks.",
+      "expected_outcome": "Basic practical knowledge of deep learning in NLP."
+    },
+    {
+      "label": "Research future directions and interdisciplinary use",
+      "how_to": "Read papers 1908.02130 and 2304.12602, then write reflections on future trends and applications in mathematics.",
+      "expected_outcome": "Insightful notes on emerging deep learning concepts and interdisciplinary potential."
+    }
+  ],
+  "metrics": [
+    "Number of implemented deep learning models",
+    "Quality and completeness of timeline summary",
+    "Depth of theoretical understanding demonstrated in reports",
+    "Ability to explain interpretability concepts",
+    "Practical experience with NLP models",
+    "Reflections on future and interdisciplinary applications"
+  ],
+  "timeline_weeks": [
+    {
+      "week": 1,
+      "focus": "History and fundamentals of deep learning",
+      "deliverable": "Timeline summary and notes on key architectures"
+    },
+    {
+      "week": 2,
+      "focus": "Basic deep learning implementation",
+      "deliverable": "Working Python code for simple neural networks"
+    },
+    {
+      "week": 3,
+      "focus": "Theory and limitations of deep learning",
+      "deliverable": "Report on why and when deep learning works"
+    },
+    {
+      "week": 4,
+      "focus": "Advanced training methods",
+      "deliverable": "Summary and understanding of joint training of deep Boltzmann machines"
+    },
+    {
+      "week": 5,
+      "focus": "Interpretable deep learning models",
+      "deliverable": "Summary of model-aware deep learning architecture"
+    },
+    {
+      "week": 6,
+      "focus": "Deep learning for NLP",
+      "deliverable": "Basic NLP deep learning model implementation"
+    },
+    {
+      "week": 7,
+      "focus": "Future directions and interdisciplinary applications",
+      "deliverable": "Reflection notes on deep cortical learning and math applications"
+    }
+  ],
+  "risks": [
+    {
+      "risk": "The provided papers have limited practical coding examples, which may slow hands-on learning.",
+      "mitigation": "Supplement reading with external tutorials and coding exercises based on concepts from the papers."
+    },
+    {
+      "risk": "Some papers are high-level or theoretical, which may be challenging without prior deep learning background.",
+      "mitigation": "Focus on beginner-friendly papers first and revisit advanced papers after foundational understanding."
+    }
+  ],
+  "_topics_suggestion": "The selected papers may also cover research areas including: Applied Machine Learning, General Algorithms, Neural Networks. You may gain a broader understand of the field by exploring these related research directions"
+}

@@ -492,7 +492,7 @@
     </section>
 
     <!-- Timeline -->
-    <section class="section">
+    <section class="section" style="display:none;">
       <div class="section-header">
         <p class="section-kicker">Schedule</p>
         <h3 class="section-title">Timeline (weeks)</h3>
@@ -525,7 +525,7 @@
     </section>
 
     <!-- Raw JSON -->
-    <details class="card">
+    <details class="card" style="display:none;">
       <summary>Show raw JSON</summary>
       <pre id="raw"></pre>
     </details>
@@ -565,6 +565,7 @@
       a.target = "_blank";
       a.rel = "noopener";
       a.textContent = paperId;
+      a.textContent = label || paperId;
       return a;
     }
 
@@ -615,21 +616,12 @@
       }
 
       if (plan.metadata) {
-        const { model, created_at, prompt_version } = plan.metadata;
-        if (model) {
-          const spanModel = document.createElement("span");
-          spanModel.innerHTML = `<span class="meta-label">Model:</span> ${model}`;
-          metaFragments.push(spanModel);
-        }
+        const { created_at } = plan.metadata;
+
         if (created_at) {
           const spanDate = document.createElement("span");
           spanDate.innerHTML = `<span class="meta-label">Generated:</span> ${formatDate(created_at)}`;
           metaFragments.push(spanDate);
-        }
-        if (prompt_version) {
-          const spanPv = document.createElement("span");
-          spanPv.innerHTML = `<span class="meta-label">Prompt v:</span> ${prompt_version}`;
-          metaFragments.push(spanPv);
         }
       }
 
@@ -725,6 +717,7 @@
           const title = document.createElement("p");
           title.className = "reading-title";
           const pid = item.paper_id || "(no id)";
+          const titleText = item.paper_title || item.title || pid;
           const link = makeArxivLink(pid);
           if (link) {
             title.appendChild(link);

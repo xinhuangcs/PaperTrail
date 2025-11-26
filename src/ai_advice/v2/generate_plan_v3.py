@@ -158,6 +158,30 @@ def collect_topics_from_recommend(prefer_view: str = "default") -> Optional[str]
     )
 
 
+def inject_paper_titles(plan: dict, papers: List[Dict[str, Any]]) -> None:
+    if not papers:
+        return
+
+    # Build a lookup dict: id -> title
+    id_to_title = {
+        p.get("id"): p.get("title", "")
+        for p in papers
+        if p.get("id")
+    }
+
+    reading_order = plan.get("reading_order")
+    if not reading_order or not isinstance(reading_order, list):
+        return
+
+    for item in reading_order:
+        if not isinstance(item, dict):
+            continue
+        pid = item.get("paper_id")
+        if pid and pid in id_to_title:
+            # Inject title if found
+            item["paper_title"] = id_to_title[pid]
+
+
 def make_trace_id() -> str:
     # simple trace id (UTC date + short uuid)
     ts = datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S")
@@ -361,12 +385,15 @@ def main():
     validate_against_schema(schema, plan)
     assert_reading_order_from_source(plan)
 
-    # 5) Add topics suggestion (hardcoded, extracted from recommend JSON)
+    # 5) Inject paper titles (post-processing)
+    inject_paper_titles(plan, papers)
+
+    # 6) Add topics suggestion (hardcoded, extracted from recommend JSON)
     topics_suggestion = collect_topics_from_recommend(prefer_view="default")
     if topics_suggestion:
         plan["_topics_suggestion"] = topics_suggestion
 
-    # 6) write artifact
+    # 7) write artifact
     out_path = CONFIG["ARTIFACT_DIR"] / f"plan_{trace_id}.json"
     out_path.write_text(
         json.dumps(plan, ensure_ascii=False, indent=2),

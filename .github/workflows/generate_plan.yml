@@ -1,0 +1,171 @@
+name: Generate Learning Plan
+
+on:
+  issues:
+    types: [opened]   # only when a new issue is created
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  run-pipeline:
+    # only handle issues whose title starts with "Plan request:"
+    if: startsWith(github.event.issue.title, 'Plan request:')
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check disk space
+        run: df -h
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Restore data cache
+        uses: actions/cache@v4
+        with:
+          path: data
+          key: papertrail-data-action-v3
+
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt || true
+          pip install jsonschema
+
+      - name: Download data bundle from Release
+        run: |
+          echo "Checking dataset cache / downloading from GitHub Release..."
+
+          if [ -d "data" ] && [ -f "data/MERGE_OK" ]; then
+            echo "Cache hit: data/ exists and MERGE_OK found. Skip download."
+            ls -lh data
+            exit 0
+          fi
+
+          TAG="data-action-v3"
+          REPO_FULL="xinhuangcs/PaperTrail"
+          BASE_URL="https://github.com/${REPO_FULL}/releases/download/$TAG"
+          echo "BASE_URL = $BASE_URL"
+
+          mkdir -p data_bundle
+          cd data_bundle
+
+          for part in papertrail_data.tar.gz.aa papertrail_data.tar.gz.ab papertrail_data.tar.gz.ac; do
+            URL="$BASE_URL/$part"
+            echo "Downloading $URL ..."
+
+            http_code=$(curl -sSL -w "%{http_code}" -o "$part" "$URL")
+            echo "HTTP status for $part: $http_code"
+
+            if [ "$http_code" -ne 200 ]; then
+              echo "Failed to download $part (status $http_code)"
+              exit 1
+            fi
+          done
+
+          echo "Downloaded parts:"
+          ls -lh
+
+          for f in papertrail_data.tar.gz.*; do
+            size=$(stat -c%s "$f")
+            echo "$f size = $size bytes"
+            if [ "$size" -lt 100000000 ]; then
+              echo "File $f is too small, download likely failed."
+              exit 1
+            fi
+          done
+
+          cat papertrail_data.tar.gz.* > papertrail_data.tar.gz
+
+          echo "Combined archive:"
+          ls -lh papertrail_data.tar.gz
+
+          tar -xzf papertrail_data.tar.gz
+
+          mv data ../data
+          cd ..
+          touch data/MERGE_OK
+
+          echo "Extracted dataset content:"
+          ls data
+
+      - name: Extract goal and top_k from issue body
+        id: parse
+        run: |
+          python - << 'PY'
+          import os, re
+
+          body = os.environ.get("ISSUE_BODY", "")
+
+          def extract_block(name, default=""):
+              pattern = rf"(?mi)^{name}:\s*\n+(.+)"
+              m = re.search(pattern, body)
+              return m.group(1).strip() if m else default
+
+          goal = extract_block("Goal", "")
+          top_k = extract_block("Top-K", "10")
+          mode  = extract_block("Mode", "trending")
+
+          print("goal =", goal)
+          print("top_k =", top_k)
+          print("mode  =", mode)
+
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as f:
+              f.write(f"goal={goal}\n")
+              f.write(f"top_k={top_k}\n")
+              f.write(f"mode={mode}\n")
+          PY
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+
+      - name: Fail if goal is empty
+        run: |
+          if [ -z "${{ steps.parse.outputs.goal }}" ]; then
+            echo "No Goal found in issue body. Expected a 'Goal:' block."
+            exit 1
+          fi
+
+      - name: Run pipeline
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          python scripts/run_pipeline.py \
+            --goal "${{ steps.parse.outputs.goal }}" \
+            --top_k "${{ steps.parse.outputs.top_k }}" \
+            --mode "${{ steps.parse.outputs.mode }}" \
+            --issue "${{ github.event.issue.number }}"
+
+      - name: Commit artifacts to website/plans/
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add website/plans/*.json || true
+          git commit -m "Plan: #${{ github.event.issue.number }}" || echo "nothing to commit"
+          git push
+
+      - name: Comment with links
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issue = context.payload.issue.number;
+            const repo = context.repo.repo;
+            const owner = context.repo.owner;
+            const base = `https://${owner}.github.io/${repo}/website`;
+            const planUrl = `${base}/plans/${issue}.json`;
+            const viewer  = `${base}/plan.html?id=${issue}`;
+            const msg = [
+              `Plan generated for #${issue}`,
+              ``,
+              `Your paper study plan is ready.`,
+              `Click to view: ${viewer}`,
+              ``,
+              `If you have any feedback or suggestions for PaperTrail, please feel free to share them here 😊.`
+            ].join("\n");
+            github.rest.issues.createComment({ issue_number: issue, owner, repo, body: msg });

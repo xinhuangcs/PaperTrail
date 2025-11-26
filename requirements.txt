@@ -1,0 +1,9 @@
+# Dependencies required torun the PaperTrail learning-plan pipeline
+
+openai>=1.0.0
+jsonschema>=4.0.0
+tqdm>=4.60.0
+numpy>=1.24.0
+scipy>=1.10.0
+scikit-learn>=1.4.0
+python-dotenv>=1.0.0

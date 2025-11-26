@@ -16,7 +16,7 @@ LSA_MODEL_PATH.parent.mkdir(parents=True, exist_ok=True)
 
 
 # Number of latent dimensions for LSA
-N_COMPONENTS = 150  # (Adjustable like 100 or 200)
+N_COMPONENTS = 1000  # (Adjustable like 100 or 200)
 
 def main():
     # 1) Load the TF-IDF sparse matrix

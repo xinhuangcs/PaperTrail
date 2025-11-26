@@ -1,0 +1,867 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>PaperTrail – Learning Plan Viewer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg-page: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #6b7280;
+      --accent-blue: #1d4ed8;
+      --accent-soft: #eff6ff;
+      --border-subtle: #e5e7eb;
+      --card-radius: 18px;
+      --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.08);
+      --font-sans: -apple-system, system-ui, "SF Pro Text", Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      background: var(--bg-page);
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    .header {
+      display: flex;
+      justify-content: flex-start;  /* ★ 右对齐 */
+      align-items: center;
+      margin-bottom: 2px;
+    }
+
+    .brand-logo {
+      height: 140px;     /* 你可以调大：比如 60px / 75px */
+      width: auto;
+      display: block;
+      margin: 0;
+      padding: 0;
+    }
+
+
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px 18px 56px;
+    }
+
+
+    /* HERO：中间的 Learning plan 标题 */
+    .hero {
+      margin-top: 18px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .hero-title {
+      margin: 0;
+      font-size: clamp(36px, 5.2vw, 46px);
+      font-weight: 800;
+      letter-spacing: -0.06em;
+      line-height: 1.1;
+      background: linear-gradient(120deg, #1d4ed8, #38bdf8);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 10px 30px rgba(37, 99, 235, 0.35);
+    }
+
+    .hero-sub {
+      margin: 8px 0 0;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .hero-meta {
+      margin-top: 10px;
+      font-size: 13px;
+      color: var(--text-muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .hero-meta span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .meta-label {
+      font-weight: 500;
+      color: #4b5563;
+    }
+
+    .status {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 6px;
+      text-align: center;
+    }
+    .status-error {
+      color: #b91c1c;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: #eef2ff;
+      color: #3730a3;
+      font-size: 12px;
+    }
+
+    a {
+      color: var(--accent-blue);
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .section {
+      margin-top: 22px;
+    }
+
+    .section-header {
+      margin-bottom: 8px;
+    }
+
+    .section-kicker {
+      margin: 0;
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .section-title {
+      margin: 2px 0 0;
+      font-size: 18px;
+      font-weight: 600;
+      color: #111827;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: var(--card-radius);
+      border: 1px solid var(--border-subtle);
+      padding: 18px 18px 16px;
+      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.06);
+      font-size: 14px;
+    }
+
+    @media (min-width: 900px) {
+      .card {
+        padding: 20px 22px 18px;
+      }
+    }
+
+    .muted {
+      color: var(--text-muted);
+    }
+
+    /* summary */
+    .overview-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    @media (min-width: 780px) {
+      .overview-grid {
+        grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.6fr);
+        align-items: flex-start;
+      }
+    }
+
+    .overview-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: #374151;
+    }
+    .overview-value {
+      font-size: 14px;
+      color: #111827;
+    }
+    .overview-meta-list {
+      margin: 4px 0 0;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .overview-plan {
+      font-size: 14px;
+      color: #374151;
+    }
+
+    .source-papers {
+      margin-top: 10px;
+      font-size: 13px;
+    }
+    .source-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid #e5e7eb;
+      background: #f9fafb;
+      font-size: 12px;
+      margin: 2px 4px 2px 0;
+    }
+
+    /* Reading order */
+    .reading-wrap {
+      position: relative;
+      padding-left: 30px;
+    }
+
+    .reading-wrap::before {
+      content: "";
+      position: absolute;
+      left: 13px;
+      top: 4px;
+      bottom: 4px;
+      width: 2px;
+      background: linear-gradient(180deg, #e5e7eb, #bfdbfe);
+    }
+
+    .reading-item {
+      position: relative;
+      margin-bottom: 12px;
+      padding: 10px 10px 10px 12px;
+      border-radius: 14px;
+      border: 1px solid #e5e7eb;
+      background: #f9fafb;
+    }
+
+    .reading-marker {
+      position: absolute;
+      left: -30px;
+      top: 10px;
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      background: var(--accent-blue);
+      color: #e5e7eb;
+      font-size: 11px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .reading-title {
+      margin: 0;
+      font-size: 13px;
+      font-weight: 600;
+      color: #111827;
+    }
+    .reading-why {
+      margin: 4px 0;
+      font-size: 13px;
+      color: #4b5563;
+    }
+    .reading-questions-title {
+      font-size: 12px;
+      font-weight: 500;
+      color: #4b5563;
+      margin-top: 4px;
+    }
+    .reading-questions {
+      margin: 3px 0 0 16px;
+      font-size: 12px;
+      color: #4b5563;
+    }
+
+    /* Actions */
+    .actions-grid {
+      display: grid;
+      gap: 10px;
+    }
+
+    .action-card {
+      border-radius: 14px;
+      border: 1px solid #e5e7eb;
+      background: #f9fafb;
+      padding: 9px 10px 9px;
+      font-size: 13px;
+      color: #374151;
+    }
+
+    .action-label {
+      font-weight: 600;
+      color: #111827;
+      margin-bottom: 2px;
+    }
+    .action-how {
+      margin: 2px 0;
+    }
+    .action-expected {
+      margin: 2px 0 0;
+      font-size: 12px;
+      color: #4b5563;
+    }
+
+    /* Metrics */
+    .metrics-list {
+      margin: 4px 0 0 18px;
+      padding: 0;
+      font-size: 13px;
+    }
+
+    /* Timeline：按周时间线 */
+    .timeline-wrap {
+      position: relative;
+      padding-left: 26px;
+    }
+
+    .timeline-wrap::before {
+      content: "";
+      position: absolute;
+      left: 11px;
+      top: 4px;
+      bottom: 4px;
+      width: 2px;
+      background: linear-gradient(180deg, #e5e7eb, #bfdbfe);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 10px;
+      padding: 7px 8px 7px;
+      border-radius: 12px;
+      border: 1px solid #e5e7eb;
+      background: #f9fafb;
+      font-size: 13px;
+    }
+
+    .timeline-marker {
+      position: absolute;
+      left: -24px;
+      top: 8px;
+      width: 20px;
+      height: 20px;
+      border-radius: 999px;
+      background: var(--accent-blue);
+      color: #e5e7eb;
+      font-size: 11px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .timeline-title {
+      margin: 0;
+      font-weight: 600;
+      color: #111827;
+    }
+    .timeline-deliverable {
+      margin: 2px 0 0;
+      font-size: 12px;
+      color: #4b5563;
+      font-style: italic;
+    }
+
+    /* Risks */
+    .risks-list {
+      margin: 4px 0 0 18px;
+      padding: 0;
+      font-size: 13px;
+    }
+
+    /* Optional topics suggestion */
+    /* Raw JSON */
+    details.card {
+      margin-top: 22px;
+      box-shadow: none;
+    }
+    details summary {
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      color: #111827;
+    }
+    pre {
+      margin-top: 10px;
+      background: #020617;
+      color: #e6edf3;
+      padding: 10px;
+      border-radius: 10px;
+      overflow: auto;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    /* button */
+    .back-wrap {
+      margin-top: 32px;
+      text-align: center;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 18px;
+      border-radius: 999px;
+      border: 1px solid var(--accent-blue);
+      background: #eef2ff;
+      color: var(--accent-blue);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .back-btn:hover {
+      background: #e0e7ff;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <!-- PaperTrail title -->
+    <header class="header">
+      <img src="./logo.png" alt="PaperTrail" class="brand-logo" />
+    </header>
+
+    <!-- Learning plan  + meta -->
+    <section class="hero">
+      <h2 class="hero-title">Learning plan</h2>
+      <p class="hero-sub" id="hero-sub">
+        Loading plan…
+      </p>
+      <div class="hero-meta" id="hero-meta"></div>
+      <div class="status" id="status"></div>
+    </section>
+
+    <!-- Overview -->
+    <section class="section">
+      <div class="section-header">
+        <p class="section-kicker">Overview</p>
+        <h3 class="section-title">Plan summary</h3>
+      </div>
+      <div class="card">
+        <div class="overview-grid" id="overview-grid">
+          <!-- filled by JS -->
+        </div>
+        <div class="source-papers" id="source-papers"></div>
+      </div>
+    </section>
+
+    <!-- Reading order -->
+    <section class="section">
+      <div class="section-header">
+        <p class="section-kicker">Sequence</p>
+        <h3 class="section-title">Reading order</h3>
+      </div>
+      <div class="card">
+        <div class="reading-wrap" id="reading"></div>
+      </div>
+    </section>
+
+    <!-- Actions -->
+    <section class="section">
+      <div class="section-header">
+        <p class="section-kicker">Practice</p>
+        <h3 class="section-title">Suggested actions</h3>
+      </div>
+      <div class="card">
+        <div class="actions-grid" id="actions"></div>
+      </div>
+    </section>
+
+    <!-- Metrics -->
+    <section class="section">
+      <div class="section-header">
+        <p class="section-kicker">Progress</p>
+        <h3 class="section-title">Suggested metrics</h3>
+      </div>
+      <div class="card">
+        <ul class="metrics-list" id="metrics"></ul>
+      </div>
+    </section>
+
+    <!-- Timeline -->
+    <section class="section" style="display:none;">
+      <div class="section-header">
+        <p class="section-kicker">Schedule</p>
+        <h3 class="section-title">Timeline (weeks)</h3>
+      </div>
+      <div class="card">
+        <div class="timeline-wrap" id="timeline"></div>
+      </div>
+    </section>
+
+    <!-- Risks -->
+    <section class="section">
+      <div class="section-header">
+        <p class="section-kicker">Risks</p>
+        <h3 class="section-title">Study risks & mitigations</h3>
+      </div>
+      <div class="card">
+        <ul class="risks-list" id="risks"></ul>
+      </div>
+    </section>
+
+    <!-- Optional topics suggestion -->
+    <section class="section" id="topics-section" style="display:none;">
+      <div class="section-header">
+        <p class="section-kicker">Optional</p>
+        <h3 class="section-title">Related topics</h3>
+      </div>
+      <div class="card">
+        <p class="muted" id="topics-text"></p>
+      </div>
+    </section>
+
+    <!-- Raw JSON -->
+    <details class="card" style="display:none;">
+      <summary>Show raw JSON</summary>
+      <pre id="raw"></pre>
+    </details>
+
+    <!-- button -->
+    <div class="back-wrap">
+      <a class="back-btn" href="https://xinhuangcs.github.io/papertrail/">
+        ← Back to request page
+      </a>
+    </div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(location.search);
+    const id = params.get('id');
+    const url = id ? `plans/${id}.json` : null;
+
+    const el = (id) => document.getElementById(id);
+
+    function formatDate(iso) {
+      if (!iso) return "";
+      const d = new Date(iso);
+      if (Number.isNaN(d.getTime())) return iso;
+      return d.toLocaleString(undefined, {
+        year: "numeric",
+        month: "short",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit"
+      });
+    }
+
+    function makeArxivLink(paperId, label) {
+      if (!paperId || paperId === "(no id)") return null;
+      const a = document.createElement("a");
+      a.href = `https://arxiv.org/abs/${paperId}`;
+      a.target = "_blank";
+      a.rel = "noopener";
+      a.textContent = label || paperId;
+      return a;
+    }
+
+    async function run() {
+      const statusEl = el("status");
+      const heroSub = el("hero-sub");
+      const heroMeta = el("hero-meta");
+
+      if (!url) {
+        statusEl.textContent = "Missing ?id=… parameter in the URL.";
+        statusEl.classList.add("status-error");
+        heroSub.textContent = "No plan id provided.";
+        return;
+      }
+
+      statusEl.textContent = "Fetching: " + url;
+
+      let plan;
+      try {
+        const res = await fetch(url);
+        if (!res.ok) {
+          throw new Error("HTTP " + res.status);
+        }
+        plan = await res.json();
+      } catch (err) {
+        statusEl.textContent = "Failed to load plan: " + err.message;
+        statusEl.classList.add("status-error");
+        heroSub.textContent = "Unable to load this plan.";
+        return;
+      }
+
+      // 顶部信息
+      const goal = plan.goal || "(no goal specified)";
+      const level = plan.study_level || "unspecified";
+      heroSub.textContent = `Goal: ${goal}`;
+      heroMeta.innerHTML = "";
+
+      const metaFragments = [];
+
+      const span1 = document.createElement("span");
+      span1.innerHTML = `<span class="meta-label">Study level:</span> ${level}`;
+      metaFragments.push(span1);
+
+      if (plan.source_papers && plan.source_papers.length > 0) {
+        const span2 = document.createElement("span");
+        span2.innerHTML = `<span class="meta-label">Source papers:</span> ${plan.source_papers.length}`;
+        metaFragments.push(span2);
+      }
+
+      if (plan.metadata) {
+        const { created_at } = plan.metadata;
+
+        if (created_at) {
+          const spanDate = document.createElement("span");
+          spanDate.innerHTML = `<span class="meta-label">Generated:</span> ${formatDate(created_at)}`;
+          metaFragments.push(spanDate);
+        }
+      }
+
+      metaFragments.forEach(x => heroMeta.appendChild(x));
+      statusEl.textContent = "";
+
+      // summary
+      const overviewGrid = el("overview-grid");
+      overviewGrid.innerHTML = "";
+
+      const leftBox = document.createElement("div");
+      const goalLabel = document.createElement("div");
+      goalLabel.className = "overview-label";
+      goalLabel.textContent = "Goal";
+      const goalVal = document.createElement("div");
+      goalVal.className = "overview-value";
+      goalVal.textContent = goal;
+      leftBox.appendChild(goalLabel);
+      leftBox.appendChild(goalVal);
+
+      const levelLabel = document.createElement("div");
+      levelLabel.className = "overview-label";
+      levelLabel.style.marginTop = "8px";
+      levelLabel.textContent = "Study level";
+      const levelVal = document.createElement("div");
+      levelVal.className = "overview-value";
+      levelVal.textContent = level;
+      leftBox.appendChild(levelLabel);
+      leftBox.appendChild(levelVal);
+
+      const metaList = document.createElement("div");
+      metaList.className = "overview-meta-list";
+      const metaParts = [];
+      if (plan.source_papers && plan.source_papers.length) {
+        metaParts.push(`${plan.source_papers.length} source paper(s)`);
+      }
+      if (plan.metadata && plan.metadata.model) {
+        metaParts.push(`generated by ${plan.metadata.model}`);
+      }
+      if (metaParts.length) {
+        metaList.textContent = metaParts.join(" · ");
+        //leftBox.appendChild(metaList);
+      }
+
+      const rightBox = document.createElement("div");
+      const pov = document.createElement("div");
+      pov.className = "overview-plan";
+      const overviewText = (plan.plan_overview || "").replace(/\n/g, "<br>");
+      pov.innerHTML = overviewText || "<span class='muted'>No overview provided.</span>";
+      rightBox.appendChild(pov);
+
+      overviewGrid.appendChild(leftBox);
+      overviewGrid.appendChild(rightBox);
+
+      // Source papers
+      const sp = el("source-papers");
+      sp.innerHTML = "";
+      if (plan.source_papers && plan.source_papers.length) {
+        const label = document.createElement("div");
+        label.className = "overview-label";
+        label.style.marginBottom = "4px";
+        label.textContent = "Source papers (arXiv):";
+        sp.appendChild(label);
+
+        plan.source_papers.forEach(pid => {
+          const span = document.createElement("span");
+          span.className = "source-pill";
+          const link = makeArxivLink(pid, pid);
+          if (link) {
+            span.appendChild(link);
+          } else {
+            span.textContent = pid || "(no id)";
+          }
+          sp.appendChild(span);
+        });
+      }
+
+      // Reading order
+      const readingWrap = el("reading");
+      readingWrap.innerHTML = "";
+      const reading = plan.reading_order || [];
+      if (!reading.length) {
+        const p = document.createElement("p");
+        p.className = "muted";
+        p.textContent = "No reading order specified.";
+        readingWrap.appendChild(p);
+      } else {
+        reading.forEach((item, idx) => {
+          const box = document.createElement("div");
+          box.className = "reading-item";
+
+          const marker = document.createElement("div");
+          marker.className = "reading-marker";
+          marker.textContent = String(idx + 1).padStart(2, "0");
+          box.appendChild(marker);
+
+          const title = document.createElement("p");
+          title.className = "reading-title";
+          const pid = item.paper_id || "(no id)";
+          const titleText = item.paper_title || item.title || pid;
+          const link = makeArxivLink(pid, titleText);
+          if (link) {
+            title.appendChild(link);
+          } else {
+            title.textContent = pid;
+          }
+          box.appendChild(title);
+
+          const why = document.createElement("p");
+          why.className = "reading-why";
+          why.textContent = item.why_first || "";
+          box.appendChild(why);
+
+          const questions = item.key_questions || [];
+          if (questions.length) {
+            const qTitle = document.createElement("div");
+            qTitle.className = "reading-questions-title";
+            qTitle.textContent = "Key questions to drive your reading:";
+            box.appendChild(qTitle);
+
+            const ul = document.createElement("ul");
+            ul.className = "reading-questions";
+            questions.forEach(q => {
+              const li = document.createElement("li");
+              li.textContent = q;
+              ul.appendChild(li);
+            });
+            box.appendChild(ul);
+          }
+
+          readingWrap.appendChild(box);
+        });
+      }
+
+      // Actions
+      const actionsWrap = el("actions");
+      actionsWrap.innerHTML = "";
+      const actions = plan.actions || [];
+      if (!actions.length) {
+        const p = document.createElement("p");
+        p.className = "muted";
+        p.textContent = "No concrete actions suggested.";
+        actionsWrap.appendChild(p);
+      } else {
+        actions.forEach(act => {
+          const box = document.createElement("div");
+          box.className = "action-card";
+          const label = document.createElement("div");
+          label.className = "action-label";
+          label.textContent = act.label || "(unnamed action)";
+          const how = document.createElement("div");
+          how.className = "action-how";
+          how.textContent = act.how_to || "";
+          const expected = document.createElement("div");
+          expected.className = "action-expected";
+          expected.innerHTML = `<span style="font-weight:500;">Expected outcome:</span> ${act.expected_outcome || ""}`;
+          box.appendChild(label);
+          box.appendChild(how);
+          box.appendChild(expected);
+          actionsWrap.appendChild(box);
+        });
+      }
+
+      // Metrics
+      const metricsWrap = el("metrics");
+      metricsWrap.innerHTML = "";
+      const metrics = plan.metrics || [];
+      if (!metrics.length) {
+        const li = document.createElement("li");
+        li.className = "muted";
+        li.textContent = "No metrics provided.";
+        metricsWrap.appendChild(li);
+      } else {
+        metrics.forEach(m => {
+          const li = document.createElement("li");
+          li.textContent = m;
+          metricsWrap.appendChild(li);
+        });
+      }
+
+      // Timeline
+      const timelineWrap = el("timeline");
+      timelineWrap.innerHTML = "";
+      const weeks = plan.timeline_weeks || [];
+      if (!weeks.length) {
+        const p = document.createElement("p");
+        p.className = "muted";
+        p.textContent = "No suggested timeline.";
+        timelineWrap.appendChild(p);
+      } else {
+        weeks.forEach(w => {
+          const box = document.createElement("div");
+          box.className = "timeline-item";
+          const marker = document.createElement("div");
+          marker.className = "timeline-marker";
+          marker.textContent = w.week || "?";
+          box.appendChild(marker);
+
+          const title = document.createElement("p");
+          title.className = "timeline-title";
+          title.textContent = w.focus || "";
+          box.appendChild(title);
+
+          const del = document.createElement("div");
+          del.className = "timeline-deliverable";
+          del.textContent = w.deliverable || "";
+          box.appendChild(del);
+
+          timelineWrap.appendChild(box);
+        });
+      }
+
+      // Risks
+      const risksWrap = el("risks");
+      risksWrap.innerHTML = "";
+      const risks = plan.risks || [];
+      if (!risks.length) {
+        const li = document.createElement("li");
+        li.className = "muted";
+        li.textContent = "No risks recorded.";
+        risksWrap.appendChild(li);
+      } else {
+        risks.forEach(r => {
+          const li = document.createElement("li");
+          li.innerHTML = `<b>${r.risk}</b> — ${r.mitigation || ""}`;
+          risksWrap.appendChild(li);
+        });
+      }
+
+      // Optional topics suggestions
+      if (plan._topics_suggestion) {
+        const topicsSection = el("topics-section");
+        topicsSection.style.display = "block";
+        el("topics-text").textContent = plan._topics_suggestion;
+      }
+
+      // Raw JSON
+      el("raw").textContent = JSON.stringify(plan, null, 2);
+    }
+
+    run();
+  </script>
+</body>
+</html>

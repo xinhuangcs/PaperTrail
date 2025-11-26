@@ -558,13 +558,12 @@
       });
     }
 
-    function makeArxivLink(paperId) {
-      if (!paperId) return null;
+    function makeArxivLink(paperId, label) {
+      if (!paperId || paperId === "(no id)") return null;
       const a = document.createElement("a");
       a.href = `https://arxiv.org/abs/${paperId}`;
       a.target = "_blank";
       a.rel = "noopener";
-      a.textContent = paperId;
       a.textContent = label || paperId;
       return a;
     }
@@ -689,8 +688,12 @@
         plan.source_papers.forEach(pid => {
           const span = document.createElement("span");
           span.className = "source-pill";
-          const link = makeArxivLink(pid);
-          if (link) span.appendChild(link);
+          const link = makeArxivLink(pid, pid);
+          if (link) {
+            span.appendChild(link);
+          } else {
+            span.textContent = pid || "(no id)";
+          }
           sp.appendChild(span);
         });
       }
@@ -718,7 +721,7 @@
           title.className = "reading-title";
           const pid = item.paper_id || "(no id)";
           const titleText = item.paper_title || item.title || pid;
-          const link = makeArxivLink(pid);
+          const link = makeArxivLink(pid, titleText);
           if (link) {
             title.appendChild(link);
           } else {

@@ -7,8 +7,7 @@ on:
       - 'index.html'
       - 'website/**'
       - '.github/workflows/deploy-pages.yml'
-    paths-ignore:
-      - 'website/plans/**'
+      - '!website/plans/**'
 
 permissions:
   contents: read

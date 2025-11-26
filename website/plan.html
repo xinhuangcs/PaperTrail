@@ -177,7 +177,7 @@
 
     @media (min-width: 780px) {
       .overview-grid {
-        grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.6fr);
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
         align-items: flex-start;
       }
     }
@@ -378,6 +378,11 @@
       font-size: 13px;
     }
 
+    .overview-value {
+      color: var(--accent-blue) !important;
+      font-weight: 600;
+    }
+
     /* Optional topics suggestion */
     /* Raw JSON */
     details.card {
@@ -532,7 +537,7 @@
 
     <!-- button -->
     <div class="back-wrap">
-      <a class="back-btn" href="https://xinhuangcs.github.io/papertrail/">
+      <a class="back-btn" href="https://xinhuangcs.github.io/PaperTrail/">
         ← Back to request page
       </a>
     </div>
@@ -731,9 +736,10 @@
           const titleText = item.paper_title || item.title || pid;
           const link = makeArxivLink(pid, titleText);
           if (link) {
+            link.textContent = titleText + " ↗";
             title.appendChild(link);
           } else {
-            title.textContent = pid;
+            title.textContent = titleText;
           }
           box.appendChild(title);
 

@@ -1,0 +1,141 @@
+{
+  "goal": "I want to learn database systems.",
+  "study_level": "intermediate",
+  "source_papers": [
+    "1707.02152",
+    "1910.09137",
+    "2202.12229",
+    "2306.09492",
+    "2103.08514"
+  ],
+  "metadata": {
+    "prompt_version": "PT-20251102-1",
+    "model": "gpt-4.1-mini",
+    "created_at": "2025-11-29T18:32:44.362740+00:00"
+  },
+  "plan_overview": "This learning plan introduces you to key concepts in database systems focusing on privacy, security, and practical system design considerations. Starting with foundational private information retrieval techniques, you will then explore multi-party operations and user experience challenges in machine learning systems related to databases. The plan concludes with critical thinking about data advocacy and ethical data use. This progression ensures you build technical understanding alongside awareness of real-world implications and user interactions.",
+  "reading_order": [
+    {
+      "paper_id": "1707.02152",
+      "why_first": "This paper introduces fundamental concepts of private information retrieval from replicated databases, a core privacy challenge in database systems.",
+      "key_questions": [
+        "What is symmetric private information retrieval (SPIR)?",
+        "How do colluding servers and adversaries affect database privacy?",
+        "What techniques ensure user privacy and data security in distributed databases?"
+      ],
+      "paper_title": "Secure Symmetric Private Information Retrieval from Colluding Databases\n  with Adversaries"
+    },
+    {
+      "paper_id": "2202.12229",
+      "why_first": "Building on private retrieval concepts, this paper focuses on single-server private information retrieval with side information, deepening your understanding of privacy in database queries.",
+      "key_questions": [
+        "What is individually-private information retrieval (IPIR)?",
+        "How does side information influence retrieval efficiency?",
+        "What are linear IPIR schemes and their capacity limits?"
+      ],
+      "paper_title": "The Linear Capacity of Single-Server Individually-Private Information\n  Retrieval with Side Information"
+    },
+    {
+      "paper_id": "2103.08514",
+      "why_first": "This paper extends privacy concepts to multi-party private set operations, introducing protocols for secure collaborative database queries involving an external decider.",
+      "key_questions": [
+        "What are private set operations (PSO) and their applications?",
+        "How does the presence of an external decider affect privacy guarantees?",
+        "What protocols enable secure multi-party computations in databases?"
+      ],
+      "paper_title": "Multi-party Private Set Operations with an External Decider"
+    },
+    {
+      "paper_id": "1910.09137",
+      "why_first": "This case study highlights the user experience challenges when integrating machine learning with database systems, emphasizing practical deployment and human factors.",
+      "key_questions": [
+        "What are common UX challenges in ML systems using databases?",
+        "How do domain experts interact with ML-driven database tools?",
+        "What misunderstandings about ML predictions can affect system adoption?"
+      ],
+      "paper_title": "Two Case Studies of Experience Prototyping Machine Learning Systems in\n  the Wild"
+    },
+    {
+      "paper_id": "2306.09492",
+      "why_first": "Concluding with a critical perspective, this paper discusses the ethical and practical perils of advocacy in data science, important for responsible database system design and use.",
+      "key_questions": [
+        "What risks arise from biased data advocacy?",
+        "How can statisticians maintain rigor and transparency?",
+        "What lessons from the replication crisis apply to database-driven insights?"
+      ],
+      "paper_title": "The Perils of Advocacy"
+    }
+  ],
+  "actions": [
+    {
+      "label": "Summarize SPIR concepts",
+      "how_to": "Read paper 1707.02152 and write a summary explaining SPIR, adversary models, and privacy guarantees.",
+      "expected_outcome": "Clear understanding of private information retrieval in replicated databases."
+    },
+    {
+      "label": "Analyze IPIR schemes",
+      "how_to": "Study paper 2202.12229 and create diagrams illustrating single-server IPIR with side information and linear scheme capacity.",
+      "expected_outcome": "Ability to explain IPIR mechanisms and their efficiency constraints."
+    },
+    {
+      "label": "Implement a simple PSO protocol",
+      "how_to": "Based on paper 2103.08514, design a basic multi-party private set intersection protocol with an external decider in a programming language of choice.",
+      "expected_outcome": "Hands-on experience with privacy-preserving multi-party computations."
+    },
+    {
+      "label": "Evaluate ML system UX challenges",
+      "how_to": "Review paper 1910.09137 and list key UX issues encountered in ML systems interfacing with databases, proposing potential solutions.",
+      "expected_outcome": "Insight into human factors affecting database and ML system integration."
+    },
+    {
+      "label": "Reflect on data advocacy ethics",
+      "how_to": "Read paper 2306.09492 and write a brief essay on the importance of transparency and rigor in data-driven recommendations.",
+      "expected_outcome": "Awareness of ethical considerations in database analytics and reporting."
+    }
+  ],
+  "metrics": [
+    "Number of papers thoroughly summarized",
+    "Quality of diagrams and protocol implementation",
+    "Depth of UX challenge analysis",
+    "Clarity and insightfulness of ethical reflection essay",
+    "Ability to answer key technical questions for each paper"
+  ],
+  "timeline_weeks": [
+    {
+      "week": 1,
+      "focus": "Understand SPIR and database privacy fundamentals",
+      "deliverable": "Summary document of paper 1707.02152"
+    },
+    {
+      "week": 2,
+      "focus": "Study single-server IPIR with side information",
+      "deliverable": "Diagrams and notes on paper 2202.12229"
+    },
+    {
+      "week": 3,
+      "focus": "Implement multi-party PSO protocol",
+      "deliverable": "Working code prototype based on paper 2103.08514"
+    },
+    {
+      "week": 4,
+      "focus": "Analyze UX challenges in ML database systems",
+      "deliverable": "Report on findings from paper 1910.09137"
+    },
+    {
+      "week": 5,
+      "focus": "Reflect on ethical data advocacy",
+      "deliverable": "Essay summarizing insights from paper 2306.09492"
+    }
+  ],
+  "risks": [
+    {
+      "risk": "The selected papers focus heavily on privacy and security aspects of database systems, with limited coverage of core database architecture and query processing.",
+      "mitigation": "Supplement this plan with foundational database textbooks or tutorials to cover missing basics."
+    },
+    {
+      "risk": "The UX and ethical papers are less technical and may not provide deep database system design knowledge.",
+      "mitigation": "Focus on extracting practical lessons and critical thinking skills rather than technical details from these papers."
+    }
+  ],
+  "_topics_suggestion": "The selected papers may also cover research areas including: Applied Machine Learning, General Algorithms, Network Optimization, Wireless Communications. You may gain a broader understand of the field by exploring these related research directions"
+}

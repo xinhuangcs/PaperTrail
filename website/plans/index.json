@@ -1,5 +1,11 @@
 [
   {
+    "id": 103,
+    "goal": "I want to learn database systems.",
+    "top_k": 5,
+    "ts_utc": "2025-11-29T18:32:44.482583+00:00"
+  },
+  {
     "id": 97,
     "goal": "paper review",
     "top_k": 15,

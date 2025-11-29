@@ -4,7 +4,7 @@ title: "Plan request: "
 labels: ["plan-request"]
 
 body:
-  - type: input
+   type: input
     id: goal
     attributes:
       label: What is your topic?

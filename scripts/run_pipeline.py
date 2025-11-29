@@ -152,29 +152,6 @@ def main() -> None:
     shutil.copy2(FINAL_PLAN_PATH, out_path)
     print(f"\n[ok] Copied final plan to -> {out_path}")
 
-    # update website/plans/index.json for listing (optional, but nice to have)
-    index_path = PLANS_DIR / "index.json"
-    try:
-        listing = json.loads(index_path.read_text(encoding="utf-8"))
-    except Exception:
-        listing = []
-
-    # remove any existing entry for this issue id
-    listing = [x for x in listing if str(x.get("id")) != issue_id]
-
-    # prepend new record
-    listing.insert(
-        0,
-        {
-            "id": int(issue_id),
-            "goal": args.goal,
-            "top_k": args.top_k,
-            "ts_utc": datetime.now(timezone.utc).isoformat(),
-        },
-    )
-
-    index_path.write_text(json.dumps(listing, ensure_ascii=False, indent=2), encoding="utf-8")
-    print(f"[ok] Updated index -> {index_path}")
 
     print("\n" + "=" * 70)
     print("Pipeline completed successfully!")

@@ -146,9 +146,31 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add website/plans/*.json || true
-          git commit -m "Plan: #${{ github.event.issue.number }}" || echo "nothing to commit"
-          git push
+          
+          git add website/plans/*.json
+          git commit -m "Plan: #${{ github.event.issue.number }}" || exit 0
+          
+          MAX_RETRIES=20
+          count=0
+          until [ $count -ge $MAX_RETRIES ]
+          do
+            git pull --rebase origin main
+
+            if git push origin main; then
+              echo "Push successful!"
+              break
+            fi
+
+            count=$((count+1))
+            echo "Push failed (conflict?), retrying ($count/$MAX_RETRIES) in random 3-10s..."
+
+            sleep $(( ( RANDOM % 8 ) + 3 ))
+          done
+
+          if [ $count -eq $MAX_RETRIES ]; then
+            echo "Error: Failed to push after $MAX_RETRIES attempts."
+            exit 1
+          fi
 
       - name: Comment with links
         uses: actions/github-script@v7

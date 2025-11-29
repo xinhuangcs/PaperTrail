@@ -1,0 +1,235 @@
+{
+  "goal": "computer vision",
+  "study_level": "intermediate",
+  "source_papers": [
+    "2409.17080",
+    "2403.09681",
+    "2401.06133",
+    "2409.04850",
+    "2106.13797",
+    "2410.10799",
+    "2309.13744",
+    "2404.01116",
+    "2403.13298",
+    "2112.03111"
+  ],
+  "metadata": {
+    "prompt_version": "PT-20251102-1",
+    "model": "gpt-4.1-mini",
+    "created_at": "2025-11-29T19:31:14.225350+00:00"
+  },
+  "plan_overview": "This learning plan guides you through foundational and advanced topics in computer vision, starting from core model architectures and embedding techniques, moving through applications in robotics and specialized domains, and concluding with ethical considerations. The strategy is to build a solid understanding of vision transformers and their enhancements, explore practical applications, and reflect on the societal impact of computer vision technologies.",
+  "reading_order": [
+    {
+      "paper_id": "2106.13797",
+      "why_first": "Introduces improved Vision Transformer architectures (PVT v2) foundational for modern computer vision models.",
+      "key_questions": [
+        "What are the key improvements in PVT v2 over PVT v1?",
+        "How does linear complexity attention improve efficiency?",
+        "How do overlapping patch embeddings affect model performance?"
+      ],
+      "paper_title": "PVT v2: Improved Baselines with Pyramid Vision Transformer"
+    },
+    {
+      "paper_id": "2403.13298",
+      "why_first": "Builds on transformer knowledge by exploring Rotary Position Embedding (RoPE) to enhance Vision Transformer capabilities.",
+      "key_questions": [
+        "How does RoPE differ from traditional positional embeddings?",
+        "What benefits does RoPE provide for image resolution extrapolation?",
+        "How does RoPE impact performance on standard vision benchmarks?"
+      ],
+      "paper_title": "Rotary Position Embedding for Vision Transformer"
+    },
+    {
+      "paper_id": "2403.09681",
+      "why_first": "Explores machine unlearning methods applied to Vision Transformers, important for model privacy and adaptability.",
+      "key_questions": [
+        "What are the main machine unlearning techniques for ViTs?",
+        "How do these methods affect model accuracy and forgetting?",
+        "What datasets and evaluation metrics are used?"
+      ],
+      "paper_title": "ViT-MUL: A Baseline Study on Recent Machine Unlearning Methods Applied\n  to Vision Transformers"
+    },
+    {
+      "paper_id": "2410.10799",
+      "why_first": "Examines 3D vision challenges and benchmarks, expanding understanding of vision beyond 2D images.",
+      "key_questions": [
+        "What are the key 3D vision tasks in UniQA-3D?",
+        "How do current models perform compared to humans?",
+        "What are the main limitations of current 3D vision models?"
+      ],
+      "paper_title": "Towards Foundation Models for 3D Vision: How Close Are We?"
+    },
+    {
+      "paper_id": "2409.17080",
+      "why_first": "Investigates vision-language models' ability to learn spatial reasoning from visual demonstrations, highlighting multimodal learning challenges.",
+      "key_questions": [
+        "What is the Spatial Visual Ambiguity Tasks (SVAT) benchmark?",
+        "Why do VLMs struggle with zero-shot spatial reasoning?",
+        "How does curriculum learning improve performance?"
+      ],
+      "paper_title": "Can Vision Language Models Learn from Visual Demonstrations of Ambiguous\n  Spatial Reasoning?"
+    },
+    {
+      "paper_id": "2309.13744",
+      "why_first": "Provides a systematic review of computer vision applications in robotized wire harness assembly, illustrating industrial use cases.",
+      "key_questions": [
+        "What computer vision techniques are applied in wire harness assembly?",
+        "What challenges are faced in robotic automation?",
+        "How does vision improve assembly accuracy and efficiency?"
+      ],
+      "paper_title": "A Systematic Literature Review of Computer Vision Applications in\n  Robotized Wire Harness Assembly"
+    },
+    {
+      "paper_id": "2404.01116",
+      "why_first": "Focuses on integrating computer vision with robotic control systems, demonstrating practical applications in automation and navigation.",
+      "key_questions": [
+        "How does computer vision enable robotic perception?",
+        "What are key tasks improved by vision in robotics?",
+        "What control strategies leverage vision inputs?"
+      ],
+      "paper_title": "Intelligent Robotic Control System Based on Computer Vision Technology"
+    },
+    {
+      "paper_id": "2401.06133",
+      "why_first": "Presents a novel application of computer vision to reconstruct shredded banknotes, showcasing creative problem-solving.",
+      "key_questions": [
+        "What computer vision techniques enable reconstruction of shredded pieces?",
+        "How is the jigsaw puzzle analogy applied?",
+        "What are the practical implications of this approach?"
+      ],
+      "paper_title": "The possibility of making \\$138,000 from shredded banknote pieces using\n  computer vision"
+    },
+    {
+      "paper_id": "2409.04850",
+      "why_first": "Discusses deep computer vision challenges and opportunities in solar physics big data, highlighting domain-specific adaptations.",
+      "key_questions": [
+        "What are the unique characteristics of solar physics big data?",
+        "How can deep vision models address these challenges?",
+        "What opportunities arise from applying vision to astrophysics?"
+      ],
+      "paper_title": "Deep Computer Vision for Solar Physics Big Data: Opportunities and\n  Challenges"
+    },
+    {
+      "paper_id": "2112.03111",
+      "why_first": "Concludes with ethical and creative considerations in computer vision, essential for responsible research and deployment.",
+      "key_questions": [
+        "What ethical issues arise in creative computer vision applications?",
+        "How can researchers address social impacts?",
+        "What lessons were learned from past workshops?"
+      ],
+      "paper_title": "Ethics and Creativity in Computer Vision"
+    }
+  ],
+  "actions": [
+    {
+      "label": "Implement and train PVT v2 model",
+      "how_to": "Use the official PVT v2 codebase to train on ImageNet or a similar dataset, experimenting with linear attention and overlapping patches.",
+      "expected_outcome": "Gain hands-on experience with state-of-the-art vision transformer architectures and understand their performance trade-offs."
+    },
+    {
+      "label": "Apply Rotary Position Embedding to ViT",
+      "how_to": "Modify a Vision Transformer implementation to incorporate RoPE and evaluate on image classification and detection tasks.",
+      "expected_outcome": "Observe improvements in model extrapolation and performance, deepening understanding of positional embeddings."
+    },
+    {
+      "label": "Experiment with machine unlearning on ViT",
+      "how_to": "Implement selected machine unlearning algorithms on a pretrained ViT and measure forgetting and accuracy on test sets.",
+      "expected_outcome": "Understand challenges and techniques for selective data removal in vision models."
+    },
+    {
+      "label": "Evaluate 3D vision models on UniQA-3D benchmark",
+      "how_to": "Run evaluations of existing 3D vision and vision-language models on the UniQA-3D dataset and analyze failure modes.",
+      "expected_outcome": "Identify current limitations in 3D visual reasoning and gaps compared to human performance."
+    },
+    {
+      "label": "Reproduce spatial reasoning experiments with VLMs",
+      "how_to": "Use the SVAT benchmark to test zero-shot and fine-tuned VLMs, applying curriculum learning strategies.",
+      "expected_outcome": "Understand the difficulties of spatial reasoning in vision-language models and benefits of training curricula."
+    },
+    {
+      "label": "Survey computer vision applications in robotic wire harness assembly",
+      "how_to": "Review literature summarized in the systematic review and identify key vision techniques and challenges in automation.",
+      "expected_outcome": "Map practical industrial applications of computer vision and their technical requirements."
+    },
+    {
+      "label": "Develop a simple vision-based robotic control prototype",
+      "how_to": "Integrate a camera with a robotic platform and implement basic perception-driven control tasks like object recognition and navigation.",
+      "expected_outcome": "Experience the integration of vision and control systems in robotics."
+    },
+    {
+      "label": "Implement shredded banknote reconstruction pipeline",
+      "how_to": "Collect shredded piece images and develop a computer vision pipeline to reconstruct banknotes using image matching and puzzle solving.",
+      "expected_outcome": "Apply computer vision techniques to a novel, real-world inspired problem."
+    },
+    {
+      "label": "Explore deep vision methods for solar physics data",
+      "how_to": "Analyze solar physics datasets and apply deep learning models to detect and classify solar phenomena.",
+      "expected_outcome": "Understand domain-specific challenges and opportunities in applying vision to astrophysics big data."
+    },
+    {
+      "label": "Reflect on ethical implications in computer vision projects",
+      "how_to": "Review ethical considerations from the paper and evaluate your projects for potential social impacts and biases.",
+      "expected_outcome": "Develop awareness and strategies for responsible computer vision research and applications."
+    }
+  ],
+  "metrics": [
+    "Model accuracy on ImageNet and COCO datasets",
+    "Performance improvement with RoPE embedding",
+    "Effectiveness of machine unlearning measured by forgetting rate and accuracy",
+    "3D vision model accuracy and robustness on UniQA-3D",
+    "Spatial reasoning task success rate on SVAT benchmark",
+    "Number of practical vision applications identified in robotics",
+    "Functionality and reliability of vision-based robotic control prototype",
+    "Reconstruction accuracy of shredded banknotes",
+    "Detection accuracy on solar physics datasets",
+    "Documentation of ethical considerations and mitigation strategies"
+  ],
+  "timeline_weeks": [
+    {
+      "week": 1,
+      "focus": "Foundations of Vision Transformers and Positional Embeddings",
+      "deliverable": "Train PVT v2 and implement RoPE in ViT with performance report."
+    },
+    {
+      "week": 2,
+      "focus": "Machine Unlearning in Vision Transformers",
+      "deliverable": "Experiment results on unlearning methods with analysis."
+    },
+    {
+      "week": 3,
+      "focus": "3D Vision and Spatial Reasoning in Vision-Language Models",
+      "deliverable": "Evaluation report on UniQA-3D and SVAT benchmarks."
+    },
+    {
+      "week": 4,
+      "focus": "Computer Vision Applications in Robotics",
+      "deliverable": "Literature survey summary and robotic control prototype demonstration."
+    },
+    {
+      "week": 5,
+      "focus": "Creative and Domain-Specific Applications",
+      "deliverable": "Shredded banknote reconstruction pipeline and solar physics vision analysis."
+    },
+    {
+      "week": 6,
+      "focus": "Ethics and Reflection",
+      "deliverable": "Ethical impact assessment report and integration plan for responsible practices."
+    }
+  ],
+  "risks": [
+    {
+      "risk": "Limited practical datasets or computational resources may restrict ability to fully reproduce experiments.",
+      "mitigation": "Focus on smaller-scale experiments and simulations; use publicly available datasets and pretrained models where possible."
+    },
+    {
+      "risk": "Rapidly evolving vision transformer architectures may outdate some findings.",
+      "mitigation": "Continuously monitor latest research and adapt learning plan accordingly."
+    },
+    {
+      "risk": "Complexity of integrating vision and robotic control may require advanced hardware.",
+      "mitigation": "Use simulation environments or simplified robotic platforms for prototyping."
+    }
+  ],
+  "_topics_suggestion": "The selected papers may also cover research areas including: 3D Scene Understanding, Applied Machine Learning, Deep Learning Architectures, General Algorithms, Image Segmentation, Language Modeling, Medical Imaging, Natural Language Processing. You may gain a broader understand of the field by exploring these related research directions"
+}

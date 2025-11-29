@@ -2,6 +2,7 @@ name: "Request: Generate Learning Plan"
 description: "Submit a topic to generate a learning plan"
 title: "Plan request: "
 labels: ["plan-request"]
+
 body:
   - type: input
     id: goal
@@ -11,10 +12,11 @@ body:
       placeholder: "e.g., graph neural networks for molecules"
     validations:
       required: true
+
   - type: dropdown
     id: top_k
     attributes:
-      label: How many papers dou you want to learn?
+      label: How many papers do you want to learn?
       options:
         - "3"
         - "5"
@@ -24,23 +26,17 @@ body:
       default: 2
     validations:
       required: true
+
   - type: dropdown
-      id: mode
-      attributes:
-        label: What kind of papers do you prefer?
-        description: "This will decide whether we use trending, review, application, or theory papers as input."
-        options:
-          - "trending"
-          - "review"
-          - "application"
-          - "theory"
-        default: 0
-      validations:
-        required: true
-  - type: textarea
-    id: notes
+    id: mode
     attributes:
-      label: Notes (optional)
-      placeholder: "Any extra detail..."
+      label: What kind of papers do you prefer?
+      description: "This will decide whether we use trending, review, application, or theory mode as input."
+      options:
+        - "trending"
+        - "review"
+        - "application"
+        - "theory"
+      default: 0
     validations:
-      required: false
+      required: true

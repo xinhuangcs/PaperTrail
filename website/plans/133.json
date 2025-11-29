@@ -1,0 +1,282 @@
+{
+  "goal": "3D rendering",
+  "study_level": "intermediate",
+  "source_papers": [
+    "1604.08685",
+    "2310.08529",
+    "1904.08494",
+    "2406.02058",
+    "2111.04839",
+    "1804.00782",
+    "2308.16512",
+    "0801.4483",
+    "1901.05064",
+    "1910.11342",
+    "1706.07036",
+    "2304.03526",
+    "0801.2823",
+    "1605.09737",
+    "2404.05641"
+  ],
+  "metadata": {
+    "prompt_version": "PT-20251102-1",
+    "model": "gpt-4.1-mini",
+    "created_at": "2025-11-29T19:32:26.595806+00:00"
+  },
+  "plan_overview": "This learning plan guides you through foundational to advanced concepts in 3D rendering, starting from understanding 3D structure inference from images, progressing through generative models and diffusion techniques, and culminating in practical applications and datasets. The strategy is to build a solid theoretical base, then explore state-of-the-art generative and rendering methods, and finally understand real-world data and applications to consolidate your knowledge.",
+  "reading_order": [
+    {
+      "paper_id": "1604.08685",
+      "why_first": "Introduces fundamental techniques for inferring 3D structure from single images, establishing a base for 3D understanding and rendering.",
+      "key_questions": [
+        "How does the Projection Layer enable training with 2D annotations?",
+        "What are the challenges in estimating 3D structure from 2D keypoints?",
+        "How does 3D-INN integrate synthetic and real data?"
+      ],
+      "paper_title": "Single Image 3D Interpreter Network"
+    },
+    {
+      "paper_id": "1804.00782",
+      "why_first": "Builds on 3D-INN concepts with viewer-centered wireframe modeling, deepening understanding of 3D structure estimation from images.",
+      "key_questions": [
+        "What improvements does viewer-centered modeling bring?",
+        "How are 2D keypoint heatmaps used as intermediate representations?",
+        "How does training on synthetic and real data improve performance?"
+      ],
+      "paper_title": "3D Interpreter Networks for Viewer-Centered Wireframe Modeling"
+    },
+    {
+      "paper_id": "1706.07036",
+      "why_first": "Introduces efficient point cloud generation for dense 3D reconstruction, connecting 2D convolutional operations to 3D shape generation.",
+      "key_questions": [
+        "How does the pseudo-renderer approximate rendering?",
+        "Why are point clouds more efficient than volumetric methods?",
+        "How is geometric reasoning integrated with 2D projections?"
+      ],
+      "paper_title": "Learning Efficient Point Cloud Generation for Dense 3D Object\n  Reconstruction"
+    },
+    {
+      "paper_id": "1904.08494",
+      "why_first": "Focuses on lifting 2D images to 3D for object detection, relevant for understanding 3D object localization and detection in rendered scenes.",
+      "key_questions": [
+        "How is 2D to 3D lifting achieved via neural networks?",
+        "What training mechanisms reduce noise in data?",
+        "How does this method compare to sensor-based 3D detection?"
+      ],
+      "paper_title": "Learning 2D to 3D Lifting for Object Detection in 3D for Autonomous\n  Vehicles"
+    },
+    {
+      "paper_id": "2304.03526",
+      "why_first": "Explores 2D-to-3D generative models for synthesizing training data, bridging 2D GANs and 3D generative radiance fields.",
+      "key_questions": [
+        "What are the limitations of NeRF-based 3D GANs?",
+        "How does Lift3D generalize to different camera intrinsics?",
+        "How is explicit 3D supervision incorporated?"
+      ],
+      "paper_title": "Lift3D: Synthesize 3D Training Data by Lifting 2D GAN to 3D Generative\n  Radiance Field"
+    },
+    {
+      "paper_id": "2310.08529",
+      "why_first": "Presents GaussianDreamer, a fast 3D object generation method combining 2D and 3D diffusion models, advancing generative rendering techniques.",
+      "key_questions": [
+        "How are 2D and 3D diffusion models bridged?",
+        "What is the role of 3D Gaussian splatting?",
+        "How does the method balance quality and 3D consistency?"
+      ],
+      "paper_title": "GaussianDreamer: Fast Generation from Text to 3D Gaussians by Bridging\n  2D and 3D Diffusion Models"
+    },
+    {
+      "paper_id": "2308.16512",
+      "why_first": "Introduces MVDream, a multi-view diffusion model for consistent 3D generation from text, enhancing understanding of multi-view consistency in rendering.",
+      "key_questions": [
+        "How does multi-view diffusion improve 3D consistency?",
+        "What is Score Distillation Sampling?",
+        "How does MVDream learn new concepts from few examples?"
+      ],
+      "paper_title": "MVDream: Multi-view Diffusion for 3D Generation"
+    },
+    {
+      "paper_id": "2406.02058",
+      "why_first": "Focuses on 3D Gaussian-based open vocabulary understanding, linking 3D rendering with semantic understanding at point level.",
+      "key_questions": [
+        "How are SAM masks used for 3D consistency?",
+        "What is the two-stage codebook discretization?",
+        "How does the method improve feature expressiveness?"
+      ],
+      "paper_title": "OpenGaussian: Towards Point-Level 3D Gaussian-based Open Vocabulary\n  Understanding"
+    },
+    {
+      "paper_id": "2404.05641",
+      "why_first": "Provides a large-scale dataset (3D-COCO) with 3D models and 2D-3D alignment, essential for training and evaluating 3D rendering models.",
+      "key_questions": [
+        "How are 3D models aligned with 2D annotations?",
+        "What tasks does 3D-COCO support?",
+        "How can this dataset improve 3D reconstruction?"
+      ],
+      "paper_title": "3D-COCO: extension of MS-COCO dataset for image detection and 3D\n  reconstruction modules"
+    },
+    {
+      "paper_id": "2111.04839",
+      "why_first": "Explores joint generation of 3D models and 2D views guided by semantic models, useful for understanding rendering from multiple perspectives.",
+      "key_questions": [
+        "How are ImageNet and CLIP models used to guide generation?",
+        "What is anamorphic object generation?",
+        "How are 2D renders linked to 3D models?"
+      ],
+      "paper_title": "Evolving Evocative 2D Views of Generated 3D Objects"
+    },
+    {
+      "paper_id": "1901.05064",
+      "why_first": "Presents a novel 3D display system combining micro-volumetric scanning and hologram reconstruction, relevant for advanced 3D visualization techniques.",
+      "key_questions": [
+        "How does micro-volumetric scanning work?",
+        "What is the principle of real-time hologram reconstruction?",
+        "How can this display improve 3D rendering visualization?"
+      ],
+      "paper_title": "A novel 3D display based on micro-volumetric scanning and real time\n  reconstruction of holograms principle"
+    },
+    {
+      "paper_id": "1910.11342",
+      "why_first": "Discusses 3D model-based restoration with positivity constraints, relevant for improving 3D image reconstruction quality.",
+      "key_questions": [
+        "What is the positivity constraint in 3D restoration?",
+        "How does the conjugate-gradient method improve reconstruction?",
+        "How does reducing raw images affect quality?"
+      ],
+      "paper_title": "3D model-based restoration with positivity constraint using a reduced\n  number of 3D-SIM images"
+    },
+    {
+      "paper_id": "0801.4483",
+      "why_first": "Analyzes 3D ultrasound guidance versus 2D, providing insights into practical 3D imaging and registration challenges.",
+      "key_questions": [
+        "What improvements does 3D ultrasound provide?",
+        "How is accuracy measured in phantom studies?",
+        "What are limitations of 2D guidance?"
+      ],
+      "paper_title": "Biopsies prostatiques sous guidage \\'echographique 3D et temps r\\'eel\n  (4D) sur fant\\^ome. Etude comparative versus guidage 2D"
+    },
+    {
+      "paper_id": "0801.2823",
+      "why_first": "Presents 3D/4D ultrasound registration methods, important for understanding real-time 3D data alignment techniques.",
+      "key_questions": [
+        "How is 3D/4D ultrasound registration performed?",
+        "What challenges exist in real-time registration?",
+        "How can these methods be applied to 3D rendering?"
+      ],
+      "paper_title": "3D/4D ultrasound registration of bone"
+    },
+    {
+      "paper_id": "1605.09737",
+      "why_first": "Focuses on 3D printed stencils for texturing flat surfaces, linking 3D modeling with practical rendering and fabrication.",
+      "key_questions": [
+        "How are images decomposed into alpha-blended layers?",
+        "What is the stippling process?",
+        "How does 3D printing enable texturing?"
+      ],
+      "paper_title": "3D Printed Stencils for Texturing Flat Surfaces"
+    }
+  ],
+  "actions": [
+    {
+      "label": "Implement 3D-INN from Paper 1604.08685",
+      "how_to": "Reproduce the 3D Interpreter Network using available code or frameworks, train on synthetic and 2D annotated data to estimate 3D structure from images.",
+      "expected_outcome": "Ability to infer 3D object structure from single images with reasonable accuracy."
+    },
+    {
+      "label": "Train Point Cloud Generator from Paper 1706.07036",
+      "how_to": "Implement the pseudo-renderer and train the point cloud generation network on multi-view images to reconstruct dense 3D shapes.",
+      "expected_outcome": "Efficient generation of dense 3D point clouds from 2D inputs."
+    },
+    {
+      "label": "Experiment with Lift3D Framework from Paper 2304.03526",
+      "how_to": "Set up Lift3D to generate 3D training data from 2D GAN outputs, evaluate photorealism and 3D attribute alignment.",
+      "expected_outcome": "Generation of high-quality 3D training data suitable for downstream tasks."
+    },
+    {
+      "label": "Use GaussianDreamer for Fast 3D Generation from Paper 2310.08529",
+      "how_to": "Run GaussianDreamer pipeline to generate 3D objects from text prompts, analyze quality and generation speed.",
+      "expected_outcome": "Fast and consistent 3D object generation guided by text."
+    },
+    {
+      "label": "Explore Multi-view Diffusion with MVDream from Paper 2308.16512",
+      "how_to": "Train or fine-tune MVDream model on multi-view datasets, generate consistent multi-view images from text prompts.",
+      "expected_outcome": "Improved multi-view consistency in 3D generation tasks."
+    },
+    {
+      "label": "Analyze 3D-COCO Dataset from Paper 2404.05641",
+      "how_to": "Download and explore the 3D-COCO dataset, practice aligning 2D images with 3D models for reconstruction tasks.",
+      "expected_outcome": "Familiarity with large-scale 3D datasets and improved 3D reconstruction skills."
+    },
+    {
+      "label": "Implement 3D Gaussian Splatting Features from Paper 2406.02058",
+      "how_to": "Apply the two-stage codebook discretization and SAM mask training to achieve point-level 3D understanding.",
+      "expected_outcome": "Enhanced 3D point-level semantic understanding for rendering applications."
+    }
+  ],
+  "metrics": [
+    "3D reconstruction accuracy (e.g., IoU with ground truth)",
+    "Rendering consistency across multiple views",
+    "Generation speed (time per 3D object)",
+    "Photorealism score of generated 3D models",
+    "Alignment accuracy between 2D images and 3D models",
+    "Point cloud density and completeness",
+    "Semantic segmentation accuracy at 3D point level"
+  ],
+  "timeline_weeks": [
+    {
+      "week": 1,
+      "focus": "Foundations of 3D structure estimation from images",
+      "deliverable": "Implement and test 3D-INN model on sample datasets."
+    },
+    {
+      "week": 2,
+      "focus": "Viewer-centered modeling and point cloud generation",
+      "deliverable": "Train point cloud generation network and evaluate reconstruction quality."
+    },
+    {
+      "week": 3,
+      "focus": "2D to 3D generative modeling and data synthesis",
+      "deliverable": "Experiment with Lift3D framework for 3D training data generation."
+    },
+    {
+      "week": 4,
+      "focus": "Fast 3D object generation with diffusion models",
+      "deliverable": "Run GaussianDreamer and assess generation speed and quality."
+    },
+    {
+      "week": 5,
+      "focus": "Multi-view diffusion and consistency in 3D generation",
+      "deliverable": "Generate multi-view consistent images using MVDream."
+    },
+    {
+      "week": 6,
+      "focus": "3D Gaussian splatting and semantic understanding",
+      "deliverable": "Implement OpenGaussian features and evaluate point-level understanding."
+    },
+    {
+      "week": 7,
+      "focus": "Dataset exploration and real-world 3D alignment",
+      "deliverable": "Analyze 3D-COCO dataset and perform 2D-3D alignment tasks."
+    },
+    {
+      "week": 8,
+      "focus": "Advanced 3D rendering and visualization techniques",
+      "deliverable": "Study hologram reconstruction and micro-volumetric scanning concepts."
+    }
+  ],
+  "risks": [
+    {
+      "risk": "Limited practical implementation details in some papers may hinder reproducibility.",
+      "mitigation": "Focus on papers with available code or detailed methodology; supplement with related resources."
+    },
+    {
+      "risk": "High computational resources required for training diffusion and generative models.",
+      "mitigation": "Use pre-trained models when available and optimize training with smaller datasets or cloud resources."
+    },
+    {
+      "risk": "Dataset alignment errors may affect training quality.",
+      "mitigation": "Validate dataset annotations carefully and use data augmentation to improve robustness."
+    }
+  ],
+  "_topics_suggestion": "The selected papers may also cover research areas including: Object Detection & Pose Estimation. You may gain a broader understand of the field by exploring these related research directions"
+}

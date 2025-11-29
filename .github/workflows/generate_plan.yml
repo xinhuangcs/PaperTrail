@@ -31,7 +31,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: data
-          key: papertrail-data-action-v3
+          key: papertrail-data-v3
 
       - name: Install deps
         run: |
@@ -49,7 +49,7 @@ jobs:
             exit 0
           fi
 
-          TAG="data-action-v3"
+          TAG="data-papertrail-v3"
           REPO_FULL="xinhuangcs/PaperTrail"
           BASE_URL="https://github.com/${REPO_FULL}/releases/download/$TAG"
           echo "BASE_URL = $BASE_URL"

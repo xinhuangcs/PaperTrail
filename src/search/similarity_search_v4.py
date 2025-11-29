@@ -526,7 +526,7 @@ def search_lsa_lsh(
         )
     return results
 
-def save_results_jsonl(query: str, method: str, results: List[Tuple[str, str, float, Optional[int], Optional[List[str]]]]) -> Path:
+def save_results_jsonl(query: str, method: str, results: List[Tuple[str, str, float, Optional[int], Optional[List[str]]]], requested_top_k: Optional[int] = None) -> Path:
     need_ids = {pid for (pid, _title, _s, _cluster, _topics) in results}
     raw_meta = load_raw_meta(need_ids)
     
@@ -536,7 +536,10 @@ def save_results_jsonl(query: str, method: str, results: List[Tuple[str, str, fl
 
     # output file path
     ts = int(time.time())
-    out_path = OUT_DIR / f"similarity_for_recommend_{method}_{ts}.json"
+    if requested_top_k is not None:
+        out_path = OUT_DIR / f"similarity_for_recommend_{method}_{ts}_topk{requested_top_k}.json"
+    else:
+        out_path = OUT_DIR / f"similarity_for_recommend_{method}_{ts}.json"
 
     with out_path.open("w", encoding="utf-8") as f:
         if not results:
@@ -696,13 +699,16 @@ def main():
     # 2) Dispatch method
     # ----------------------------
     t0 = time.time()
+    
+
+    search_k = max(100, top_k)
 
     if method == "tfidf":
-        results = search_tfidf(query, top_k)
+        results = search_tfidf(query, search_k)
     elif method == "lsa":
-        results = search_lsa(query, top_k)
+        results = search_lsa(query, search_k)
     else:  # lsa_lsh
-        results = search_lsa_lsh(query, top_k)
+        results = search_lsa_lsh(query, search_k)
 
     dt = time.time() - t0
 
@@ -710,7 +716,8 @@ def main():
     # 3) Print + Save JSONL output
     # ----------------------------
     print_results(query, method, results)
-    out_file = save_results_jsonl(query, method, results)
+    # Pass the original user-requested top_k so it can be embedded in the filename
+    out_file = save_results_jsonl(query, method, results, requested_top_k=top_k)
 
     print(f"[ok] Saved results to: {out_file}")
     print(f"[ok] Time spent: {dt:.2f}s")

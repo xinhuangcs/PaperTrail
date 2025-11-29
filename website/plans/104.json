@@ -1,0 +1,221 @@
+{
+  "goal": "Understand how models learn from data",
+  "study_level": "intermediate",
+  "source_papers": [
+    "2201.08299",
+    "2005.08669",
+    "2402.18526",
+    "2006.09641",
+    "2210.01790",
+    "2302.07741",
+    "2105.06350",
+    "2103.01350",
+    "2206.06719",
+    "2008.04773"
+  ],
+  "metadata": {
+    "prompt_version": "PT-20251102-1",
+    "model": "gpt-4.1-mini",
+    "created_at": "2025-11-29T18:40:30.710403+00:00"
+  },
+  "plan_overview": "This learning plan guides you through foundational and advanced concepts of how models learn from data, focusing on goal-conditioned learning in reinforcement learning and related challenges. Starting with broad goal-setting concepts and progressing through reinforcement learning techniques, curriculum learning, goal misgeneralization, and practical algorithms, you will build a comprehensive understanding of model learning dynamics and goal-driven behavior.",
+  "reading_order": [
+    {
+      "paper_id": "2005.08669",
+      "why_first": "Introduces the concept of goal setting in learning contexts, highlighting human factors and foundational challenges relevant to understanding goal-driven learning.",
+      "key_questions": [
+        "What are the key human factors affecting goal setting in learning?",
+        "How do goal setting skills impact learning outcomes?",
+        "What barriers exist beyond technology in goal-oriented learning?"
+      ],
+      "paper_title": "Translating the Concept of Goal Setting into Practice -- What 'Else'\n  does it Require than a Goal Setting Tool?"
+    },
+    {
+      "paper_id": "2201.08299",
+      "why_first": "Provides a comprehensive overview of goal-conditioned reinforcement learning, establishing the core problems and solution approaches for models learning from goals.",
+      "key_questions": [
+        "What distinguishes goal-conditioned RL from standard RL?",
+        "How are goals represented in goal-conditioned RL?",
+        "What are the main challenges in goal-conditioned RL?"
+      ],
+      "paper_title": "Goal-Conditioned Reinforcement Learning: Problems and Solutions"
+    },
+    {
+      "paper_id": "2006.09641",
+      "why_first": "Explores automatic curriculum learning, showing how goal selection impacts learning efficiency, a key aspect of how models learn from data progressively.",
+      "key_questions": [
+        "How does curriculum learning improve sample efficiency?",
+        "What is the role of value disagreement in goal selection?",
+        "How can goal sampling be optimized for learning?"
+      ],
+      "paper_title": "Automatic Curriculum Learning through Value Disagreement"
+    },
+    {
+      "paper_id": "2206.06719",
+      "why_first": "Introduces Stein Variational Goal Generation, a method for adaptive exploration in multi-goal RL, deepening understanding of goal distribution and learning dynamics.",
+      "key_questions": [
+        "How does SVGG adapt goal difficulty for the agent?",
+        "What is the role of Stein Variational Gradient Descent in goal generation?",
+        "How does adaptive goal sampling affect learning?"
+      ],
+      "paper_title": "Stein Variational Goal Generation for adaptive Exploration in Multi-Goal\n  Reinforcement Learning"
+    },
+    {
+      "paper_id": "2302.07741",
+      "why_first": "Presents a practical method to improve offline goal-conditioned RL by generating valid goal-swapped experiences, addressing data limitations in learning.",
+      "key_questions": [
+        "What challenges arise in goal-swapping experience replay?",
+        "How does prioritization improve goal-swapping?",
+        "What impact does PGSER have on learning performance?"
+      ],
+      "paper_title": "Prioritized offline Goal-swapping Experience Replay"
+    },
+    {
+      "paper_id": "2105.06350",
+      "why_first": "Describes a model-assisted policy optimization framework that uses learned dynamics for goal relabeling and simulated training, enhancing sample efficiency and learning from data.",
+      "key_questions": [
+        "How does Foresight Goal Inference improve goal relabeling?",
+        "What benefits does model-assisted policy optimization provide?",
+        "How does simulated trajectory generation aid learning?"
+      ],
+      "paper_title": "MapGo: Model-Assisted Policy Optimization for Goal-Oriented Tasks"
+    },
+    {
+      "paper_id": "2103.01350",
+      "why_first": "Explores hierarchical goal-driven policy learning with relational graphs, illustrating structured approaches to learning from complex goal relationships.",
+      "key_questions": [
+        "How does the Goals Relational Graph facilitate hierarchical learning?",
+        "What advantages does hierarchical RL provide for goal-driven tasks?",
+        "How does this approach generalize to unseen goals?"
+      ],
+      "paper_title": "Hierarchical and Partially Observable Goal-driven Policy Learning with\n  Goals Relational Graph"
+    },
+    {
+      "paper_id": "2210.01790",
+      "why_first": "Examines goal misgeneralization, a critical robustness failure where models learn unintended goals despite correct specifications, important for understanding learning pitfalls.",
+      "key_questions": [
+        "What causes goal misgeneralization in learned models?",
+        "How does goal misgeneralization differ from specification gaming?",
+        "What are examples of goal misgeneralization in practice?"
+      ],
+      "paper_title": "Goal Misgeneralization: Why Correct Specifications Aren't Enough For\n  Correct Goals"
+    },
+    {
+      "paper_id": "2008.04773",
+      "why_first": "Focuses on modeling user and system goals to identify vulnerabilities, connecting goal understanding to system design and learning implications.",
+      "key_questions": [
+        "How can personas be reframed as goal models?",
+        "What vulnerabilities arise from goal misalignment?",
+        "How does goal modeling support system requirements?"
+      ],
+      "paper_title": "Identifying Implicit Vulnerabilities through Personas as Goal Models"
+    },
+    {
+      "paper_id": "2402.18526",
+      "why_first": "Investigates mental models of meeting goals, providing insight into human goal conceptualization which influences how models might learn or be designed to learn from data.",
+      "key_questions": [
+        "What are contrasting mental models of meeting goals?",
+        "How do mental models affect goal prioritization?",
+        "What challenges arise from goal misalignment in collaborative settings?"
+      ],
+      "paper_title": "Mental Models of Meeting Goals: Supporting Intentionality in Meeting\n  Technologies"
+    }
+  ],
+  "actions": [
+    {
+      "label": "Summarize key concepts of goal setting in learning",
+      "how_to": "Read paper 2005.08669 and write a summary focusing on human factors affecting goal setting and learning.",
+      "expected_outcome": "Clear understanding of foundational goal setting challenges in learning contexts."
+    },
+    {
+      "label": "Map goal-conditioned reinforcement learning fundamentals",
+      "how_to": "Study paper 2201.08299 and create a concept map of goal representations, challenges, and solution approaches.",
+      "expected_outcome": "Visual and conceptual grasp of goal-conditioned RL basics."
+    },
+    {
+      "label": "Implement a simple curriculum learning experiment",
+      "how_to": "Based on paper 2006.09641, design a small RL environment and implement automatic curriculum learning via value disagreement.",
+      "expected_outcome": "Hands-on experience with curriculum learning improving sample efficiency."
+    },
+    {
+      "label": "Analyze adaptive goal generation methods",
+      "how_to": "Review paper 2206.06719 and compare SVGG with baseline goal sampling methods in a simulated environment.",
+      "expected_outcome": "Understanding of adaptive goal difficulty and its impact on learning progress."
+    },
+    {
+      "label": "Evaluate goal-swapping experience replay",
+      "how_to": "Reproduce key experiments from paper 2302.07741 to assess prioritized goal-swapping effects on offline RL.",
+      "expected_outcome": "Insight into data augmentation techniques for goal-conditioned learning."
+    },
+    {
+      "label": "Explore model-assisted policy optimization",
+      "how_to": "Implement or simulate the FGI strategy from paper 2105.06350 and observe effects on policy training efficiency.",
+      "expected_outcome": "Practical knowledge of model-based enhancements in goal-oriented RL."
+    },
+    {
+      "label": "Study hierarchical goal-driven policy learning",
+      "how_to": "Analyze paper 2103.01350 and outline how Goals Relational Graphs structure learning and generalization.",
+      "expected_outcome": "Understanding of hierarchical and relational approaches to goal learning."
+    },
+    {
+      "label": "Investigate goal misgeneralization risks",
+      "how_to": "Read paper 2210.01790 and identify examples and mitigation strategies for goal misgeneralization.",
+      "expected_outcome": "Awareness of robustness failures in goal learning and how to detect them."
+    },
+    {
+      "label": "Connect goal modeling to system vulnerabilities",
+      "how_to": "Examine paper 2008.04773 and summarize how goal misalignment can cause vulnerabilities in system design.",
+      "expected_outcome": "Appreciation of goal alignment importance beyond learning algorithms."
+    },
+    {
+      "label": "Reflect on human mental models of goals",
+      "how_to": "Study paper 2402.18526 and write a reflection on how human goal conceptualization influences learning system design.",
+      "expected_outcome": "Deeper insight into human factors affecting goal-oriented learning systems."
+    }
+  ],
+  "metrics": [
+    "Number of papers thoroughly summarized",
+    "Implementation of at least two RL experiments related to goal learning",
+    "Ability to explain goal misgeneralization with examples",
+    "Creation of a concept map linking goal setting and RL methods",
+    "Reflection essay on human mental models of goals"
+  ],
+  "timeline_weeks": [
+    {
+      "week": 1,
+      "focus": "Foundations of goal setting and goal-conditioned RL",
+      "deliverable": "Summary of paper 2005.08669 and concept map from 2201.08299"
+    },
+    {
+      "week": 2,
+      "focus": "Curriculum learning and adaptive goal generation",
+      "deliverable": "Implementation and report on curriculum learning (2006.09641) and SVGG analysis (2206.06719)"
+    },
+    {
+      "week": 3,
+      "focus": "Data augmentation and model-assisted policy optimization",
+      "deliverable": "Experiment results and analysis from papers 2302.07741 and 2105.06350"
+    },
+    {
+      "week": 4,
+      "focus": "Hierarchical learning and goal misgeneralization",
+      "deliverable": "Outline of hierarchical RL (2103.01350) and report on goal misgeneralization (2210.01790)"
+    },
+    {
+      "week": 5,
+      "focus": "Goal modeling in system design and human mental models",
+      "deliverable": "Summary of vulnerabilities from goal misalignment (2008.04773) and reflection essay on mental models (2402.18526)"
+    }
+  ],
+  "risks": [
+    {
+      "risk": "The selected papers focus heavily on goal-conditioned reinforcement learning and may not cover all aspects of how models learn from data in other machine learning paradigms.",
+      "mitigation": "Focus learning on goal-conditioned learning as a representative and foundational approach, and note limitations for broader generalization."
+    },
+    {
+      "risk": "Some papers have low citation counts and may represent emerging or less validated ideas.",
+      "mitigation": "Critically evaluate methods and results, supplementing understanding with foundational knowledge from more established papers in the set."
+    }
+  ],
+  "_topics_suggestion": "The selected papers may also cover research areas including: Applied Machine Learning, General Algorithms, Reinforcement Learning, Robotics & Control. You may gain a broader understand of the field by exploring these related research directions"
+}

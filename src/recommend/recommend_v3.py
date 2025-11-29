@@ -20,11 +20,21 @@ if not json_files:
     raise FileNotFoundError("No similarity_for_recommend_lsa_*.json under similarity_results_v2")
 
 INPUT_JSON = max(json_files, key=lambda p: p.stat().st_mtime)
+
+# Try to parse requested top_k from filename (e.g. ..._topk10.json)
+match_k = re.search(r"_topk(\d+)\.json$", INPUT_JSON.name)
+if match_k:
+    TOPK = int(match_k.group(1))
+    print(f"[info] Detected TOPK={TOPK} from filename {INPUT_JSON.name}")
+else:
+    TOPK = 200
+    print(f"[info] Using default TOPK={TOPK}")
+
 OUTPUT_DIR = ROOT_DIR / "data" / "recommend"
 
 FALLBACK_QUERY = "deep learning"
 VIEWS = "all"           # all / default / review / application / theory / trending
-TOPK = 200
+
 MMR_LAMBDA = 0.75
 SEED = 42
 

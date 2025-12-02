@@ -1,0 +1,227 @@
+{
+  "goal": "Quantum Cryptography",
+  "study_level": "intermediate",
+  "source_papers": [
+    "2312.10430",
+    "2208.10127",
+    "2412.18979",
+    "2312.15309",
+    "math/0405572",
+    "2212.08750",
+    "2408.08369",
+    "1711.09442",
+    "1810.01685",
+    "2402.15707"
+  ],
+  "metadata": {
+    "prompt_version": "PT-20251102-1",
+    "model": "gpt-4.1-mini",
+    "created_at": "2025-12-02T09:56:07.859589+00:00"
+  },
+  "plan_overview": "This learning plan guides you through foundational concepts of quantum information and communication, progressing towards specialized topics in quantum cryptography and quantum computing applications. Starting with theoretical underpinnings and quantum communication basics, you will then explore post-quantum cryptography, quantum code constructions, and practical quantum computing elements relevant to cryptographic systems. The plan emphasizes understanding both the theoretical and practical challenges in quantum cryptography, preparing you to engage with current research and implementation issues.",
+  "reading_order": [
+    {
+      "paper_id": "math/0405572",
+      "why_first": "Provides a foundational tutorial introduction to quantum information theory, essential for understanding quantum cryptography concepts.",
+      "key_questions": [
+        "What are the basic models of quantum information?",
+        "How do statistics and probability play a role in quantum information theory?",
+        "What are the key quantum states and operations relevant to cryptography?"
+      ],
+      "paper_title": "Teleportation into Quantum Statistics"
+    },
+    {
+      "paper_id": "2402.15707",
+      "why_first": "Introduces the principles and mechanisms of quantum communication, setting the stage for understanding quantum cryptographic protocols.",
+      "key_questions": [
+        "What are the fundamental principles of quantum communication?",
+        "How do quantum entanglement and teleportation enable secure communication?",
+        "What are the main challenges in implementing quantum communication?"
+      ],
+      "paper_title": "A Quick Guide to Quantum Communication"
+    },
+    {
+      "paper_id": "2312.10430",
+      "why_first": "Surveys the state-of-the-art in post-quantum cryptography, explaining the necessity and current solutions for quantum-resistant cryptographic algorithms.",
+      "key_questions": [
+        "What are the differences between quantum cryptography and post-quantum cryptography?",
+        "What are the current post-quantum algorithms and their limitations?",
+        "Why is quantum cryptography not yet a fully viable solution?"
+      ],
+      "paper_title": "A Survey on Post-Quantum Cryptography: State-of-the-Art and Challenges"
+    },
+    {
+      "paper_id": "2212.08750",
+      "why_first": "Explores cryptographic implications of quantum memory limitations, providing insight into novel cryptographic primitives enabled by quantum constraints.",
+      "key_questions": [
+        "What is quantum amnesia and how does it affect quantum computation?",
+        "How can quantum bounded storage models provide cryptographic advantages?",
+        "What exotic cryptographic primitives arise from quantum memory limitations?"
+      ],
+      "paper_title": "Quantum Amnesia Leaves Cryptographic Mementos: A Note On Quantum\n  Skepticism"
+    },
+    {
+      "paper_id": "1810.01685",
+      "why_first": "Presents constructions of entanglement-assisted quantum error-correcting codes, crucial for reliable quantum cryptographic protocols.",
+      "key_questions": [
+        "How are classical codes used to construct quantum error-correcting codes?",
+        "What are entanglement-assisted MDS quantum codes?",
+        "How do these codes improve quantum communication reliability?"
+      ],
+      "paper_title": "New entanglement-assisted MDS quantum codes from constacyclic codes"
+    },
+    {
+      "paper_id": "2208.10127",
+      "why_first": "Provides an overview of distributed quantum computing and the emerging quantum internet, important for understanding networked quantum cryptography.",
+      "key_questions": [
+        "What is distributed quantum computing and how does it relate to the quantum internet?",
+        "What are the recent advances in quantum networking?",
+        "How does quantum internet computing impact cryptographic protocols?"
+      ],
+      "paper_title": "From Distributed Quantum Computing to Quantum Internet Computing: an\n  Overview"
+    },
+    {
+      "paper_id": "2408.08369",
+      "why_first": "Introduces quantum buffer designs using Petri nets, offering practical insights into quantum memory and storage relevant for cryptographic systems.",
+      "key_questions": [
+        "What are quantum Petri nets and how are they used to model quantum buffers?",
+        "How are quantum S-R flip-flops and registers designed?",
+        "What are the implications for quantum data storage and cryptography?"
+      ],
+      "paper_title": "Quantum Buffer Design Using Petri Nets"
+    },
+    {
+      "paper_id": "2312.15309",
+      "why_first": "Discusses debugging tools for quantum ternary systems, highlighting challenges in quantum program verification which is important for secure quantum software.",
+      "key_questions": [
+        "What are dynamic runtime assertions in quantum ternary systems?",
+        "How do assertions help in debugging quantum programs?",
+        "What challenges arise in ternary quantum logic debugging?"
+      ],
+      "paper_title": "Dynamic Runtime Assertions in Quantum Ternary Systems"
+    },
+    {
+      "paper_id": "1711.09442",
+      "why_first": "Demonstrates experimental quantum algorithms on real quantum hardware, illustrating practical quantum computing aspects that can influence cryptographic implementations.",
+      "key_questions": [
+        "How is quantum artificial life implemented on IBM quantum computers?",
+        "What quantum behaviors are encoded in the algorithm?",
+        "How can experimental quantum algorithms inform cryptographic applications?"
+      ],
+      "paper_title": "Quantum Artificial Life in an IBM Quantum Computer"
+    },
+    {
+      "paper_id": "2412.18979",
+      "why_first": "Explores quantum memristors for neuromorphic quantum machine learning, expanding understanding of quantum hardware capabilities potentially useful in cryptographic contexts.",
+      "key_questions": [
+        "What are quantum memristors and their role in quantum machine learning?",
+        "How does neuromorphic quantum computing combine unitary evolution and nonlinearity?",
+        "What potential applications exist for quantum machine learning in cryptography?"
+      ],
+      "paper_title": "Quantum memristors for neuromorphic quantum machine learning"
+    }
+  ],
+  "actions": [
+    {
+      "label": "Study foundational quantum information theory",
+      "how_to": "Read and summarize key concepts from 'Teleportation into Quantum Statistics' focusing on quantum states, operations, and statistical models.",
+      "expected_outcome": "You will understand the mathematical and statistical foundations of quantum information relevant to cryptography."
+    },
+    {
+      "label": "Learn quantum communication principles",
+      "how_to": "Review 'A Quick Guide to Quantum Communication' to grasp quantum entanglement, superposition, and teleportation mechanisms.",
+      "expected_outcome": "You will be able to explain how quantum communication enables secure information transfer."
+    },
+    {
+      "label": "Analyze post-quantum cryptography algorithms",
+      "how_to": "Study 'A Survey on Post-Quantum Cryptography' to identify current algorithms, their strengths, and limitations.",
+      "expected_outcome": "You will know the landscape of quantum-resistant cryptographic methods and their practical challenges."
+    },
+    {
+      "label": "Explore quantum memory limitations and cryptographic implications",
+      "how_to": "Read 'Quantum Amnesia Leaves Cryptographic Mementos' to understand quantum memory constraints and their cryptographic uses.",
+      "expected_outcome": "You will appreciate how quantum memory affects computation and enables new cryptographic primitives."
+    },
+    {
+      "label": "Understand quantum error-correcting codes",
+      "how_to": "Examine 'New entanglement-assisted MDS quantum codes' to learn code constructions and their role in quantum communication.",
+      "expected_outcome": "You will grasp how quantum codes protect information in quantum cryptographic protocols."
+    },
+    {
+      "label": "Investigate distributed quantum computing and quantum internet",
+      "how_to": "Study 'From Distributed Quantum Computing to Quantum Internet Computing' to learn about networked quantum systems.",
+      "expected_outcome": "You will understand how quantum networks impact cryptographic applications."
+    },
+    {
+      "label": "Review quantum buffer and memory designs",
+      "how_to": "Analyze 'Quantum Buffer Design Using Petri Nets' for practical quantum memory implementations.",
+      "expected_outcome": "You will gain insight into quantum data storage mechanisms relevant for cryptographic systems."
+    },
+    {
+      "label": "Examine debugging methods for quantum programs",
+      "how_to": "Read 'Dynamic Runtime Assertions in Quantum Ternary Systems' to understand debugging challenges and solutions.",
+      "expected_outcome": "You will be aware of tools to verify and debug quantum cryptographic software."
+    },
+    {
+      "label": "Explore experimental quantum algorithms",
+      "how_to": "Study 'Quantum Artificial Life in an IBM Quantum Computer' to see practical quantum algorithm implementation.",
+      "expected_outcome": "You will learn how quantum algorithms are realized on hardware, informing cryptographic software design."
+    },
+    {
+      "label": "Understand quantum machine learning hardware",
+      "how_to": "Review 'Quantum memristors for neuromorphic quantum machine learning' to explore advanced quantum hardware concepts.",
+      "expected_outcome": "You will recognize emerging quantum hardware paradigms potentially impacting cryptographic computations."
+    }
+  ],
+  "metrics": [
+    "Number of papers thoroughly read and summarized",
+    "Ability to explain key quantum cryptography concepts",
+    "Completion of practical exercises on quantum communication protocols",
+    "Understanding of quantum error-correcting codes and their applications",
+    "Familiarity with quantum memory and debugging techniques",
+    "Capability to discuss quantum cryptography challenges and solutions"
+  ],
+  "timeline_weeks": [
+    {
+      "week": 1,
+      "focus": "Foundations of quantum information theory and communication",
+      "deliverable": "Summary notes on quantum information basics and communication principles"
+    },
+    {
+      "week": 2,
+      "focus": "Post-quantum cryptography algorithms and quantum memory implications",
+      "deliverable": "Report on post-quantum algorithms and quantum amnesia effects"
+    },
+    {
+      "week": 3,
+      "focus": "Quantum error correction and distributed quantum computing",
+      "deliverable": "Presentation on quantum codes and quantum internet concepts"
+    },
+    {
+      "week": 4,
+      "focus": "Quantum memory design and debugging quantum programs",
+      "deliverable": "Technical review of quantum buffer designs and runtime assertions"
+    },
+    {
+      "week": 5,
+      "focus": "Experimental quantum algorithms and quantum machine learning hardware",
+      "deliverable": "Case study on quantum artificial life experiment and quantum memristors"
+    },
+    {
+      "week": 6,
+      "focus": "Integration and application to quantum cryptography",
+      "deliverable": "Comprehensive essay on current challenges and future directions in quantum cryptography"
+    }
+  ],
+  "risks": [
+    {
+      "risk": "The provided papers cover diverse topics with limited depth on practical quantum cryptographic protocol implementations.",
+      "mitigation": "Supplement learning with additional practical resources and experiment with quantum computing platforms where possible."
+    },
+    {
+      "risk": "Rapidly evolving quantum technologies may outpace the static content of these papers.",
+      "mitigation": "Regularly review latest literature and updates from quantum cryptography research communities."
+    }
+  ],
+  "_topics_suggestion": "The selected papers may also cover research areas including: Applied Machine Learning, General Algorithms. You may gain a broader understand of the field by exploring these related research directions"
+}

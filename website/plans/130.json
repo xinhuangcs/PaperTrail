@@ -1,0 +1,248 @@
+{
+  "goal": "DNA sequences",
+  "study_level": "intermediate",
+  "source_papers": [
+    "2102.01839",
+    "2410.15290",
+    "2001.06311",
+    "1803.03322",
+    "2308.05952",
+    "cs/0508055",
+    "2403.14204",
+    "2311.12884",
+    "2310.04694",
+    "1708.08027"
+  ],
+  "metadata": {
+    "prompt_version": "PT-20251102-1",
+    "model": "gpt-4.1-mini",
+    "created_at": "2025-11-29T19:31:45.144869+00:00"
+  },
+  "plan_overview": "This learning plan guides you through the fundamentals and advanced concepts of DNA-based data storage and sequence analysis. Starting from foundational channel models and error characterizations, you will progress to coding strategies, practical system implementations, and finally to advanced applications like deep learning for DNA motif identification. The plan balances theoretical understanding with practical coding and system design insights to enable you to grasp the challenges and solutions in DNA sequence storage and analysis.",
+  "reading_order": [
+    {
+      "paper_id": "1803.03322",
+      "why_first": "This paper provides a foundational characterization of the DNA data storage channel, essential for understanding the error sources and constraints in DNA storage systems.",
+      "key_questions": [
+        "What are the main sources of errors in DNA storage?",
+        "How does unordered storage of DNA molecules affect data retrieval?",
+        "What experimental data supports the error characterization?"
+      ],
+      "paper_title": "A Characterization of the DNA Data Storage Channel"
+    },
+    {
+      "paper_id": "2001.06311",
+      "why_first": "Building on the channel characterization, this paper introduces a formal channel model and fundamental limits for DNA storage, framing the theoretical capacity and constraints.",
+      "key_questions": [
+        "What is the noisy shuffling-sampling channel model?",
+        "How do synthesis and sequencing noise impact capacity?",
+        "What coding schemes are optimal under this model?"
+      ],
+      "paper_title": "DNA-Based Storage: Models and Fundamental Limits"
+    },
+    {
+      "paper_id": "2410.15290",
+      "why_first": "This paper deepens understanding of error patterns by analyzing the error ball size in DNA storage channels, critical for sequence reconstruction and error correction.",
+      "key_questions": [
+        "What is the definition and significance of the error ball?",
+        "How do deletions, insertions, and substitutions affect reconstruction?",
+        "What are the minimum noisy copies needed for accurate recovery?"
+      ],
+      "paper_title": "On the size of error ball in DNA storage channels"
+    },
+    {
+      "paper_id": "2102.01839",
+      "why_first": "It introduces coding schemes tailored for nanopore sequencing channels, a practical and emerging sequencing technology, linking theory to application.",
+      "key_questions": [
+        "What is the abstracted nanopore channel model?",
+        "How do proposed coding schemes improve capacity?",
+        "What algorithms enable efficient decoding?"
+      ],
+      "paper_title": "On Coding for an Abstracted Nanopore Channel for DNA Storage"
+    },
+    {
+      "paper_id": "2308.05952",
+      "why_first": "This paper compares constrained coding versus embracing errors, providing insights into efficient error management strategies in DNA storage.",
+      "key_questions": [
+        "What are the trade-offs between constrained coding and error embracing?",
+        "How do homopolymers and GC content affect error rates?",
+        "In which error regimes is embracing errors more efficient?"
+      ],
+      "paper_title": "Embracing Errors Is More Efficient Than Avoiding Them Through\n  Constrained Coding for DNA Data Storage"
+    },
+    {
+      "paper_id": "cs/0508055",
+      "why_first": "It addresses the design of DNA codes that avoid secondary structures, an important practical consideration for stable and reliable DNA sequences.",
+      "key_questions": [
+        "What secondary structures are problematic in DNA storage?",
+        "How can codes be constructed to avoid these structures?",
+        "What enumeration methods are used for such codes?"
+      ],
+      "paper_title": "DNA Codes that Avoid Secondary Structures"
+    },
+    {
+      "paper_id": "2403.14204",
+      "why_first": "This paper proposes variable payload lengths to enhance DNA storage capacity, addressing practical system-level challenges like primer-payload collisions.",
+      "key_questions": [
+        "How does variable strand length reduce primer-payload collisions?",
+        "What is the impact on storage capacity and retrieval time?",
+        "How is the scheme implemented and evaluated?"
+      ],
+      "paper_title": "VL-DNA: Enhance DNA Storage Capacity with Variable Payload (Strand)\n  Lengths"
+    },
+    {
+      "paper_id": "2310.04694",
+      "why_first": "A comprehensive review of DNA storage system implementations and code constructions, providing a broad perspective and identifying open problems.",
+      "key_questions": [
+        "What are the main system architectures for DNA storage?",
+        "What coding techniques are currently used?",
+        "What are the key open challenges in the field?"
+      ],
+      "paper_title": "DNA-Based Data Storage Systems: A Review of Implementations and Code\n  Constructions"
+    },
+    {
+      "paper_id": "1708.08027",
+      "why_first": "This paper demonstrates biocompatible DNA data writing methods, linking DNA storage to biological processing and potential computational applications.",
+      "key_questions": [
+        "How is data written using addressing oligonucleotides?",
+        "What are the advantages of biocompatible DNA data?",
+        "What readout methods are proposed?"
+      ],
+      "paper_title": "Biocompatible Writing of Data into DNA"
+    },
+    {
+      "paper_id": "2311.12884",
+      "why_first": "It applies deep learning to identify DNA sequence motifs, showing advanced computational techniques for DNA sequence analysis beyond storage.",
+      "key_questions": [
+        "How does DeepDeCode model capture long-term dependencies?",
+        "What visualization techniques improve interpretability?",
+        "How does this method compare to other splice site prediction methods?"
+      ],
+      "paper_title": "Identifying DNA Sequence Motifs Using Deep Learning"
+    }
+  ],
+  "actions": [
+    {
+      "label": "Study DNA Storage Channel Characteristics",
+      "how_to": "Read paper 1803.03322 carefully, summarize error types and their impact on DNA storage reliability.",
+      "expected_outcome": "Clear understanding of error sources and their effects on DNA data storage."
+    },
+    {
+      "label": "Understand DNA Storage Channel Models and Limits",
+      "how_to": "Analyze paper 2001.06311, focus on the noisy shuffling-sampling channel and capacity results.",
+      "expected_outcome": "Ability to explain theoretical limits and channel modeling for DNA storage."
+    },
+    {
+      "label": "Explore Error Ball and Sequence Reconstruction",
+      "how_to": "Review paper 2410.15290, compute example error balls and understand reconstruction requirements.",
+      "expected_outcome": "Knowledge of error correction challenges and minimum data needed for recovery."
+    },
+    {
+      "label": "Implement Coding Schemes for Nanopore Channels",
+      "how_to": "Study paper 2102.01839, implement proposed coding algorithms in a simulation environment.",
+      "expected_outcome": "Practical skills in coding for nanopore-based DNA storage channels."
+    },
+    {
+      "label": "Compare Error Management Strategies",
+      "how_to": "Analyze paper 2308.05952, simulate constrained coding vs error embracing under different error rates.",
+      "expected_outcome": "Insight into efficient error control methods for DNA storage."
+    },
+    {
+      "label": "Design DNA Codes Avoiding Secondary Structures",
+      "how_to": "Read paper cs/0508055, attempt to construct small DNA codes avoiding secondary structures.",
+      "expected_outcome": "Ability to design stable DNA sequences for storage and computing."
+    },
+    {
+      "label": "Apply Variable Payload Length Techniques",
+      "how_to": "Study paper 2403.14204, simulate primer-payload collision reduction using variable strand lengths.",
+      "expected_outcome": "Understanding of system-level improvements in DNA storage capacity."
+    },
+    {
+      "label": "Review DNA Storage Systems and Code Constructions",
+      "how_to": "Read paper 2310.04694, summarize system architectures and open research problems.",
+      "expected_outcome": "Broad perspective on DNA storage implementations and research directions."
+    },
+    {
+      "label": "Explore Biocompatible DNA Data Writing",
+      "how_to": "Study paper 1708.08027, understand addressing oligonucleotide methods and potential biological applications.",
+      "expected_outcome": "Knowledge of biocompatible DNA data writing techniques."
+    },
+    {
+      "label": "Learn Deep Learning for DNA Motif Identification",
+      "how_to": "Read paper 2311.12884, implement or experiment with DeepDeCode model on sample DNA data.",
+      "expected_outcome": "Skills in applying deep learning to DNA sequence analysis and motif detection."
+    }
+  ],
+  "metrics": [
+    "Number of papers fully read and summarized",
+    "Successful implementation of coding algorithms for nanopore channels",
+    "Simulation results comparing error management strategies",
+    "Constructed DNA codes avoiding secondary structures",
+    "Simulation of variable payload length scheme effectiveness",
+    "Summary report on DNA storage system architectures",
+    "Implementation or experimentation with DeepDeCode model"
+  ],
+  "timeline_weeks": [
+    {
+      "week": 1,
+      "focus": "Foundations of DNA storage channel and errors",
+      "deliverable": "Summary notes on DNA storage channel characterization and error types"
+    },
+    {
+      "week": 2,
+      "focus": "Channel modeling and capacity limits",
+      "deliverable": "Report on noisy shuffling-sampling channel and capacity results"
+    },
+    {
+      "week": 3,
+      "focus": "Error ball and sequence reconstruction",
+      "deliverable": "Worked examples and notes on error ball size and reconstruction requirements"
+    },
+    {
+      "week": 4,
+      "focus": "Coding schemes for nanopore sequencing",
+      "deliverable": "Prototype implementation of coding algorithms from nanopore channel paper"
+    },
+    {
+      "week": 5,
+      "focus": "Error management strategies comparison",
+      "deliverable": "Simulation results comparing constrained coding and error embracing"
+    },
+    {
+      "week": 6,
+      "focus": "DNA code design avoiding secondary structures",
+      "deliverable": "Constructed example DNA codes and design rationale"
+    },
+    {
+      "week": 7,
+      "focus": "Variable payload length for capacity enhancement",
+      "deliverable": "Simulation and analysis of primer-payload collision reduction"
+    },
+    {
+      "week": 8,
+      "focus": "Review of DNA storage systems and open problems",
+      "deliverable": "Comprehensive summary report on system implementations and coding challenges"
+    },
+    {
+      "week": 9,
+      "focus": "Biocompatible DNA data writing techniques",
+      "deliverable": "Notes and potential applications of addressing oligonucleotide methods"
+    },
+    {
+      "week": 10,
+      "focus": "Deep learning for DNA motif identification",
+      "deliverable": "Experimentation results and interpretation using DeepDeCode model"
+    }
+  ],
+  "risks": [
+    {
+      "risk": "The papers cover a wide range of topics from theory to practical implementations and deep learning, which may be challenging to integrate fully within a limited timeframe.",
+      "mitigation": "Focus on core papers first and selectively dive deeper into specialized topics based on interest and progress."
+    },
+    {
+      "risk": "Some papers are very recent with limited citations, indicating emerging or less validated methods.",
+      "mitigation": "Cross-validate findings with more established papers and consider practical reproducibility carefully."
+    }
+  ],
+  "_topics_suggestion": "The selected papers may also cover research areas including: Applied Machine Learning, General Algorithms, Network Optimization, Wireless Communications. You may gain a broader understand of the field by exploring these related research directions"
+}

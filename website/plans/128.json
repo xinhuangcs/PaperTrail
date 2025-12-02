@@ -1,0 +1,202 @@
+{
+  "goal": "I want to learn machine learning.",
+  "study_level": "beginner",
+  "source_papers": [
+    "1804.10189",
+    "2306.09492",
+    "2210.09002",
+    "1708.05673",
+    "2201.11605",
+    "2011.08737",
+    "2103.08514",
+    "1707.02152",
+    "2205.06172",
+    "2203.13040"
+  ],
+  "metadata": {
+    "prompt_version": "PT-20251102-1",
+    "model": "gpt-4.1-mini",
+    "created_at": "2025-11-29T19:31:32.447867+00:00"
+  },
+  "plan_overview": "This learning plan introduces you to foundational concepts and practical considerations in machine learning and related fields such as private information retrieval and data privacy. It starts with general principles of data analysis and advocacy, then explores privacy-preserving data retrieval techniques, and concludes with applied systems for information retrieval and employment support. The strategy is to build your understanding from statistical rigor and ethical considerations to technical methods and real-world applications.",
+  "reading_order": [
+    {
+      "paper_id": "2306.09492",
+      "why_first": "Introduces the importance of rigorous data analysis and the pitfalls of advocacy, setting a foundation for critical thinking in machine learning.",
+      "key_questions": [
+        "What are the risks of biased data interpretation?",
+        "How can data scientists maintain rigor and transparency?",
+        "What is the replication crisis and its relevance to machine learning?"
+      ],
+      "paper_title": "The Perils of Advocacy"
+    },
+    {
+      "paper_id": "2210.09002",
+      "why_first": "Provides context on surveillance and privacy concerns relevant to data collection and machine learning ethics.",
+      "key_questions": [
+        "What are modern surveillance techniques?",
+        "How does technology impact privacy?",
+        "What ethical considerations arise from data surveillance?"
+      ],
+      "paper_title": "A review of modern surveillance techniques and their presence in our\n  society"
+    },
+    {
+      "paper_id": "1804.10189",
+      "why_first": "Introduces private information retrieval (PIR) concepts, important for privacy-preserving machine learning data access.",
+      "key_questions": [
+        "What is private information retrieval?",
+        "How do colluding servers and eavesdroppers affect PIR?",
+        "What is the capacity of ETPIR?"
+      ],
+      "paper_title": "The Capacity of Private Information Retrieval with Eavesdroppers"
+    },
+    {
+      "paper_id": "1707.02152",
+      "why_first": "Builds on PIR concepts with symmetric PIR and adversaries, deepening understanding of secure data retrieval.",
+      "key_questions": [
+        "What is symmetric PIR?",
+        "How do adversaries impact PIR protocols?",
+        "What are the security guarantees in SPIR?"
+      ],
+      "paper_title": "Secure Symmetric Private Information Retrieval from Colluding Databases\n  with Adversaries"
+    },
+    {
+      "paper_id": "1708.05673",
+      "why_first": "Extends PIR to coded distributed storage and colluding servers, relevant for scalable machine learning data systems.",
+      "key_questions": [
+        "What is MDS coded distributed storage?",
+        "How does collusion affect PIR?",
+        "What is the capacity of MDS-TSPIR?"
+      ],
+      "paper_title": "Linear Symmetric Private Information Retrieval for MDS Coded Distributed\n  Storage with Colluding Servers"
+    },
+    {
+      "paper_id": "2201.11605",
+      "why_first": "Explores PIR with side information, showing how prior knowledge affects retrieval efficiency and privacy.",
+      "key_questions": [
+        "What is PIR with reusable and single-use side information?",
+        "How does side information impact download cost?",
+        "What privacy guarantees are maintained?"
+      ],
+      "paper_title": "The Role of Reusable and Single-Use Side Information in Private\n  Information Retrieval"
+    },
+    {
+      "paper_id": "2205.06172",
+      "why_first": "Introduces popularity-aware PIR with side information, addressing real-world data distribution challenges.",
+      "key_questions": [
+        "What is popularity-aware PIR?",
+        "How do message popularity profiles affect PIR?",
+        "How is privacy preserved under arbitrary popularity?"
+      ],
+      "paper_title": "Single-Server Private Information Retrieval with Side Information Under\n  Arbitrary Popularity Profiles"
+    },
+    {
+      "paper_id": "2103.08514",
+      "why_first": "Discusses multi-party private set operations with an external decider, relevant for collaborative machine learning scenarios.",
+      "key_questions": [
+        "What are private set operations?",
+        "How does an external decider affect privacy?",
+        "What are the protocol guarantees?"
+      ],
+      "paper_title": "Multi-party Private Set Operations with an External Decider"
+    },
+    {
+      "paper_id": "2203.13040",
+      "why_first": "Presents a semantic system for employee information search, illustrating applied machine learning for organizational knowledge management.",
+      "key_questions": [
+        "How does semantic search improve employee integration?",
+        "What machine learning techniques support semantic search?",
+        "How is search quality measured?"
+      ],
+      "paper_title": "Semantic system for searching of employees"
+    },
+    {
+      "paper_id": "2011.08737",
+      "why_first": "Shows an application of information systems to support disabled people in career development, highlighting social impact of machine learning.",
+      "key_questions": [
+        "How can information systems aid disabled job seekers?",
+        "What are the design considerations for accessibility?",
+        "How does this system reduce unemployment?"
+      ],
+      "paper_title": "One Stop Career Centre for People with Disabilities"
+    }
+  ],
+  "actions": [
+    {
+      "label": "Study data analysis rigor and advocacy",
+      "how_to": "Read paper 2306.09492 carefully, summarize key points on data interpretation and advocacy risks.",
+      "expected_outcome": "You understand the importance of rigorous data analysis and ethical communication in machine learning."
+    },
+    {
+      "label": "Explore privacy and surveillance context",
+      "how_to": "Read paper 2210.09002 and note surveillance techniques and privacy concerns.",
+      "expected_outcome": "You gain awareness of privacy challenges relevant to machine learning data."
+    },
+    {
+      "label": "Learn private information retrieval basics",
+      "how_to": "Read papers 1804.10189, 1707.02152, and 1708.05673 sequentially, focusing on PIR concepts and security models.",
+      "expected_outcome": "You understand PIR protocols and their importance for privacy-preserving data access."
+    },
+    {
+      "label": "Understand PIR with side information",
+      "how_to": "Study papers 2201.11605 and 2205.06172 to learn how side information affects PIR efficiency and privacy.",
+      "expected_outcome": "You grasp advanced PIR models incorporating user knowledge and data popularity."
+    },
+    {
+      "label": "Examine multi-party private set operations",
+      "how_to": "Read paper 2103.08514 to understand collaborative privacy-preserving computations.",
+      "expected_outcome": "You learn how multiple parties can jointly compute set operations without leaking private data."
+    },
+    {
+      "label": "Review applied semantic search systems",
+      "how_to": "Read paper 2203.13040 and analyze how semantic search supports employee integration.",
+      "expected_outcome": "You see practical machine learning applications in organizational contexts."
+    },
+    {
+      "label": "Explore social impact of information systems",
+      "how_to": "Read paper 2011.08737 to understand designing systems for disabled job seekers.",
+      "expected_outcome": "You appreciate the societal benefits of machine learning and information systems."
+    }
+  ],
+  "metrics": [
+    "Number of papers read and summarized",
+    "Ability to explain PIR concepts and privacy guarantees",
+    "Quality of notes on ethical data analysis",
+    "Understanding of semantic search applications",
+    "Ability to discuss social impact of machine learning systems"
+  ],
+  "timeline_weeks": [
+    {
+      "week": 1,
+      "focus": "Data analysis rigor and privacy context",
+      "deliverable": "Summary notes on papers 2306.09492 and 2210.09002"
+    },
+    {
+      "week": 2,
+      "focus": "Basic private information retrieval concepts",
+      "deliverable": "Summary and explanation of papers 1804.10189, 1707.02152"
+    },
+    {
+      "week": 3,
+      "focus": "Advanced PIR with coded storage and side information",
+      "deliverable": "Notes on papers 1708.05673, 2201.11605, 2205.06172"
+    },
+    {
+      "week": 4,
+      "focus": "Multi-party privacy-preserving computations",
+      "deliverable": "Summary of paper 2103.08514 with key protocol insights"
+    },
+    {
+      "week": 5,
+      "focus": "Applied machine learning systems",
+      "deliverable": "Analysis report on papers 2203.13040 and 2011.08737 focusing on applications and social impact"
+    }
+  ],
+  "risks": [
+    {
+      "risk": "The selected papers focus heavily on private information retrieval and privacy, with limited direct coverage of core machine learning algorithms and theory.",
+      "mitigation": "Supplement this plan with foundational machine learning textbooks or courses to cover algorithmic and theoretical aspects not addressed by these papers."
+    }
+  ],
+  "_topics_suggestion": "The selected papers may also cover research areas including: Applied Machine Learning, General Algorithms, Network Optimization, Wireless Communications. You may gain a broader understand of the field by exploring these related research directions"
+}

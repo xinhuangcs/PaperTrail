@@ -1,0 +1,227 @@
+{
+  "goal": "diffusion model",
+  "study_level": "intermediate",
+  "source_papers": [
+    "2412.01371",
+    "2401.15617",
+    "2302.02591",
+    "2406.08929",
+    "2406.01622",
+    "2312.14589",
+    "2409.15997",
+    "2209.05557",
+    "2001.04115",
+    "1602.06439"
+  ],
+  "metadata": {
+    "prompt_version": "PT-20251102-1",
+    "model": "gpt-4.1-mini",
+    "created_at": "2025-12-02T10:09:02.158249+00:00"
+  },
+  "plan_overview": "This learning plan is designed to provide you with a comprehensive understanding of diffusion models, starting from fundamental concepts and mathematical frameworks to advanced applications and recent improvements. The plan begins with accessible tutorials and overviews to build foundational knowledge, then progresses to specialized applications in graph generation and biomolecular modeling, followed by advanced theoretical insights and recent innovations in diffusion modeling techniques. This structured approach ensures you develop both theoretical understanding and practical insights into diffusion models across diverse domains.",
+  "reading_order": [
+    {
+      "paper_id": "2406.08929",
+      "why_first": "This paper offers an accessible, step-by-step tutorial on diffusion models, ideal for building foundational understanding with simplified mathematical explanations.",
+      "key_questions": [
+        "What are the basic principles behind diffusion models?",
+        "How are diffusion models trained and used for generation?",
+        "What are the key algorithmic steps in diffusion and flow matching?"
+      ],
+      "paper_title": "Step-by-Step Diffusion: An Elementary Tutorial"
+    },
+    {
+      "paper_id": "2412.01371",
+      "why_first": "Provides a mathematically rigorous introduction and overview of denoising diffusion probabilistic models, reinforcing and expanding on the tutorial concepts.",
+      "key_questions": [
+        "What is the formal mathematical framework of DDPMs?",
+        "How do training and generation procedures work in DDPMs?",
+        "What are the main extensions and improvements to the basic diffusion model framework?"
+      ],
+      "paper_title": "An overview of diffusion models for generative artificial intelligence"
+    },
+    {
+      "paper_id": "2302.02591",
+      "why_first": "Introduces diffusion models applied to graph generation, expanding your understanding to structured data and practical applications.",
+      "key_questions": [
+        "How are diffusion models adapted for graph generation?",
+        "What are the main variants of graph diffusion models?",
+        "What are the challenges and applications of graph generative diffusion models?"
+      ],
+      "paper_title": "Generative Diffusion Models on Graphs: Methods and Applications"
+    },
+    {
+      "paper_id": "2401.15617",
+      "why_first": "Complements the previous paper by providing a comprehensive survey of diffusion-based graph generative methods and their paradigms.",
+      "key_questions": [
+        "What are the three mainstream paradigms of diffusion methods for graphs?",
+        "How are diffusion models applied to different graph generation tasks?",
+        "What are current limitations and future directions in graph diffusion models?"
+      ],
+      "paper_title": "Diffusion-based Graph Generative Methods"
+    },
+    {
+      "paper_id": "2406.01622",
+      "why_first": "Explores diffusion probabilistic models in biomolecular applications, broadening your perspective on domain-specific uses and adaptations.",
+      "key_questions": [
+        "How are diffusion models applied to biomolecular structure prediction and design?",
+        "What motifs are common when applying diffusion models to biomolecules?",
+        "What are the key outcomes and challenges in biomolecular diffusion modeling?"
+      ],
+      "paper_title": "Sifting through the Noise: A Survey of Diffusion Probabilistic Models\n  and Their Applications to Biomolecules"
+    },
+    {
+      "paper_id": "2312.14589",
+      "why_first": "Presents advanced theoretical insights on non-denoising forward-time diffusions, offering alternative perspectives on diffusion model construction.",
+      "key_questions": [
+        "What is the concept of non-denoising forward-time diffusion?",
+        "How does this approach differ from traditional denoising diffusion probabilistic models?",
+        "What are the benefits and challenges of this alternative diffusion process?"
+      ],
+      "paper_title": "Non-Denoising Forward-Time Diffusions"
+    },
+    {
+      "paper_id": "2209.05557",
+      "why_first": "Introduces blurring diffusion models, a novel class of diffusion processes that generalize standard Gaussian denoising diffusion, expanding your understanding of model variants.",
+      "key_questions": [
+        "What is the principle behind blurring diffusion models?",
+        "How do blurring diffusion models relate to heat dissipation and Gaussian diffusion?",
+        "What inductive biases arise from this modeling choice?"
+      ],
+      "paper_title": "Blurring Diffusion Models"
+    },
+    {
+      "paper_id": "2409.15997",
+      "why_first": "Documents practical improvements in a state-of-the-art diffusion model for anime image generation, providing insights into real-world model training and optimization.",
+      "key_questions": [
+        "What modifications were made to improve SDXL in NovelAI Diffusion V3?",
+        "How do these changes impact model performance and quality?",
+        "What practical lessons can be drawn for diffusion model training?"
+      ],
+      "paper_title": "Improvements to SDXL in NovelAI Diffusion V3"
+    },
+    {
+      "paper_id": "1602.06439",
+      "why_first": "Explores anisotropic diffusion on graphs for label propagation, introducing advanced diffusion concepts on graphs beyond isotropic diffusion.",
+      "key_questions": [
+        "What is anisotropic diffusion on graphs and how is it defined?",
+        "How does anisotropic diffusion improve label propagation?",
+        "What are diffusivity operators on graphs and their significance?"
+      ],
+      "paper_title": "Context-guided diffusion for label propagation on graphs"
+    },
+    {
+      "paper_id": "2001.04115",
+      "why_first": "Provides mathematical analysis of a convection-diffusion problem with variable diffusion, offering foundational numerical insights relevant to diffusion processes.",
+      "key_questions": [
+        "What are the properties of convection-diffusion problems with small variable diffusion?",
+        "How does the finite element method perform on such problems?",
+        "What robustness guarantees exist for numerical methods in this context?"
+      ],
+      "paper_title": "A convection-diffusion problem with a small variable diffusion\n  coefficient"
+    }
+  ],
+  "actions": [
+    {
+      "label": "Study the Step-by-Step Diffusion tutorial",
+      "how_to": "Read paper 2406.08929 carefully, work through the mathematical derivations and algorithmic explanations, and implement a simple diffusion model following the tutorial.",
+      "expected_outcome": "You will gain a clear foundational understanding of diffusion models and practical experience implementing a basic model."
+    },
+    {
+      "label": "Deep dive into DDPM theory and extensions",
+      "how_to": "Read paper 2412.01371, summarize key mathematical concepts, and compare with your implementation to solidify understanding.",
+      "expected_outcome": "You will understand the rigorous mathematical framework and main extensions of DDPMs."
+    },
+    {
+      "label": "Explore diffusion models for graph generation",
+      "how_to": "Read papers 2302.02591 and 2401.15617, take notes on graph-specific adaptations, and experiment with a simple graph diffusion model if possible.",
+      "expected_outcome": "You will understand how diffusion models are applied to graphs and their current research landscape."
+    },
+    {
+      "label": "Investigate biomolecular applications",
+      "how_to": "Read paper 2406.01622 to learn about diffusion models in biomolecular contexts and identify common motifs and challenges.",
+      "expected_outcome": "You will appreciate domain-specific adaptations and applications of diffusion models."
+    },
+    {
+      "label": "Study advanced theoretical models",
+      "how_to": "Read papers 2312.14589 and 2209.05557, focusing on alternative diffusion processes and novel model classes, and consider implications for your own modeling.",
+      "expected_outcome": "You will gain insight into cutting-edge theoretical developments and model variants."
+    },
+    {
+      "label": "Analyze practical model improvements",
+      "how_to": "Read paper 2409.15997 to understand recent practical improvements in diffusion model training and architecture.",
+      "expected_outcome": "You will learn practical strategies to enhance diffusion model performance."
+    },
+    {
+      "label": "Understand anisotropic diffusion on graphs",
+      "how_to": "Read paper 1602.06439 and relate anisotropic diffusion concepts to your graph diffusion knowledge.",
+      "expected_outcome": "You will expand your understanding of diffusion processes on graphs beyond isotropic assumptions."
+    },
+    {
+      "label": "Review numerical analysis of diffusion problems",
+      "how_to": "Read paper 2001.04115 to understand numerical methods and robustness in variable diffusion problems.",
+      "expected_outcome": "You will gain foundational numerical analysis knowledge relevant to diffusion modeling."
+    }
+  ],
+  "metrics": [
+    "Number of diffusion model implementations completed",
+    "Understanding of mathematical foundations as measured by ability to explain key concepts",
+    "Ability to apply diffusion models to graph data",
+    "Familiarity with domain-specific diffusion model applications",
+    "Comprehension of advanced diffusion model variants",
+    "Ability to summarize recent practical improvements in diffusion models"
+  ],
+  "timeline_weeks": [
+    {
+      "week": 1,
+      "focus": "Foundations of diffusion models",
+      "deliverable": "Implement a basic diffusion model following the tutorial (2406.08929)."
+    },
+    {
+      "week": 2,
+      "focus": "Mathematical framework and DDPM extensions",
+      "deliverable": "Write a summary report on DDPM theory and extensions (2412.01371)."
+    },
+    {
+      "week": 3,
+      "focus": "Diffusion models for graph generation",
+      "deliverable": "Prepare notes and attempt a simple graph diffusion model implementation (2302.02591, 2401.15617)."
+    },
+    {
+      "week": 4,
+      "focus": "Biomolecular diffusion model applications",
+      "deliverable": "Summarize key motifs and challenges in biomolecular diffusion models (2406.01622)."
+    },
+    {
+      "week": 5,
+      "focus": "Advanced theoretical diffusion models",
+      "deliverable": "Write a comparative analysis of non-denoising and blurring diffusion models (2312.14589, 2209.05557)."
+    },
+    {
+      "week": 6,
+      "focus": "Practical improvements in diffusion model training",
+      "deliverable": "Document insights and potential improvements from NovelAI Diffusion V3 report (2409.15997)."
+    },
+    {
+      "week": 7,
+      "focus": "Anisotropic diffusion on graphs",
+      "deliverable": "Explain anisotropic diffusion concepts and their impact on label propagation (1602.06439)."
+    },
+    {
+      "week": 8,
+      "focus": "Numerical analysis of diffusion problems",
+      "deliverable": "Summarize numerical methods and robustness results for variable diffusion (2001.04115)."
+    }
+  ],
+  "risks": [
+    {
+      "risk": "The provided papers focus heavily on theoretical and survey aspects, with limited hands-on implementation guidance beyond tutorials.",
+      "mitigation": "Complement this plan with practical coding exercises and open-source diffusion model repositories to gain applied experience."
+    },
+    {
+      "risk": "Some papers are very recent with zero citations, indicating emerging research that may lack extensive validation.",
+      "mitigation": "Cross-reference concepts with more established literature and validate understanding through implementation and experimentation."
+    }
+  ],
+  "_topics_suggestion": "The selected papers may also cover research areas including: Applied Machine Learning, Combinatorics, General Algorithms, Medical Imaging, Optimization Theory, Statistical Estimation. You may gain a broader understand of the field by exploring these related research directions"
+}

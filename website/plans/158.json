@@ -1,0 +1,229 @@
+{
+  "goal": "I want to learn Edge Computing",
+  "study_level": "intermediate",
+  "source_papers": [
+    "2107.01853",
+    "2109.01608",
+    "1911.02794",
+    "2403.16869",
+    "2306.09756",
+    "2309.05669",
+    "2311.09794",
+    "2206.06301",
+    "2112.10127",
+    "2307.06397"
+  ],
+  "metadata": {
+    "prompt_version": "PT-20251102-1",
+    "model": "gpt-4.1-mini",
+    "created_at": "2025-12-02T09:57:27.641889+00:00"
+  },
+  "plan_overview": "This learning plan guides you through foundational concepts, system architectures, and advanced applications of edge computing. Starting with a broad survey, you will then explore specific challenges such as computation reuse, task offloading, autoscaling, and emerging paradigms like FaaS at the edge. The plan also covers hardware innovations and futuristic applications like Mars-wide edge computing, concluding with lessons from practical testbed implementations and theoretical insights on edge operations.",
+  "reading_order": [
+    {
+      "paper_id": "1911.02794",
+      "why_first": "Provides a comprehensive survey of edge computing systems and tools, establishing foundational knowledge and terminology.",
+      "key_questions": [
+        "What are the core components of edge computing systems?",
+        "Which open source tools are commonly used for edge computing?",
+        "What are the main challenges in energy efficiency and deep learning optimization at the edge?"
+      ],
+      "paper_title": "A Survey on Edge Computing Systems and Tools"
+    },
+    {
+      "paper_id": "2109.01608",
+      "why_first": "Introduces the important concept of computation deduplication and reuse, addressing efficiency challenges in edge deployments.",
+      "key_questions": [
+        "How does computation duplication occur at the edge?",
+        "What paradigms exist for deduplication and reuse of computation?",
+        "What are the benefits of reducing redundant computation in edge environments?"
+      ],
+      "paper_title": "The Promise and Challenges of Computation Deduplication and Reuse at the\n  Network Edge"
+    },
+    {
+      "paper_id": "2206.06301",
+      "why_first": "Explores task offloading strategies using hybrid neural networks, a key technique for efficient edge resource utilization.",
+      "key_questions": [
+        "How does task offloading improve edge computing performance?",
+        "What role does a hybrid artificial neural network play in task assignment?",
+        "How are edge computers clustered based on hardware specifications?"
+      ],
+      "paper_title": "A Hybrid Artificial Neural Network for Task Offloading in Mobile Edge\n  Computing"
+    },
+    {
+      "paper_id": "2112.10127",
+      "why_first": "Focuses on proactive autoscaling in edge computing systems using Kubernetes, addressing dynamic resource management.",
+      "key_questions": [
+        "What is proactive pod autoscaling (PPA)?",
+        "How does PPA forecast workloads and scale applications?",
+        "What improvements does PPA offer over existing autoscaling tools?"
+      ],
+      "paper_title": "Proactive Autoscaling for Edge Computing Systems with Kubernetes"
+    },
+    {
+      "paper_id": "2307.06397",
+      "why_first": "Examines the integration of Function-as-a-Service (FaaS) with edge computing, highlighting new opportunities and challenges.",
+      "key_questions": [
+        "What advantages does FaaS bring to edge computing?",
+        "What are the main challenges in decomposing and scheduling FaaS applications at the edge?",
+        "How do sandbox mechanisms affect performance and isolation?"
+      ],
+      "paper_title": "When Edge Meets FaaS: Opportunities and Challenges"
+    },
+    {
+      "paper_id": "2107.01853",
+      "why_first": "Presents hardware-level innovations with ferroelectric tunneling junctions for energy-efficient edge computing circuits.",
+      "key_questions": [
+        "What are ferroelectric tunneling junctions (FTJ)?",
+        "How do FTJ devices improve energy efficiency in edge computing?",
+        "What circuit designs leverage FTJ for edge applications?"
+      ],
+      "paper_title": "Ferroelectric Tunneling Junctions for Edge Computing"
+    },
+    {
+      "paper_id": "2306.09756",
+      "why_first": "Explores futuristic edge computing applications in space, specifically Mars-wide edge computing using orbital servers.",
+      "key_questions": [
+        "How can orbital servers enable Mars-wide edge computing?",
+        "What are the challenges of deploying edge resources on Mars?",
+        "What applications benefit from Mars edge computing?"
+      ],
+      "paper_title": "Can Orbital Servers Provide Mars-Wide Edge Computing?"
+    },
+    {
+      "paper_id": "2403.16869",
+      "why_first": "Shares practical lessons from building edge software testbeds, essential for evaluating edge systems realistically.",
+      "key_questions": [
+        "What are the challenges in building edge software testbeds?",
+        "How do virtual testbeds emulate edge infrastructure?",
+        "What pitfalls should be avoided in testbed architecture and development?"
+      ],
+      "paper_title": "Lessons Learned from Building Edge Software System Testbeds"
+    },
+    {
+      "paper_id": "2309.05669",
+      "why_first": "Discusses implications of edge computing on static site generation, linking edge concepts to web development.",
+      "key_questions": [
+        "How does edge computing enhance static site generation?",
+        "What is the role of Jamstack in edge-enabled web development?",
+        "What dynamic capabilities does edge computing add to static sites?"
+      ],
+      "paper_title": "Implications of Edge Computing for Static Site Generation"
+    },
+    {
+      "paper_id": "2311.09794",
+      "why_first": "Provides theoretical insights on edge insertions in computational geometry, offering a deeper understanding of edge operations.",
+      "key_questions": [
+        "What is the non-locality of edge insertions?",
+        "How do edge insertions escape local optima in triangulations?",
+        "What implications does this have for edge computing algorithms?"
+      ],
+      "paper_title": "On the Non-Locality of Edge Insertions"
+    }
+  ],
+  "actions": [
+    {
+      "label": "Read foundational survey paper",
+      "how_to": "Carefully read paper 1911.02794 to understand edge computing systems, tools, and challenges.",
+      "expected_outcome": "You will gain a broad understanding of edge computing architecture and current tools."
+    },
+    {
+      "label": "Study computation reuse techniques",
+      "how_to": "Analyze paper 2109.01608 focusing on deduplication and reuse paradigms at the edge.",
+      "expected_outcome": "You will understand how to optimize computation by avoiding redundancy in edge environments."
+    },
+    {
+      "label": "Implement task offloading model",
+      "how_to": "Reproduce the hybrid ANN task offloading approach from paper 2206.06301 using available datasets or simulations.",
+      "expected_outcome": "You will be able to assign tasks efficiently to edge nodes based on hardware capabilities."
+    },
+    {
+      "label": "Experiment with autoscaling",
+      "how_to": "Deploy Kubernetes with the Proactive Pod Autoscaler from paper 2112.10127 and test workload forecasting and scaling.",
+      "expected_outcome": "You will learn dynamic resource management techniques for edge applications."
+    },
+    {
+      "label": "Explore FaaS-based edge computing",
+      "how_to": "Review paper 2307.06397 and evaluate existing FaaS edge platforms like AWS IoT Greengrass and OpenFaaS.",
+      "expected_outcome": "You will understand the benefits and challenges of serverless computing at the edge."
+    },
+    {
+      "label": "Investigate hardware innovations",
+      "how_to": "Study paper 2107.01853 to learn about FTJ devices and their circuit designs for energy-efficient edge computing.",
+      "expected_outcome": "You will appreciate hardware-level approaches to improve edge computing efficiency."
+    },
+    {
+      "label": "Analyze futuristic edge applications",
+      "how_to": "Read paper 2306.09756 to understand Mars-wide edge computing concepts and challenges.",
+      "expected_outcome": "You will gain insight into applying edge computing beyond Earth environments."
+    },
+    {
+      "label": "Build or simulate edge testbeds",
+      "how_to": "Use lessons from paper 2403.16869 to create virtual testbeds for edge software evaluation.",
+      "expected_outcome": "You will be able to test edge applications realistically without physical infrastructure."
+    },
+    {
+      "label": "Apply edge computing to web development",
+      "how_to": "Explore paper 2309.05669 to understand how edge computing impacts static site generation and Jamstack.",
+      "expected_outcome": "You will learn to leverage edge computing for dynamic web content delivery."
+    },
+    {
+      "label": "Understand theoretical edge operations",
+      "how_to": "Study paper 2311.09794 to grasp the complexity of edge insertions in computational geometry.",
+      "expected_outcome": "You will deepen your theoretical knowledge relevant to edge computing algorithms."
+    }
+  ],
+  "metrics": [
+    "Number of papers thoroughly read and summarized",
+    "Successful implementation of task offloading model",
+    "Deployment and testing of autoscaling on Kubernetes",
+    "Evaluation of FaaS platforms for edge computing",
+    "Creation of a virtual edge testbed environment",
+    "Understanding of hardware innovations measured by ability to explain FTJ concepts",
+    "Ability to discuss futuristic edge computing applications",
+    "Application of edge computing concepts to web development scenarios"
+  ],
+  "timeline_weeks": [
+    {
+      "week": 1,
+      "focus": "Foundations and system overview",
+      "deliverable": "Summary notes on edge computing systems and tools (paper 1911.02794)"
+    },
+    {
+      "week": 2,
+      "focus": "Computation reuse and task offloading",
+      "deliverable": "Report on computation deduplication and implementation plan for task offloading (papers 2109.01608, 2206.06301)"
+    },
+    {
+      "week": 3,
+      "focus": "Autoscaling and FaaS paradigms",
+      "deliverable": "Prototype autoscaling setup and FaaS platform evaluation summary (papers 2112.10127, 2307.06397)"
+    },
+    {
+      "week": 4,
+      "focus": "Hardware innovations and futuristic applications",
+      "deliverable": "Presentation on FTJ devices and Mars edge computing concepts (papers 2107.01853, 2306.09756)"
+    },
+    {
+      "week": 5,
+      "focus": "Testbed construction and web development implications",
+      "deliverable": "Virtual testbed design document and web edge computing case study (papers 2403.16869, 2309.05669)"
+    },
+    {
+      "week": 6,
+      "focus": "Theoretical insights and review",
+      "deliverable": "Technical report on edge insertion theory and overall learning synthesis (paper 2311.09794)"
+    }
+  ],
+  "risks": [
+    {
+      "risk": "Limited practical implementation details in some papers may hinder hands-on learning.",
+      "mitigation": "Supplement study with open source edge computing projects and simulation tools."
+    },
+    {
+      "risk": "Rapid evolution of edge computing technologies may outdate some research findings.",
+      "mitigation": "Regularly review latest publications and industry updates to stay current."
+    }
+  ],
+  "_topics_suggestion": "The selected papers may also cover research areas including: Applied Machine Learning, Combinatorics, Deep Learning Architectures, General Algorithms, Network Optimization, Wireless Communications. You may gain a broader understand of the field by exploring these related research directions"
+}

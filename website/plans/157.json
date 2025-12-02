@@ -1,0 +1,304 @@
+{
+  "goal": "I hope to learn about CI/CD pipelines.",
+  "study_level": "intermediate",
+  "source_papers": [
+    "2005.00160",
+    "2006.04216",
+    "1605.09336",
+    "2111.05850",
+    "1810.09942",
+    "2001.11158",
+    "2210.05879",
+    "1603.06212",
+    "2310.11442",
+    "1705.01629",
+    "2307.15475",
+    "1903.05176",
+    "2111.04131",
+    "2405.13480",
+    "2411.10308"
+  ],
+  "metadata": {
+    "prompt_version": "PT-20251102-1",
+    "model": "gpt-4.1-mini",
+    "created_at": "2025-12-02T09:58:00.400896+00:00"
+  },
+  "plan_overview": "This learning plan guides you through understanding CI/CD pipelines by first grounding you in the concept of data and machine learning pipelines, their optimization, evaluation, and automation. It then expands to collaborative and trusted pipeline management, stakeholder feedback integration, and pipeline performance diagnostics. Finally, it touches on domain-specific pipeline applications to provide a broad perspective. The strategy is to build foundational knowledge before exploring advanced topics and practical tools relevant to CI/CD pipelines.",
+  "reading_order": [
+    {
+      "paper_id": "1705.01629",
+      "why_first": "Introduces a formal semantics and programming model for data analytics pipelines, providing foundational understanding of pipeline structure and operators.",
+      "key_questions": [
+        "What is the formal definition of a data analytics pipeline?",
+        "How do polymorphic operators enable pipeline reuse and flexibility?",
+        "How does this model differ from traditional computational workflows?"
+      ],
+      "paper_title": "A Formal Semantics for Data Analytics Pipelines"
+    },
+    {
+      "paper_id": "1603.06212",
+      "why_first": "Demonstrates an automated tool (TPOT) for pipeline optimization, illustrating practical pipeline design and automation.",
+      "key_questions": [
+        "How does tree-based pipeline optimization automate pipeline design?",
+        "What are the challenges in automating pipeline construction?",
+        "How does TPOT balance pipeline complexity and performance?"
+      ],
+      "paper_title": "Evaluation of a Tree-based Pipeline Optimization Tool for Automating\n  Data Science"
+    },
+    {
+      "paper_id": "2001.11158",
+      "why_first": "Focuses on pipeline evaluation using surrogate models, addressing efficiency in pipeline validation critical for CI/CD.",
+      "key_questions": [
+        "What are surrogate models and how do they evaluate ML pipelines?",
+        "How can pipeline evaluation be accelerated without full execution?",
+        "What are common invalid pipeline patterns detected?"
+      ],
+      "paper_title": "AVATAR -- Machine Learning Pipeline Evaluation Using Surrogate Model"
+    },
+    {
+      "paper_id": "1903.05176",
+      "why_first": "Explores hyperparameter tuning optimized for pipelines, emphasizing reuse and computational efficiency.",
+      "key_questions": [
+        "What is pipeline-aware hyperparameter tuning?",
+        "How does gridded random search improve tuning efficiency?",
+        "How is caching used to maximize computation reuse?"
+      ],
+      "paper_title": "Exploiting Reuse in Pipeline-Aware Hyperparameter Tuning"
+    },
+    {
+      "paper_id": "1810.09942",
+      "why_first": "Examines the role of preprocessing in pipelines, highlighting design decisions impacting pipeline effectiveness.",
+      "key_questions": [
+        "When should preprocessors be included in pipelines?",
+        "How does preprocessing affect pipeline accuracy?",
+        "What metalearning approaches guide preprocessor selection?"
+      ],
+      "paper_title": "Preprocessor Selection for Machine Learning Pipelines"
+    },
+    {
+      "paper_id": "2005.00160",
+      "why_first": "Presents a visualization tool for exploring AutoML pipelines, aiding debugging and understanding of pipeline search spaces.",
+      "key_questions": [
+        "How does PipelineProfiler help explore AutoML pipeline solutions?",
+        "What challenges arise from black-box AutoML pipeline generation?",
+        "How can visualization improve pipeline selection?"
+      ],
+      "paper_title": "PipelineProfiler: A Visual Analytics Tool for the Exploration of AutoML\n  Pipelines"
+    },
+    {
+      "paper_id": "2006.04216",
+      "why_first": "Introduces efficient AutoML pipeline search using matrix and tensor factorization, advancing pipeline optimization techniques.",
+      "key_questions": [
+        "How do matrix and tensor factorization model pipeline search spaces?",
+        "What greedy experiment design protocols are used?",
+        "How does this approach scale with pipeline complexity?"
+      ],
+      "paper_title": "Efficient AutoML Pipeline Search with Matrix and Tensor Factorization"
+    },
+    {
+      "paper_id": "2111.05850",
+      "why_first": "Discusses environmental and resource considerations in AutoML pipeline design, relevant for sustainable CI/CD practices.",
+      "key_questions": [
+        "What is Green AutoML and its goals?",
+        "How can pipeline evaluation be made more resource-efficient?",
+        "What future directions reduce AutoML's environmental impact?"
+      ],
+      "paper_title": "Towards Green Automated Machine Learning: Status Quo and Future\n  Directions"
+    },
+    {
+      "paper_id": "2307.15475",
+      "why_first": "Proposes methods to incorporate stakeholder feedback into ML pipelines, important for iterative CI/CD improvements.",
+      "key_questions": [
+        "What are FeedbackLogs and their role in pipeline documentation?",
+        "How is stakeholder feedback collected and integrated?",
+        "How do FeedbackLogs support algorithmic auditing?"
+      ],
+      "paper_title": "FeedbackLogs: Recording and Incorporating Stakeholder Feedback into\n  Machine Learning Pipelines"
+    },
+    {
+      "paper_id": "2310.11442",
+      "why_first": "Focuses on trusted provenance in collaborative data processing pipelines, addressing trust and reproducibility in CI/CD.",
+      "key_questions": [
+        "What provenance information is critical for trusted pipelines?",
+        "How does provenance support collaboration across organizations?",
+        "What are limitations of current provenance solutions?"
+      ],
+      "paper_title": "Trusted Provenance of Automated, Collaborative and Adaptive Data\n  Processing Pipelines"
+    },
+    {
+      "paper_id": "2111.04131",
+      "why_first": "Presents Plumber, a tool for diagnosing and removing performance bottlenecks in ML data pipelines, enhancing pipeline efficiency.",
+      "key_questions": [
+        "What are common performance bottlenecks in input pipelines?",
+        "How does Plumber analyze and diagnose pipeline issues?",
+        "What operational models support pipeline performance improvements?"
+      ],
+      "paper_title": "Plumber: Diagnosing and Removing Performance Bottlenecks in Machine\n  Learning Data Pipelines"
+    },
+    {
+      "paper_id": "2210.05879",
+      "why_first": "Explores knowledge acquisition in recognition pipelines, illustrating pipeline adaptability and learning in novel contexts.",
+      "key_questions": [
+        "How does question generation aid novel object recognition?",
+        "What components constitute the proposed recognition pipeline?",
+        "How is external knowledge integrated dynamically?"
+      ],
+      "paper_title": "Learning by Asking Questions for Knowledge-based Novel Object\n  Recognition"
+    },
+    {
+      "paper_id": "1605.09336",
+      "why_first": "Details learning and automating image processing pipelines, showing pipeline design in specialized domains.",
+      "key_questions": [
+        "How are image processing pipelines modeled as local linear filters?",
+        "What role does machine learning play in pipeline automation?",
+        "How is pipeline design optimized for novel sensor architectures?"
+      ],
+      "paper_title": "Learning the image processing pipeline"
+    },
+    {
+      "paper_id": "2405.13480",
+      "why_first": "Describes a pipeline for intersection data imputation, exemplifying pipeline application in urban data processing.",
+      "key_questions": [
+        "What are the steps in the intersection data imputation pipeline?",
+        "How is OpenStreetMap data utilized?",
+        "What challenges arise in standardizing intersection data?"
+      ],
+      "paper_title": "What is a typical signalized intersection in a city? A pipeline for\n  intersection data imputation from OpenStreetMap"
+    },
+    {
+      "paper_id": "2411.10308",
+      "why_first": "Presents a simulation pipeline for X-ray image generation, demonstrating pipeline use in medical imaging contexts.",
+      "key_questions": [
+        "How is the collimated X-ray image simulation pipeline structured?",
+        "What physical models are incorporated?",
+        "How does simulation data support deep learning training?"
+      ],
+      "paper_title": "A Realistic Collimated X-Ray Image Simulation Pipeline"
+    }
+  ],
+  "actions": [
+    {
+      "label": "Study formal pipeline models",
+      "how_to": "Read paper 1705.01629 to understand pipeline semantics and operator polymorphism; summarize key concepts.",
+      "expected_outcome": "You will grasp foundational pipeline concepts and terminology."
+    },
+    {
+      "label": "Explore automated pipeline optimization",
+      "how_to": "Read paper 1603.06212; implement a simple pipeline optimization using TPOT or similar tool.",
+      "expected_outcome": "You will be able to automate pipeline design and understand optimization challenges."
+    },
+    {
+      "label": "Evaluate pipeline efficiency",
+      "how_to": "Study paper 2001.11158; experiment with surrogate models to evaluate pipeline validity without full execution.",
+      "expected_outcome": "You will learn efficient pipeline evaluation techniques."
+    },
+    {
+      "label": "Optimize hyperparameters with reuse",
+      "how_to": "Read paper 1903.05176; apply pipeline-aware hyperparameter tuning on a sample pipeline.",
+      "expected_outcome": "You will improve tuning efficiency by leveraging computation reuse."
+    },
+    {
+      "label": "Analyze preprocessing impact",
+      "how_to": "Review paper 1810.09942; test pipelines with and without preprocessors to observe accuracy changes.",
+      "expected_outcome": "You will understand when and how to include preprocessing steps."
+    },
+    {
+      "label": "Visualize and debug pipelines",
+      "how_to": "Use insights from paper 2005.00160; apply visualization tools to explore pipeline search spaces.",
+      "expected_outcome": "You will be able to debug and select pipelines more effectively."
+    },
+    {
+      "label": "Implement efficient pipeline search",
+      "how_to": "Study paper 2006.04216; simulate pipeline search using matrix/tensor factorization methods.",
+      "expected_outcome": "You will understand advanced pipeline search optimization techniques."
+    },
+    {
+      "label": "Incorporate sustainability practices",
+      "how_to": "Read paper 2111.05850; evaluate your pipeline processes for resource efficiency and propose improvements.",
+      "expected_outcome": "You will be aware of environmental impacts and how to reduce them."
+    },
+    {
+      "label": "Integrate stakeholder feedback",
+      "how_to": "Apply concepts from paper 2307.15475; create FeedbackLogs for your pipeline iterations.",
+      "expected_outcome": "You will systematically incorporate feedback into pipeline development."
+    },
+    {
+      "label": "Ensure trusted pipeline provenance",
+      "how_to": "Study paper 2310.11442; implement provenance tracking in your pipeline workflows.",
+      "expected_outcome": "You will enhance pipeline trustworthiness and reproducibility."
+    },
+    {
+      "label": "Diagnose pipeline performance",
+      "how_to": "Use paper 2111.04131; profile your input pipelines and identify bottlenecks using Plumber or similar tools.",
+      "expected_outcome": "You will improve pipeline throughput and reduce latency."
+    },
+    {
+      "label": "Explore adaptive pipeline learning",
+      "how_to": "Read paper 2210.05879; experiment with knowledge-based recognition pipelines that adapt to new data.",
+      "expected_outcome": "You will understand pipeline adaptability and knowledge integration."
+    },
+    {
+      "label": "Apply pipelines in specialized domains",
+      "how_to": "Review papers 1605.09336, 2405.13480, and 2411.10308; study domain-specific pipeline designs and simulate or replicate them.",
+      "expected_outcome": "You will gain insight into pipeline applications beyond general ML, including image processing and urban data."
+    }
+  ],
+  "metrics": [
+    "Number of pipeline designs automated",
+    "Pipeline evaluation time reduction",
+    "Hyperparameter tuning efficiency improvement",
+    "Accuracy improvement with preprocessing",
+    "Number of stakeholder feedback cycles incorporated",
+    "Provenance tracking completeness",
+    "Pipeline performance bottleneck reduction",
+    "Sustainability/resource usage metrics"
+  ],
+  "timeline_weeks": [
+    {
+      "week": 1,
+      "focus": "Foundations of pipeline semantics and automation",
+      "deliverable": "Summary notes on pipeline models and initial automated pipeline design experiment."
+    },
+    {
+      "week": 2,
+      "focus": "Pipeline evaluation and hyperparameter tuning",
+      "deliverable": "Report on surrogate model evaluation and tuned pipeline with reuse strategies."
+    },
+    {
+      "week": 3,
+      "focus": "Preprocessing and visualization",
+      "deliverable": "Analysis of preprocessing impact and visualization of pipeline search spaces."
+    },
+    {
+      "week": 4,
+      "focus": "Advanced pipeline search and sustainability",
+      "deliverable": "Simulation of factorization-based search and sustainability assessment of pipeline processes."
+    },
+    {
+      "week": 5,
+      "focus": "Stakeholder feedback and provenance",
+      "deliverable": "Implemented FeedbackLogs and provenance tracking in pipeline workflows."
+    },
+    {
+      "week": 6,
+      "focus": "Performance diagnosis and adaptive learning",
+      "deliverable": "Profiled pipeline performance with bottleneck removal and adaptive pipeline experiment."
+    },
+    {
+      "week": 7,
+      "focus": "Domain-specific pipeline applications",
+      "deliverable": "Case studies and replication of image processing and urban data pipelines."
+    }
+  ],
+  "risks": [
+    {
+      "risk": "Limited direct coverage of traditional CI/CD pipeline tools and practices in the selected papers.",
+      "mitigation": "Focus on machine learning and data processing pipeline concepts that underpin CI/CD; supplement with practical experimentation and external CI/CD tool documentation."
+    },
+    {
+      "risk": "Some papers focus on domain-specific pipelines which may not generalize to all CI/CD contexts.",
+      "mitigation": "Extract general pipeline principles and adapt learnings to broader CI/CD pipeline design and management."
+    }
+  ],
+  "_topics_suggestion": "The selected papers may also cover research areas including: 3D Scene Understanding, Applied Machine Learning, General Algorithms, Medical Imaging. You may gain a broader understand of the field by exploring these related research directions"
+}

@@ -30,6 +30,7 @@
 **PaperTrail** leverages topics from the **DTU 02807 Data Science Computing Tools** course, including similar-item search/locality-sensitive hashing, high-frequency item mining, and general clustering algorithms.  
 It further integrates hybrid search methods(TF-IDF, LSA, and SBERT) and intelligent re-ranking algorithms (weak supervision, MMR).  
 Based on these techniques, PaperTrail recommends paper sets tailored to user preferences and then uses large language models to generate personalized, step-by-step learning plans.
+
 Our overall implementation logic is as follows:
 <p align="center">
   <img src="website/pictures/diagram.png"  alt="diagram"  width="750">

@@ -1,0 +1,226 @@
+{
+  "goal": "Human-Computer Interaction",
+  "study_level": "intermediate",
+  "source_papers": [
+    "2407.17275",
+    "2408.08620",
+    "2304.02154",
+    "2412.05802",
+    "2403.11882",
+    "2211.01553",
+    "2211.12216",
+    "2405.03699",
+    "1905.12686",
+    "2308.10158"
+  ],
+  "metadata": {
+    "prompt_version": "PT-20251102-1",
+    "model": "gpt-4.1-mini",
+    "created_at": "2025-11-29T19:32:23.662984+00:00"
+  },
+  "plan_overview": "This learning plan guides you through foundational and advanced topics in Human-Computer Interaction (HCI) by exploring human behavior modeling, human-machine cooperation, and AI integration in interactive systems. Starting with human behavioral models and variability in interaction, you will progress to multimodal human-robot handover data and social navigation challenges. The plan then covers human-AI bidirectional learning, human-centered AI alignment, and representation learning optimized for human decision-making. Finally, it addresses human-object interaction detection and synthesis of human action-reaction to deepen your understanding of dynamic human interactions in HCI contexts.",
+  "reading_order": [
+    {
+      "paper_id": "2407.17275",
+      "why_first": "Introduces a behavioral model of human stubbornness in human-machine trajectory planning, foundational for understanding human behavior in interaction.",
+      "key_questions": [
+        "How is human stubbornness quantified and modeled?",
+        "How does the model affect cooperative trajectory planning?",
+        "What are the implications for adaptive automation?"
+      ],
+      "paper_title": "Reacting on human stubbornness in human-machine trajectory planning"
+    },
+    {
+      "paper_id": "2408.08620",
+      "why_first": "Builds on human behavior modeling by incorporating human motor variability into optimal control, enhancing human-centered automation design.",
+      "key_questions": [
+        "What is human natural motor variability?",
+        "How does respecting variability improve interaction experience?",
+        "How is the variability-respecting controller designed?"
+      ],
+      "paper_title": "Study on Human-Variability-Respecting Optimal Control Affecting Human\n  Interaction Experience"
+    },
+    {
+      "paper_id": "2304.02154",
+      "why_first": "Provides empirical multimodal data on human-human handovers, essential for designing natural and effective human-robot handovers.",
+      "key_questions": [
+        "What features characterize human handovers?",
+        "How do object weight and visual input affect handovers?",
+        "What design implications arise for robot handovers?"
+      ],
+      "paper_title": "A Multimodal Data Set of Human Handovers with Design Implications for\n  Human-Robot Handovers"
+    },
+    {
+      "paper_id": "2211.12216",
+      "why_first": "Addresses social navigation challenges by detecting invisible humans, expanding understanding of human-aware robot navigation.",
+      "key_questions": [
+        "What are invisible humans in navigation?",
+        "How does anticipation improve robot path planning?",
+        "How can this approach enhance social robot behavior?"
+      ],
+      "paper_title": "Watch out! There may be a Human. Addressing Invisible Humans in Social\n  Navigation"
+    },
+    {
+      "paper_id": "2412.05802",
+      "why_first": "Explores bidirectional human-AI learning in real-time tasks, illustrating interactive dynamics between humans and AI agents.",
+      "key_questions": [
+        "How does AI assistance affect human performance?",
+        "How do humans influence AI learning?",
+        "What are the mechanisms of bidirectional learning?"
+      ],
+      "paper_title": "Bidirectional Human-AI Learning in Real-Time Disoriented Balancing"
+    },
+    {
+      "paper_id": "2405.03699",
+      "why_first": "Frames AI alignment as a human-centered computing problem, linking HCI principles with AI system design.",
+      "key_questions": [
+        "What is the relationship between AI alignment and HCC?",
+        "How can HCC principles improve AI alignment?",
+        "What are the challenges in human-centered AI design?"
+      ],
+      "paper_title": "HCC Is All You Need: Alignment-The Sensible Kind Anyway-Is Just\n  Human-Centered Computing"
+    },
+    {
+      "paper_id": "1905.12686",
+      "why_first": "Presents a framework for learning human-facing representations to support human decision-making, emphasizing human-in-the-loop training.",
+      "key_questions": [
+        "How does representation learning support humans?",
+        "What is the Mind Composed with Machine framework?",
+        "How is human decision-making modeled in training?"
+      ],
+      "paper_title": "Learning Representations by Humans, for Humans"
+    },
+    {
+      "paper_id": "2403.11882",
+      "why_first": "Introduces human action-reaction synthesis for dynamic human-human interactions, important for realistic interaction modeling.",
+      "key_questions": [
+        "What defines asymmetric human-human interactions?",
+        "How is action-reaction synthesis performed?",
+        "What datasets and benchmarks are used?"
+      ],
+      "paper_title": "ReGenNet: Towards Human Action-Reaction Synthesis"
+    },
+    {
+      "paper_id": "2308.10158",
+      "why_first": "Focuses on disentangling human-object features for detecting human-object interactions, critical for understanding interaction context.",
+      "key_questions": [
+        "How are human and object features disentangled?",
+        "Why are human features more contributive?",
+        "How does the model improve HOI detection?"
+      ],
+      "paper_title": "HODN: Disentangling Human-Object Feature for HOI Detection"
+    },
+    {
+      "paper_id": "2211.01553",
+      "why_first": "Concludes with a conceptual framework for human-machine relationships in NLP, broadening the scope of HCI to language-based interactions.",
+      "key_questions": [
+        "What are the four types of human-machine interactions?",
+        "How do user and labor perspectives differ?",
+        "What implications does this have for NLP system design?"
+      ],
+      "paper_title": "User or Labor: An Interaction Framework for Human-Machine Relationships\n  in NLP"
+    }
+  ],
+  "actions": [
+    {
+      "label": "Model Human Stubbornness",
+      "how_to": "Implement the stubbornness behavioral model from paper 2407.17275 in a simulated human-machine trajectory planning scenario.",
+      "expected_outcome": "You can quantitatively estimate human stubbornness and adapt automation accordingly."
+    },
+    {
+      "label": "Design Variability-Respecting Controller",
+      "how_to": "Develop and simulate the human-variability-respecting optimal controller from paper 2408.08620 using real human motor data.",
+      "expected_outcome": "You understand how respecting human variability improves interaction experience."
+    },
+    {
+      "label": "Analyze Human Handovers Dataset",
+      "how_to": "Explore the multimodal handover dataset from paper 2304.02154, focusing on motion and force features under different conditions.",
+      "expected_outcome": "You gain insights into natural handover dynamics and design implications for robots."
+    },
+    {
+      "label": "Implement Invisible Human Detection",
+      "how_to": "Create a detection module for invisible humans in robot navigation based on paper 2211.12216 and test path adaptation strategies.",
+      "expected_outcome": "You can anticipate human emergence and improve social navigation safety."
+    },
+    {
+      "label": "Simulate Bidirectional Human-AI Learning",
+      "how_to": "Build a simplified real-time balancing task with AI assistance as described in paper 2412.05802 to observe mutual learning effects.",
+      "expected_outcome": "You experience how AI and humans influence each other's performance."
+    },
+    {
+      "label": "Explore Human-Centered AI Alignment",
+      "how_to": "Critically review and summarize key points from paper 2405.03699 on framing AI alignment as human-centered computing.",
+      "expected_outcome": "You understand the conceptual link between HCI and AI alignment challenges."
+    },
+    {
+      "label": "Train Human-Facing Representations",
+      "how_to": "Implement a human-in-the-loop training procedure inspired by paper 1905.12686 to optimize representations for human decision-making.",
+      "expected_outcome": "You can improve machine support for human decisions beyond accuracy."
+    },
+    {
+      "label": "Generate Human Action-Reaction Sequences",
+      "how_to": "Use the benchmark and methods from paper 2403.11882 to synthesize human reactions conditioned on actions in interaction sequences.",
+      "expected_outcome": "You can model dynamic human-human interactions realistically."
+    },
+    {
+      "label": "Develop HOI Detection Model",
+      "how_to": "Implement the Human and Object Disentangling Network from paper 2308.10158 and evaluate its performance on HOI datasets.",
+      "expected_outcome": "You improve detection of human-object interactions by disentangling features."
+    },
+    {
+      "label": "Apply Human-Machine Interaction Framework in NLP",
+      "how_to": "Analyze NLP systems using the interaction framework from paper 2211.01553 to identify user vs labor roles and interaction types.",
+      "expected_outcome": "You can design NLP systems with clearer human-machine relationship models."
+    }
+  ],
+  "metrics": [
+    "Accuracy of stubbornness estimation in simulation",
+    "Improvement in human interaction experience scores",
+    "Coverage and analysis depth of handover dataset features",
+    "Reduction in collision risk via invisible human detection",
+    "Performance improvement in bidirectional human-AI tasks",
+    "Comprehensiveness of AI alignment conceptual summary",
+    "Effectiveness of human-facing representations in decision support",
+    "Quality and realism of synthesized human action-reaction sequences",
+    "Precision and recall in HOI detection model",
+    "Clarity and applicability of human-machine interaction framework in NLP"
+  ],
+  "timeline_weeks": [
+    {
+      "week": 1,
+      "focus": "Human behavioral modeling and variability in interaction",
+      "deliverable": "Simulation of stubbornness model and variability-respecting controller"
+    },
+    {
+      "week": 2,
+      "focus": "Empirical data analysis of human handovers and social navigation",
+      "deliverable": "Report on handover dataset insights and invisible human detection implementation"
+    },
+    {
+      "week": 3,
+      "focus": "Bidirectional human-AI learning and AI alignment concepts",
+      "deliverable": "Simulation of balancing task and conceptual summary document"
+    },
+    {
+      "week": 4,
+      "focus": "Human-facing representation learning and human action-reaction synthesis",
+      "deliverable": "Prototype of human-in-the-loop training and action-reaction synthesis results"
+    },
+    {
+      "week": 5,
+      "focus": "Human-object interaction detection and NLP human-machine interaction framework",
+      "deliverable": "HOI detection model implementation and NLP framework analysis"
+    }
+  ],
+  "risks": [
+    {
+      "risk": "Limited practical implementation details in some papers may hinder reproducibility.",
+      "mitigation": "Focus on conceptual understanding and simulation where possible; supplement with related open-source tools."
+    },
+    {
+      "risk": "Complexity of human behavior modeling may require advanced domain knowledge.",
+      "mitigation": "Start with simplified models and progressively incorporate complexity; seek expert guidance if needed."
+    }
+  ],
+  "_topics_suggestion": "The selected papers may also cover research areas including: 3D Scene Understanding, Applied Machine Learning, General Algorithms, Language Modeling, Natural Language Processing, Object Detection & Pose Estimation, Reinforcement Learning, Robotics & Control. You may gain a broader understand of the field by exploring these related research directions"
+}

@@ -4,6 +4,8 @@ Retry and process records where citation_count is -1
 
 Dependencies:
   pip install requests tqdm
+
+Enter your email address and purpose in lines 307-309 to join the openalex polite pool.
 """
 
 import json
@@ -304,8 +306,8 @@ def main():
 
     session = requests.Session()
     session.headers.update({
-        "User-Agent": "school-assignment",
-        "mailto": "1289521107@qq.com"
+        "User-Agent": "XXX",
+        "mailto": "XXX"
     })
 
     #Count how many HTTP requests are sent

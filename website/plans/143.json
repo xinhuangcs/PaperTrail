@@ -1,0 +1,108 @@
+{
+  "goal": "software engineering",
+  "study_level": "intermediate",
+  "source_papers": [
+    "1712.00061",
+    "2301.08923",
+    "2303.17271"
+  ],
+  "metadata": {
+    "prompt_version": "PT-20251102-1",
+    "model": "gpt-4.1-mini",
+    "created_at": "2025-12-02T09:43:39.149880+00:00"
+  },
+  "plan_overview": "This learning plan guides you through key contemporary topics in software engineering by leveraging three research papers. You will start by understanding the integration of agile and systems engineering in large-scale projects, then explore human factors influencing software engineering risk-taking, and finally analyze challenges in continuous software engineering adoption. This progression builds foundational knowledge, followed by behavioral insights, and culminates in practical challenges and solutions for modern software development.",
+  "reading_order": [
+    {
+      "paper_id": "1712.00061",
+      "why_first": "It introduces foundational concepts of systems and agile engineering at scale, setting the context for large software projects and their management.",
+      "key_questions": [
+        "What are the main differences between classical and agile systems engineering?",
+        "How does the SKA project implement agile practices in a large-scale software environment?",
+        "What tensions arise between classical and agile approaches in software-intensive projects?"
+      ],
+      "paper_title": "Agile Software Engineering and Systems Engineering at SKA Scale"
+    },
+    {
+      "paper_id": "2301.08923",
+      "why_first": "After understanding engineering processes, this paper provides insight into the human behavioral aspect influencing software engineering decisions, specifically risk-taking.",
+      "key_questions": [
+        "How does framing affect risk-taking behavior in software engineers?",
+        "What personality traits were studied and what was their impact on risk-taking?",
+        "How can awareness of framing effects improve software engineering management?"
+      ],
+      "paper_title": "The Risk-Taking Software Engineer: A Framed Portrait"
+    },
+    {
+      "paper_id": "2303.17271",
+      "why_first": "This paper builds on prior knowledge by focusing on continuous software engineering challenges, offering practical insights into adoption barriers and prioritization of issues.",
+      "key_questions": [
+        "What are the critical challenges in adopting continuous software engineering?",
+        "How does the fuzzy analytical hierarchy process prioritize these challenges?",
+        "What recommendations emerge for organizations to overcome these challenges?"
+      ],
+      "paper_title": "What Practitioners Really Think About Continuous Software Engineering: A\n  Taxonomy of Challenges"
+    }
+  ],
+  "actions": [
+    {
+      "label": "Summarize Agile vs Classical Systems Engineering",
+      "how_to": "Read paper 1712.00061 and write a summary comparing classical and agile systems engineering approaches, focusing on their application in large-scale projects.",
+      "expected_outcome": "A clear written summary highlighting key differences and challenges in applying agile methods at scale."
+    },
+    {
+      "label": "Analyze Risk-Taking Factors",
+      "how_to": "Study paper 2301.08923 and create a brief report on how framing influences risk-taking in software engineers and implications for project management.",
+      "expected_outcome": "A report explaining framing effects and recommendations for managing risk-taking behavior."
+    },
+    {
+      "label": "Identify and Prioritize Continuous Engineering Challenges",
+      "how_to": "Review paper 2303.17271, list the main challenges identified, and explain the prioritization method used.",
+      "expected_outcome": "A prioritized list of continuous software engineering challenges with an explanation of the prioritization approach."
+    },
+    {
+      "label": "Develop a Personal Action Plan",
+      "how_to": "Based on insights from all papers, draft an action plan to improve your software engineering practices addressing process, human factors, and continuous integration challenges.",
+      "expected_outcome": "A personalized plan outlining steps to apply learned concepts in your projects."
+    }
+  ],
+  "metrics": [
+    "Number of key concepts accurately summarized",
+    "Depth of understanding demonstrated in reports",
+    "Ability to prioritize challenges effectively",
+    "Quality and feasibility of personal action plan"
+  ],
+  "timeline_weeks": [
+    {
+      "week": 1,
+      "focus": "Foundations of Agile and Systems Engineering",
+      "deliverable": "Summary document comparing classical and agile systems engineering"
+    },
+    {
+      "week": 2,
+      "focus": "Behavioral Aspects of Software Engineering Risk",
+      "deliverable": "Report on risk-taking and framing effects in software engineers"
+    },
+    {
+      "week": 3,
+      "focus": "Challenges in Continuous Software Engineering",
+      "deliverable": "Prioritized list and explanation of continuous engineering challenges"
+    },
+    {
+      "week": 4,
+      "focus": "Integration and Application",
+      "deliverable": "Personal action plan for improving software engineering practices"
+    }
+  ],
+  "risks": [
+    {
+      "risk": "Limited number of papers may not cover all aspects of software engineering comprehensively.",
+      "mitigation": "Focus on depth in the covered topics and seek supplementary resources if needed after initial learning."
+    },
+    {
+      "risk": "Behavioral study results may not generalize to all software engineering contexts.",
+      "mitigation": "Consider findings as indicative and validate with your own observations and experiences."
+    }
+  ],
+  "_topics_suggestion": "The selected papers may also cover research areas including: Applied Machine Learning, General Algorithms. You may gain a broader understand of the field by exploring these related research directions"
+}

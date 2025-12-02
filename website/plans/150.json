@@ -1,0 +1,196 @@
+{
+  "goal": "I am currently studying first-order logic examples.",
+  "study_level": "intermediate",
+  "source_papers": [
+    "2103.08046",
+    "1409.3819",
+    "cs/0609022",
+    "1812.05297",
+    "1703.03391",
+    "cs/0502047",
+    "1207.6685",
+    "2110.11109",
+    "1208.0176",
+    "1904.00189"
+  ],
+  "metadata": {
+    "prompt_version": "PT-20251102-1",
+    "model": "gpt-4.1-mini",
+    "created_at": "2025-12-02T09:56:06.654650+00:00"
+  },
+  "plan_overview": "This learning plan guides you through foundational and advanced topics in first-order logic (FOL) by exploring syntactic fragments, modal extensions, complexity classifications, and applications in team semantics and dependence logic. The strategy is to start with general complexity and expressiveness results, then move to modal and team logic extensions, and finally to specialized fragments and axiomatizations. This progression builds your understanding from classical FOL to modern research frontiers, enabling you to grasp examples and applications effectively.",
+  "reading_order": [
+    {
+      "paper_id": "cs/0609022",
+      "why_first": "Introduces complexity classifications for model checking in first-order logic fragments, providing a foundational understanding of FOL's computational aspects.",
+      "key_questions": [
+        "What are the main fragments of first-order logic studied?",
+        "How does model checking complexity vary across fragments?",
+        "What is the dichotomy conjecture and its relevance?"
+      ],
+      "paper_title": "Dichotomies and Duality in First-order Model Checking Problems"
+    },
+    {
+      "paper_id": "cs/0502047",
+      "why_first": "Explores succinctness of first-order logic on linear orders, deepening understanding of expressiveness and formula size trade-offs in FOL.",
+      "key_questions": [
+        "What is succinctness in logic?",
+        "How do variable fragments affect expressiveness?",
+        "What are the implications for linear orders?"
+      ],
+      "paper_title": "The succinctness of first-order logic on linear orders"
+    },
+    {
+      "paper_id": "1904.00189",
+      "why_first": "Builds on linear order logic by showing the three-variable property, linking FOL expressiveness to modal logic variants.",
+      "key_questions": [
+        "What is the three-variable property?",
+        "How does translation to Propositional Dynamic Logic work?",
+        "What monotonicity conditions are required?"
+      ],
+      "paper_title": "FO = FO3 for linear orders with monotone binary relations"
+    },
+    {
+      "paper_id": "2103.08046",
+      "why_first": "Studies ordered fragments of first-order logic, extending your knowledge of syntactic restrictions and their impact on satisfiability complexity.",
+      "key_questions": [
+        "What are ordered and fluted logics?",
+        "How do syntactic restrictions affect complexity?",
+        "What algebraic framework is used for classification?"
+      ],
+      "paper_title": "Ordered fragments of first-order logic"
+    },
+    {
+      "paper_id": "1409.3819",
+      "why_first": "Introduces syntactic abstraction methods for reasoning in first-order modal logics, bridging classical FOL and modal extensions.",
+      "key_questions": [
+        "What is coalescing in modal logic?",
+        "How does syntactic abstraction facilitate theorem proving?",
+        "Which modal logics are supported?"
+      ],
+      "paper_title": "Coalescing: Syntactic Abstraction for Reasoning in First-Order Modal\n  Logics"
+    },
+    {
+      "paper_id": "1207.6685",
+      "why_first": "Presents a tool converting first-order modal logics to higher-order logic, enabling automated reasoning and practical experimentation.",
+      "key_questions": [
+        "How does FMLtoHOL work?",
+        "What modal logics and semantics are supported?",
+        "How can theorem provers be applied?"
+      ],
+      "paper_title": "FMLtoHOL (version 1.0): Automating First-order Modal Logics with LEO-II\n  and Friends"
+    },
+    {
+      "paper_id": "1703.03391",
+      "why_first": "Explores first-order logic with incomplete information, expanding your understanding of logic under uncertainty and complexity considerations.",
+      "key_questions": [
+        "How is incomplete information modeled in FOL?",
+        "What extensions are proposed?",
+        "What complexity results are discussed?"
+      ],
+      "paper_title": "First-order logic with incomplete information"
+    },
+    {
+      "paper_id": "1208.0176",
+      "why_first": "Provides an axiomatization for first-order consequences in dependence logic, linking FOL to dependence and team semantics.",
+      "key_questions": [
+        "What is dependence logic?",
+        "Why can't it be fully axiomatized?",
+        "How are first-order consequences axiomatized?"
+      ],
+      "paper_title": "Axiomatizing first order consequences in dependence logic"
+    },
+    {
+      "paper_id": "2110.11109",
+      "why_first": "Studies expressive power of TeamLTL and first-order team logic over hyperproperties, connecting temporal logic and team semantics.",
+      "key_questions": [
+        "What is TeamLTL?",
+        "How are Kamp-type translations defined?",
+        "What are hyperproperties and their significance?"
+      ],
+      "paper_title": "On the Expressive Power of TeamLTL and First-Order Team Logic over\n  Hyperproperties"
+    },
+    {
+      "paper_id": "1812.05297",
+      "why_first": "Compares calculi for first-order infinite-valued Łukasiewicz logic, introducing you to many-valued logic extensions of FOL and proof theory.",
+      "key_questions": [
+        "What are Gentzen-type hypersequent calculi?",
+        "How do they compare to Hilbert-type calculi?",
+        "What is density elimination and its role?"
+      ],
+      "paper_title": "Comparing several calculi for first-order infinite-valued {\\L}ukasiewicz\n  logic"
+    }
+  ],
+  "actions": [
+    {
+      "label": "Summarize complexity results of FOL fragments",
+      "how_to": "Read cs/0609022 and cs/0502047; write a summary of complexity and succinctness results for different FOL fragments.",
+      "expected_outcome": "Clear understanding of computational complexity and expressiveness trade-offs in FOL fragments."
+    },
+    {
+      "label": "Analyze variable restrictions and translations",
+      "how_to": "Study 1904.00189 and 2103.08046; create examples illustrating the three-variable property and ordered fragment restrictions.",
+      "expected_outcome": "Ability to identify and apply variable restrictions and syntactic fragment concepts in FOL examples."
+    },
+    {
+      "label": "Experiment with modal logic abstractions",
+      "how_to": "Read 1409.3819 and 1207.6685; use FMLtoHOL tool to encode simple first-order modal logic formulas and verify reasoning steps.",
+      "expected_outcome": "Practical experience in reasoning with first-order modal logics using automated tools."
+    },
+    {
+      "label": "Explore incomplete information and dependence logic",
+      "how_to": "Study 1703.03391 and 1208.0176; formulate examples of incomplete information scenarios and first-order consequences in dependence logic.",
+      "expected_outcome": "Understanding of how FOL handles incomplete information and dependence, with example formulations."
+    },
+    {
+      "label": "Investigate team semantics and many-valued logic",
+      "how_to": "Read 2110.11109 and 1812.05297; compare team logic expressiveness and many-valued logic calculi through example problems.",
+      "expected_outcome": "Insight into advanced FOL extensions and their proof systems, with practical examples."
+    }
+  ],
+  "metrics": [
+    "Number of FOL fragments and properties understood",
+    "Ability to construct examples illustrating variable and syntactic restrictions",
+    "Successful use of FMLtoHOL tool for modal logic reasoning",
+    "Number of formulated examples in incomplete information and dependence logic",
+    "Comprehension of team semantics and many-valued logic concepts"
+  ],
+  "timeline_weeks": [
+    {
+      "week": 1,
+      "focus": "Foundations of FOL complexity and succinctness",
+      "deliverable": "Summary report on complexity and succinctness of FOL fragments"
+    },
+    {
+      "week": 2,
+      "focus": "Variable restrictions and ordered fragments",
+      "deliverable": "Examples demonstrating three-variable property and ordered fragment characteristics"
+    },
+    {
+      "week": 3,
+      "focus": "Modal logic abstraction and automated reasoning",
+      "deliverable": "Practical exercises using FMLtoHOL tool with first-order modal logic formulas"
+    },
+    {
+      "week": 4,
+      "focus": "Incomplete information and dependence logic",
+      "deliverable": "Formulated examples and explanations of incomplete information and dependence logic consequences"
+    },
+    {
+      "week": 5,
+      "focus": "Team semantics and many-valued logic",
+      "deliverable": "Comparative analysis and example problems on team logic and infinite-valued Łukasiewicz logic calculi"
+    }
+  ],
+  "risks": [
+    {
+      "risk": "The papers cover diverse and advanced topics which may be challenging to integrate cohesively for a beginner.",
+      "mitigation": "Focus on core foundational papers first and use supplementary resources for background knowledge."
+    },
+    {
+      "risk": "Limited practical examples in some papers may hinder hands-on understanding.",
+      "mitigation": "Create your own examples based on theoretical insights and use available tools like FMLtoHOL for experimentation."
+    }
+  ],
+  "_topics_suggestion": "The selected papers may also cover research areas including: Applied Machine Learning, Formal Methods, General Algorithms, Optimization Theory, Statistical Estimation. You may gain a broader understand of the field by exploring these related research directions"
+}

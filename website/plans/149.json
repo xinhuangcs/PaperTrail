@@ -1,0 +1,215 @@
+{
+  "goal": "I want to learn Large-Scale Reinforcement Learning",
+  "study_level": "intermediate",
+  "source_papers": [
+    "1906.01110",
+    "2411.05536",
+    "2310.13396",
+    "2304.06567",
+    "2306.10950",
+    "2109.03540",
+    "2002.00444",
+    "2003.08445",
+    "2011.11012",
+    "2301.04182"
+  ],
+  "metadata": {
+    "prompt_version": "PT-20251102-1",
+    "model": "gpt-4.1-mini",
+    "created_at": "2025-12-02T09:56:07.267974+00:00"
+  },
+  "plan_overview": "This learning plan guides you through foundational concepts, practical frameworks, and advanced applications of large-scale deep reinforcement learning (DRL). Starting with surveys and foundational methods, you will explore distributed learning, robustness, and domain-specific applications such as autonomous driving, portfolio management, and scheduling. The plan emphasizes understanding algorithmic challenges, scalability, and robustness to prepare you for research or development in large-scale DRL.",
+  "reading_order": [
+    {
+      "paper_id": "2002.00444",
+      "why_first": "Provides a comprehensive survey of DRL in autonomous driving, introducing core algorithms, challenges, and real-world deployment issues, establishing foundational knowledge.",
+      "key_questions": [
+        "What are the main DRL algorithms used in high-dimensional environments?",
+        "What challenges arise in real-world DRL deployment?",
+        "How do simulators aid DRL training?"
+      ],
+      "paper_title": "Deep Reinforcement Learning for Autonomous Driving: A Survey"
+    },
+    {
+      "paper_id": "2011.11012",
+      "why_first": "Introduces distributed deep reinforcement learning, essential for scaling DRL to large problems and multiple machines.",
+      "key_questions": [
+        "What are the key distributed DRL architectures?",
+        "How does distributed learning improve data efficiency and exploration?",
+        "What are the challenges in multi-machine DRL training?"
+      ],
+      "paper_title": "Distributed Deep Reinforcement Learning: An Overview"
+    },
+    {
+      "paper_id": "2310.13396",
+      "why_first": "Presents RL-X, a practical DRL library optimized for speed and flexibility, useful for hands-on experimentation and scaling DRL projects.",
+      "key_questions": [
+        "What features enable RL-X to achieve speedups?",
+        "How can RL-X be extended for custom DRL tasks?",
+        "What benchmarks demonstrate RL-X's performance?"
+      ],
+      "paper_title": "RL-X: A Deep Reinforcement Learning Library (not only) for RoboCup"
+    },
+    {
+      "paper_id": "2301.04182",
+      "why_first": "Introduces schlably, a framework for DRL-based scheduling experiments, illustrating application of DRL to complex industrial problems at scale.",
+      "key_questions": [
+        "How does schlably standardize DRL scheduling experiments?",
+        "What DRL algorithms are supported?",
+        "How does it improve reproducibility and scalability?"
+      ],
+      "paper_title": "schlably: A Python Framework for Deep Reinforcement Learning Based\n  Scheduling Experiments"
+    },
+    {
+      "paper_id": "2304.06567",
+      "why_first": "Shows DRL applied to assembly sequence planning with user preferences, highlighting DRL's adaptability to real-world constraints and preferences.",
+      "key_questions": [
+        "How are parametric actions used to improve training?",
+        "How are multiple reward signals integrated?",
+        "What are the sample efficiency improvements?"
+      ],
+      "paper_title": "Deep reinforcement learning applied to an assembly sequence planning\n  problem with user preferences"
+    },
+    {
+      "paper_id": "2306.10950",
+      "why_first": "Focuses on benchmarking robustness of DRL in online portfolio management, emphasizing evaluation of DRL generalization and stability in volatile environments.",
+      "key_questions": [
+        "What metrics assess DRL robustness?",
+        "How do DRL algorithms perform under market shifts?",
+        "What training processes improve robustness?"
+      ],
+      "paper_title": "Benchmarking Robustness of Deep Reinforcement Learning approaches to\n  Online Portfolio Management"
+    },
+    {
+      "paper_id": "1906.01110",
+      "why_first": "Investigates adversarial resilience and robustness of DRL policies, critical for deploying DRL in safety-sensitive large-scale applications.",
+      "key_questions": [
+        "How are vulnerabilities in DRL policies disentangled?",
+        "What RL-based techniques benchmark adversarial resilience?",
+        "How do different DRL algorithms compare in robustness?"
+      ],
+      "paper_title": "RL-Based Method for Benchmarking the Adversarial Resilience and\n  Robustness of Deep Reinforcement Learning Policies"
+    },
+    {
+      "paper_id": "2003.08445",
+      "why_first": "Details DRL for placement optimization, demonstrating policy gradient methods for combinatorial optimization problems relevant to large-scale system design.",
+      "key_questions": [
+        "How is placement formulated as an RL problem?",
+        "What policy gradient methods are effective?",
+        "What lessons improve training across placement tasks?"
+      ],
+      "paper_title": "Placement Optimization with Deep Reinforcement Learning"
+    },
+    {
+      "paper_id": "2411.05536",
+      "why_first": "Applies DRL to active flow control, showing integration of CFD solvers with DRL for complex physical simulations, a frontier in large-scale DRL applications.",
+      "key_questions": [
+        "How is DRL integrated with CFD solvers?",
+        "What control strategies reduce drag effectively?",
+        "How is communication optimized between DRL and simulation?"
+      ],
+      "paper_title": "Towards Active Flow Control Strategies Through Deep Reinforcement\n  Learning"
+    },
+    {
+      "paper_id": "2109.03540",
+      "why_first": "Surveys DRL in recommender systems, providing insights into emerging trends and challenges in applying DRL to large-scale interactive systems.",
+      "key_questions": [
+        "What DRL architectures are used in recommender systems?",
+        "What are the main challenges and open issues?",
+        "How can DRL improve recommendation quality and user experience?"
+      ],
+      "paper_title": "A Survey of Deep Reinforcement Learning in Recommender Systems: A\n  Systematic Review and Future Directions"
+    }
+  ],
+  "actions": [
+    {
+      "label": "Set up RL-X and schlably frameworks",
+      "how_to": "Install RL-X and schlably libraries; run example scripts to familiarize with their APIs and workflows.",
+      "expected_outcome": "You will be able to run and modify DRL experiments using state-of-the-art frameworks."
+    },
+    {
+      "label": "Implement a distributed DRL training experiment",
+      "how_to": "Use concepts from the distributed DRL survey to configure a multi-machine training setup with RL-X or another framework.",
+      "expected_outcome": "You will understand practical challenges and benefits of distributed DRL training."
+    },
+    {
+      "label": "Benchmark robustness of DRL policies",
+      "how_to": "Reproduce adversarial resilience experiments from paper 1906.01110 using DQN, A2C, and PPO2 on a standard environment.",
+      "expected_outcome": "You will gain hands-on experience evaluating DRL policy robustness to adversarial perturbations."
+    },
+    {
+      "label": "Apply DRL to a domain-specific problem",
+      "how_to": "Choose either assembly sequence planning or portfolio management; implement a DRL solution using insights from papers 2304.06567 or 2306.10950.",
+      "expected_outcome": "You will learn how to tailor DRL algorithms to complex, real-world decision-making problems."
+    },
+    {
+      "label": "Integrate DRL with simulation environments",
+      "how_to": "Set up a DRL agent controlling a CFD simulation or a recommender system environment, inspired by papers 2411.05536 and 2109.03540.",
+      "expected_outcome": "You will understand how to couple DRL with complex simulators for large-scale applications."
+    }
+  ],
+  "metrics": [
+    "Number of successfully run DRL experiments using RL-X and schlably",
+    "Performance improvement in distributed DRL training (speedup, convergence)",
+    "Robustness scores of DRL policies under adversarial perturbations",
+    "Sample efficiency and reward improvement in domain-specific DRL tasks",
+    "Integration latency and control effectiveness in DRL-simulation coupling"
+  ],
+  "timeline_weeks": [
+    {
+      "week": 1,
+      "focus": "Foundations of DRL and autonomous driving applications",
+      "deliverable": "Summary notes on DRL algorithms and challenges from paper 2002.00444"
+    },
+    {
+      "week": 2,
+      "focus": "Distributed DRL concepts and frameworks",
+      "deliverable": "Set up distributed training environment and run initial experiments per paper 2011.11012"
+    },
+    {
+      "week": 3,
+      "focus": "Hands-on with RL-X and schlably frameworks",
+      "deliverable": "Run example experiments and modify code to understand framework capabilities"
+    },
+    {
+      "week": 4,
+      "focus": "Robustness and adversarial resilience in DRL",
+      "deliverable": "Reproduce robustness benchmarking experiments from paper 1906.01110"
+    },
+    {
+      "week": 5,
+      "focus": "Domain-specific DRL applications: assembly planning and portfolio management",
+      "deliverable": "Implement a DRL solution for one domain and evaluate performance"
+    },
+    {
+      "week": 6,
+      "focus": "DRL integration with simulation environments",
+      "deliverable": "Set up DRL agent controlling a CFD or recommender system simulation"
+    },
+    {
+      "week": 7,
+      "focus": "Advanced optimization problems with DRL",
+      "deliverable": "Experiment with placement optimization using policy gradient methods from paper 2003.08445"
+    },
+    {
+      "week": 8,
+      "focus": "Review and consolidate learning; prepare a project proposal",
+      "deliverable": "Documented project plan applying large-scale DRL to a chosen problem domain"
+    }
+  ],
+  "risks": [
+    {
+      "risk": "Limited practical experience with large-scale distributed DRL due to resource constraints.",
+      "mitigation": "Use cloud-based or simulated distributed environments with smaller scale to approximate large-scale setups."
+    },
+    {
+      "risk": "Complexity of integrating DRL with external simulators may delay progress.",
+      "mitigation": "Start with simpler simulation environments and incrementally add complexity."
+    },
+    {
+      "risk": "Robustness benchmarking methods may require advanced understanding of adversarial attacks.",
+      "mitigation": "Focus on reproducing provided experiments and gradually study adversarial ML concepts."
+    }
+  ],
+  "_topics_suggestion": "The selected papers may also cover research areas including: Robotics & Control. You may gain a broader understand of the field by exploring these related research directions"
+}

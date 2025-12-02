@@ -27,10 +27,9 @@
 
 ---
 ## 1. Introduction
-**PaperTrail** is an intelligent research assistant designed to help users navigate vast amounts of computer science literatures.  
-Based on the DTU 02807 Data Science Computing Tools course topics—similar items/locally sensitive hashing, high-frequency items, and general clustering algorithms;   
-alongside hybrid search (TF-IDF, LSA, SBERT) and intelligent re-ranking (weak supervision, MMR) algorithms,   
-PaperTrail recommends paper sets according to user preferences, then relies on large language models to generate personalized step-by-step learning plans.  
+**PaperTrail** leverages topics from the **DTU 02807 Data Science Computing Tools** course, including similar-item search/locality-sensitive hashing, high-frequency item mining, and general clustering algorithms.  
+It further integrates hybrid search methods(TF-IDF, LSA, and SBERT) and intelligent re-ranking algorithms (weak supervision, MMR).  
+Based on these techniques, PaperTrail recommends paper sets tailored to user preferences and then uses large language models to generate personalized, step-by-step learning plans.
 Our overall implementation logic is as follows:
 <p align="center">
   <img src="website/pictures/diagram.png"  alt="diagram"  width="750">

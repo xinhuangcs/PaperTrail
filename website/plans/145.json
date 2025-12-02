@@ -1,0 +1,196 @@
+{
+  "goal": "i want to learn foundation models",
+  "study_level": "intermediate",
+  "source_papers": [
+    "2409.09041",
+    "2405.04285",
+    "2407.07035",
+    "2305.05352",
+    "2412.10504",
+    "2412.14515",
+    "2401.04079",
+    "2409.08083",
+    "2306.12642",
+    "2310.12941"
+  ],
+  "metadata": {
+    "prompt_version": "PT-20251102-1",
+    "model": "gpt-4.1-mini",
+    "created_at": "2025-12-02T09:56:10.032245+00:00"
+  },
+  "plan_overview": "This learning plan guides you through foundational concepts, applications, and challenges of foundation models by studying a curated set of recent research papers. Starting with transparency and policy aspects, you will then explore domain-specific applications, architectural design, and technical enhancements. The plan emphasizes understanding both theoretical foundations and practical adaptations across diverse fields, enabling you to grasp the current landscape and future directions of foundation models.",
+  "reading_order": [
+    {
+      "paper_id": "2310.12941",
+      "why_first": "This paper introduces the Foundation Model Transparency Index, providing a broad overview of transparency and accountability issues essential for understanding the foundation model ecosystem.",
+      "key_questions": [
+        "What are the key transparency indicators for foundation models?",
+        "Why is transparency critical for foundation models?",
+        "How does transparency impact governance and innovation?"
+      ],
+      "paper_title": "The Foundation Model Transparency Index"
+    },
+    {
+      "paper_id": "2409.09041",
+      "why_first": "Building on transparency, this paper explores acceptable use policies, highlighting ethical and regulatory considerations crucial for responsible foundation model deployment.",
+      "key_questions": [
+        "What types of use restrictions are common in foundation model policies?",
+        "How do acceptable use policies affect AI supply chains?",
+        "What are the challenges in regulating foundation models?"
+      ],
+      "paper_title": "Acceptable Use Policies for Foundation Models"
+    },
+    {
+      "paper_id": "2305.05352",
+      "why_first": "This paper provides a taxonomy of foundation model based systems from a software architecture perspective, helping you understand system design and integration challenges.",
+      "key_questions": [
+        "What are the main categories of foundation model based systems?",
+        "How do pretraining and adaptation influence system design?",
+        "What architectural options exist for foundation model integration?"
+      ],
+      "paper_title": "A Taxonomy of Foundation Model based Systems through the Lens of\n  Software Architecture"
+    },
+    {
+      "paper_id": "2405.04285",
+      "why_first": "This paper discusses foundation models in Earth and climate sciences, illustrating domain-specific requirements and desirable features for foundation models in scientific applications.",
+      "key_questions": [
+        "What are the eleven features of an ideal Earth and climate foundation model?",
+        "How can foundation models benefit geoscientific applications?",
+        "What are emerging directions beyond foundation models?"
+      ],
+      "paper_title": "On the Foundations of Earth and Climate Foundation Models"
+    },
+    {
+      "paper_id": "2401.04079",
+      "why_first": "This paper presents a foundation model designed by pathologists for pathology, demonstrating how domain expertise and data curation improve model performance and generalization.",
+      "key_questions": [
+        "How does incorporating expert knowledge improve foundation models?",
+        "What data diversity is needed for robust pathology models?",
+        "What challenges exist in computational pathology with foundation models?"
+      ],
+      "paper_title": "RudolfV: A Foundation Model by Pathologists for Pathologists"
+    },
+    {
+      "paper_id": "2412.10504",
+      "why_first": "This paper explores foundation models in particle physics, showing how large-scale scientific data can be leveraged for pretraining and domain adaptation.",
+      "key_questions": [
+        "How can LHC data be used to pretrain foundation models?",
+        "What benefits does pretraining bring to generative tasks in physics?",
+        "How do domain shifts affect foundation model performance?"
+      ],
+      "paper_title": "Aspen Open Jets: Unlocking LHC Data for Foundation Models in Particle\n  Physics"
+    },
+    {
+      "paper_id": "2409.08083",
+      "why_first": "This paper studies transferability of vision foundation models to diverse image modalities, addressing challenges in adapting models to new sensor data.",
+      "key_questions": [
+        "What is modality-agnostic transfer in vision models?",
+        "How does SimMAT enable transfer to different image modalities?",
+        "What are the challenges in cross-modality adaptation?"
+      ],
+      "paper_title": "SimMAT: Exploring Transferability from Vision Foundation Models to Any\n  Image Modality"
+    },
+    {
+      "paper_id": "2306.12642",
+      "why_first": "This paper introduces a task-agnostic adapter to upgrade visual foundation models efficiently, focusing on practical system upgrades and compatibility.",
+      "key_questions": [
+        "What is a task-agnostic compatible adapter (TaCA)?",
+        "How does TaCA improve upgrade efficiency?",
+        "What are the implications for downstream modules?"
+      ],
+      "paper_title": "TaCA: Upgrading Your Visual Foundation Model with Task-agnostic\n  Compatible Adapter"
+    },
+    {
+      "paper_id": "2412.14515",
+      "why_first": "This paper proposes a relational programming framework for foundation models, enabling complex neuro-symbolic and multi-modal applications through declarative programming.",
+      "key_questions": [
+        "What is the Vieira framework?",
+        "How does relational programming enhance foundation model capabilities?",
+        "What applications benefit from this approach?"
+      ],
+      "paper_title": "Relational Programming with Foundation Models"
+    },
+    {
+      "paper_id": "2407.07035",
+      "why_first": "This survey on vision-and-language navigation (VLN) in the era of foundation models summarizes challenges and future opportunities, illustrating an advanced application domain.",
+      "key_questions": [
+        "What are the main challenges in VLN?",
+        "How do foundation models impact VLN research?",
+        "What future directions leverage foundation models in VLN?"
+      ],
+      "paper_title": "Vision-and-Language Navigation Today and Tomorrow: A Survey in the Era\n  of Foundation Models"
+    }
+  ],
+  "actions": [
+    {
+      "label": "Summarize Transparency and Policy Concepts",
+      "how_to": "Read papers 2310.12941 and 2409.09041 carefully, take notes on transparency indicators and acceptable use policies, and write a summary explaining their importance.",
+      "expected_outcome": "Clear understanding of ethical, legal, and transparency issues in foundation models."
+    },
+    {
+      "label": "Analyze Foundation Model System Architectures",
+      "how_to": "Study paper 2305.05352 to learn taxonomy and design options; diagram key architectural patterns and adaptation methods.",
+      "expected_outcome": "Ability to classify and design foundation model based systems."
+    },
+    {
+      "label": "Explore Domain-Specific Foundation Models",
+      "how_to": "Read papers 2405.04285, 2401.04079, and 2412.10504; compare domain requirements and data strategies; prepare a comparative report.",
+      "expected_outcome": "Insight into how foundation models are tailored for Earth sciences, pathology, and particle physics."
+    },
+    {
+      "label": "Investigate Vision Model Transfer and Upgrades",
+      "how_to": "Examine papers 2409.08083 and 2306.12642; implement a small experiment adapting a vision foundation model to a new modality or task using adapter techniques.",
+      "expected_outcome": "Practical experience in transfer learning and model upgrading techniques."
+    },
+    {
+      "label": "Understand Programming and Application Frameworks",
+      "how_to": "Study paper 2412.14515 and 2407.07035; summarize how programming frameworks and VLN applications leverage foundation models; propose a simple neuro-symbolic task example.",
+      "expected_outcome": "Knowledge of advanced programming paradigms and applications of foundation models."
+    }
+  ],
+  "metrics": [
+    "Number of papers thoroughly read and summarized",
+    "Quality and completeness of architectural diagrams",
+    "Comparative report depth on domain-specific models",
+    "Successful implementation of a transfer learning experiment",
+    "Clarity and feasibility of proposed neuro-symbolic task example"
+  ],
+  "timeline_weeks": [
+    {
+      "week": 1,
+      "focus": "Transparency, ethics, and policy foundations",
+      "deliverable": "Summary document on transparency and acceptable use policies"
+    },
+    {
+      "week": 2,
+      "focus": "Foundation model system architectures",
+      "deliverable": "Taxonomy diagrams and design notes"
+    },
+    {
+      "week": 3,
+      "focus": "Domain-specific foundation models in Earth sciences, pathology, and physics",
+      "deliverable": "Comparative report on domain adaptations"
+    },
+    {
+      "week": 4,
+      "focus": "Vision model transferability and adapter techniques",
+      "deliverable": "Experiment results and implementation notes"
+    },
+    {
+      "week": 5,
+      "focus": "Programming frameworks and advanced applications",
+      "deliverable": "Summary and proposed neuro-symbolic task example"
+    }
+  ],
+  "risks": [
+    {
+      "risk": "Limited practical implementation details in some papers may hinder hands-on experimentation.",
+      "mitigation": "Supplement learning with publicly available code repositories or tutorials related to foundation models."
+    },
+    {
+      "risk": "Rapid evolution of foundation model research may outdate some findings quickly.",
+      "mitigation": "Focus on fundamental concepts and frameworks that are likely to remain relevant."
+    }
+  ],
+  "_topics_suggestion": "The selected papers may also cover research areas including: 3D Scene Understanding, Applied Machine Learning, General Algorithms, Language Modeling, Medical Imaging, Natural Language Processing, Object Detection & Pose Estimation, Prompting & Alignment. You may gain a broader understand of the field by exploring these related research directions"
+}

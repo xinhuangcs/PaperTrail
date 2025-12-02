@@ -31,9 +31,18 @@
 
 ---
 ## 1. Introduction
-**PaperTrail** is an intelligent literature exploration tool designed to help researchers navigate the vast sea of computer science publications. It goes beyond being a mere search and recommendation engine by generating **structured learning plans** tailored to your specific objectives (e.g., “learning graph neural networks”).
-
-This project integrates technologies like **TF-IDF**, **LSA (Latent Semantic Analysis)**, and **LLM (Large Language Model)** to retrieve relevant papers, rank them by learning value, and ultimately synthesize a step-by-step reading guide.
+**PaperTrail** is an intelligent research assistant designed to help users navigate vast amounts of computer science literatures.  
+Based on the DTU 02807 Data Science Computing Tools course topics—similar items/locally sensitive hashing, high-frequency items, and general clustering algorithms;   
+alongside hybrid search (TF-IDF, LSA, SBERT) and intelligent re-ranking (weak supervision, MMR) algorithms,   
+PaperTrail recommends paper sets according to user preferences, then relies on large language models to generate personalized step-by-step learning plans.  
+Our overall implementation logic is as follows:
+<p align="center">
+  <img src="website/pictures/diagram.png"  alt="diagram"  width="750">
+</p>  
+To build the project website quickly and enable users to start using PaperTrail promptly, we've set up the project pages using GitHub Pages and integrated the system within GitHub Actions. The primary implementation logic is as follows:
+<p align="center">
+  <img src="website/pictures/action.png"  alt="action"  width="750">
+</p>
 
 ---
 ## 2. Features
@@ -72,135 +81,165 @@ PaperTrail/
 
 ---
 ## 5. Version History & Iteration 
-The codebase reflects an iterative development process aimed at handling scale and improving quality.
+
 ### 5.1 Data Preprocessing & Features 
-Located in `src/preprocess_data/`, `src/tf_idf/`, `src/lsa_and_clustering/`.
+Located in `src/preprocess_data/`, `src/tf_idf/`, `src/lsa_and_clustering/`.   
 - **Preprocessing**:
-    - `v1 (0_1_reduce_categories)`:
-        - Reduce 2.8M papers to a manageable subset relevant to CS.
-    - `v1 (1_0_add_incite_num)`:
-        - Add citation counts (OpenAlex) as a quality signal for ranking.
-    - `v1 (1_2_retry_record_of_negone)`:
-        - Fix missing data from failures.
+    - `(0_0_data_analysis)`: Analyze the full ArXiv dataset (2.8M papers), category distribution, and data structure.
+    - `(0_1_reduce_categories)`: Reduce 2.8M papers to a manageable subset relevant to CS.
+    - `(1_0_add_incite_num)`: dd citation counts from OpenAlex using DOI and Title matching (sliced execution).
+    - `(1_1_merge_slices)`: Merge distributed processing slices into a unified dataset.
+    - `(1_2_retry_record_of_negone)`: Fix missing citation data using a multi-stage fallback strategy (Truncated Title/Abstract search).
+    - `(2_data_filtering)`: Normalize text data and prepare `processed_content` for embedding/indexing.
 - **TF-IDF**:
-    - `v1 (build_tfidf.py)`:
-        - Implementation using Python libraries
-    - `v2 (build_tfidf_manual.py)`:
-        - Attempt to implement manually
+    - `(build_tfidf.py)`: Runs scikit-learn `TfidfVectorizer` on `processed_content` to export the sparse matrix, fitted vectorizer, and document metadata.
+    - `(build_tfidf_manual.py + my_tfidf.py)`: Manually implement TF-IDF for experimentation.
+    - `(val.py)`: Validates parity between the sklearn and manual implementation (matrix, vectorizer, doc ids/titles) with strict numerical tolerances.
+    - `(check_tfidf.py)`: Reloads saved artifacts and surfaces top-weighted terms per document for sanity checks.
+    - `(query_tfidf.py)`: CLI utility that stems a free-text query, transforms it with the stored vectorizer, and returns top-K cosine matches from the TF-IDF matrix.
 - **Clustering**:
-    - `v1 (lsa_cluster.py)`:
-        - Slow convergence on large datasets.
-    - `v2 (lsa_cluster_v2.py)`:
-        - Switched to `MiniBatchKMeans` for faster execution.
-    - `v3 (sbert_hdbscan_cluster_lite.py)`:
-        - Replaced LSA with **SBERT** embeddings and **HDBSCAN** for density-based clustering, yielding more coherent topics.
+    - `v1 (build_lsa.py + lsa_cluster.py)`: Baseline LSA pipeline: reduce TF-IDF with `TruncatedSVD` (1k dims) and run vanilla `KMeans` (k=15) to obtain topic IDs.
+    - `v2 (lsa_variance_check.py + lsa_cluster_v2.py + cluster_labels.py + evaluate_clusters.py)`:  
+      Iteration on v1: added variance probing to select optimal LSA dimensions, switched to `MiniBatchKMeans` (k=40) with silhouette score reporting, implemented back-projection of cluster centroids to readable keywords (augmented with UMAP+HDBSCAN for subtopic mining), and integrated Davies–Bouldin / Silhouette / Calinski–Harabasz metrics.
+    - `(sbert_hdbscan_cluster_lite.py / sbert_hdbscan_lite.py)`:  
+     Implement SBERT embeddings + optional UMAP, automate HDBSCAN hyperparameter search/logging, persist embeddings/clusterers, and derive Apriori-based topic labels that handle noise while scaling to 70k+ documents.
 ### 5.2 Search Module 
-- **v1 (`similarity_search.py`)**:
-    - **Motivation**: Baseline retrieval.
-    - **Result**: Real-time calculation of cosine similarity was too slow (O(N)).
-- **v2 (`similarity_search_v2.py`)**:
-    - **Motivation**: Optimize latency.
-    - **Changes**: Pre-computed L2 norms (`row_l2_norms.npy`) to speed up dot products.
-- **v3 (`similarity_serach_v3.py`)**:
-    - **Motivation**: Contextualize results.
-    - **Changes**: Integrated clustering info to return "Topics" alongside papers
-- **v4 (`similarity_search_v4.py`)**:
-    - **Implemented **LSH (Locality Sensitive Hashing)** with random hyperplanes.
+- **v1 (`similarity_search.py`)**:  Interactive baseline that loads the full TF-IDF matrix or LSA projection and performs cosine search (O(N) per query). 
+- **v2 (`export_artifacts_v2.py` + `similarity_search_v2.py`)**:  Split the workflow into an artifact exporter (vocab, IDF, SVD components, TF-IDF row norms, pre-normalized LSA) and a lightweight query runner.
+- **v3 (`similarity_serach_v3.py`)**:  Iterated on v2 with richer context: custom stopwords + stemming, cluster IDs/topics attached to every hit, and an LSA-LSH mode that hashes papers into random hyperplane buckets before exact ranking. 
+- **v4 (`similarity_search_v4.py`)**:  Productionized v3 for automation (argparse CLI, non-interactive), added verbose query diagnostics, and introduced fallbacks.
+- **SBERT (`similarity_search_sbert.py`)**:  Parallel search path that reuses the SBERT + HDBSCAN artifacts to encode queries with `all-MiniLM-L6-v2`, retrieve via cosine similarity, and surface HDBSCAN cluster topics when available.
 ### 5.3 Recommend Module
 Located in `src/recommend/`.
-- **v1 (`recommend.py`)**:
-    - **Motivation**: Re-rank search results.
-    - **Changes**: Simple heuristic weights (e.g., `0.3*sim + 0.4*citations`).
-    - **Result**: Rigid and hard to tune for different user intents.
-- **v2 (`recommend_v2.py`)**:
-    - **Motivation**: Pipeline integration.
-    - **Changes**: Auto-loading of latest search artifacts for automation.
+- **v1 (`recommend.py`)**:  Introduced heuristic scoring that linearly combines semantic similarity (from retrieval) with citation counts, recency, and keyword matching. Supports different modes like "theoretical", "application", "review", and "trending" to adjust weights .
+- **v2 (`recommend_v2.py`)**:  **Pipeline Integration**: Improved upon v1 by automating the input flow—it automatically detects and loads the latest search artifact (`similarity_for_recommend_lsa_*.json`) instead of requiring hardcoded paths, enabling a seamless transition from search to ranking.
 - **v3 (`recommend_v3.py`)**:
-    - **Motivation**: Adaptive and diverse ranking.
-    - **Changes**:
-        1. **Weak Supervision**: Generated pseudo-labels to train weights using Pairwise Logistic Loss.
-        2. **MMR (Maximal Marginal Relevance)**: Added to penalize redundancy and ensure diversity.
-        3. Dynamic weights for different views (Trending/Review/Theory) and diverse result sets.
+    **Adaptive Ranking**: Replaced v1/v2's fixed heuristics with a "weak supervision" approach. It generates pseudo-labels based on paper features (e.g., title keywords, citation velocity) and trains pairwise logistic regression weights to learn optimal scoring for each view.
+    **Diversity (MMR)**: Added Maximal Marginal Relevance to penalize redundancy, ensuring the top results cover diverse subtopics rather than repeating the same dominant cluster.
+    **Dynamic Intent**: Can infer user preferences from the query or mix weights probabilistically for a balanced "default" view.
 ### 5.4 AI Advice Module 
 Located in `src/ai_advice/`.
-- **v1 (`v1/`)**:
-    - **Motivation**: Validating LLM capability.
-    - **Result**: Free-form text output that was unstable for frontend rendering.
-- **v2 (`v2/`)**:
-    - **Motivation**: Structured, reliable output.
-    - **Changes**: Implemented **JSON Schema** enforcement and retry logic.
-    - **Result**: Returns strict JSON with "Timeline", "Actions", and "Reading Order" for UI display.
+- **v1 (`v1/advice.py`)**: Prototype implementation that directly feeds paper metadata into the LLM (GPT-5). It relies on unstructured textual prompts to elicit reading advice but produces free-form output that is difficult to parse reliably for downstream applications.
+- **v2 (`v2/generate_plan.py`)**:
+    - Introduced JSON Schema enforcement (`schema_contract.py`) to compel the LLM to output a strict `LearningPlan` object (timeline, prerequisites, ordered reading list).
+    - Added a retry mechanism (`call_with_retries`) that handles transient API errors and schema validation failures, ensuring the frontend always receives renderable JSON.
+    - Pre-processes raw recommendations into a token-efficient format (`standardize_input.py`) before prompting (`prompts.py`), optimizing context window usage and cost.
+    - Further refinement of the (`generate_plan_v3.py`) script to better handle edge cases and enhance logging.
+
+
+    
+
+
+
 ---
+
 ## 6. Usage Guide 🚀
+**PaperTrail provides three usage modes:**
+
+6.1 [**User Mode (Web Interface)**](#61-user-mode-web-interface) - No setup, get instant results **online**.  
+6.2 [**Developer Mode (Fast Run)**](#62-developer-mode-start-directly-using-our-pre-calculated-results) - Run **locally** using pre-computed data.  
+6.3 [**Developer Mode (Full Pipeline)**](#63-developer-mode-starting-with-initial-dataset-filtering) - Run **locally** from zero.  
+
+
 
 ### 6.1 User Mode (Web Interface)
-You don't need to install any code.  
-You don't need to pay for AI API fee (We have integrated OpenAI's API key into the system for your free use).
-1. Go to the [PaperTrail Website](https://xinhuangcs.github.io/PaperTrail/).
+👉🏻 You don't need to install any code.  ([**How it works?**](#1-introduction))  
+👉🏻 You don't need to pay for AI API fee (We have integrated our OpenAI's API key into the system for your free use).
+1. Go to the [**PaperTrail**↗](https://xinhuangcs.github.io/PaperTrail/) Website.
 2. Enter your learning objectives (e.g., “I want to learn about diffusion models”) and paper preferences.
 3. Click **Generate**.
 4. This will redirect you to open a **GitHub Issue**. Submit it to trigger the backend pipeline.
-5. Wait ~1-3 mins for the bot to comment with your generated plan.
+5. Wait ~3-5 mins for the bot to comment with your generated plan.
 
-### 6.2 Developer Mode: Start directly using our pre-calculated results
-If you have the processed data artifacts (in data/), you can run the search and generation pipeline locally. 
-These data can be found in the [Github Release](https://github.com/xinhuangcs/PaperTrail/releases).
-We recommend using data-action-v2, which offers better search performance but requires more storage space and memory. 
-Due to Github Action server limitations, our website utilizes the lightweight version of data-action-v3.
 
-**Prerequisites:**
-- Python 3.12+
-- OpenAI API Key (`export OPENAI_API_KEY='sk-...'`)
+### 6.2 Developer Mode: Start from using our pre-computed results
+**👉🏻 Best for:** Developers who want to run the search, recommend and generation pipeline locally, without waiting days for data processing and computing.   
+**⏱️ Estimated runtime (excluding downloads):** \~2 minutes  
 
-Bash
-```
-# 1. Install dependencies
-pip install -r requirements.txt
+We provide pre-computed results in our **[GitHub Releases](https://github.com/xinhuangcs/PaperTrail/releases/tag/data-papertrail-v2)**.  
+_We recommend using **PaperTrail-Data-v2**, which offers better search performance but requires more storage space and memory.   
+Due to Github Action server limitations, our website utilizes the lightweight version of **PaperTrail-Data-v3**._
 
-# 2. Run the script
-# This runs: Search (v4) -> Recommend (v3) -> Standardize -> Generate Plan (v2)
-python scripts/run_pipeline.py \
-  --goal "Graph Neural Networks" \
-  --top_k 10 \
-  --method lsa_lsh \
-  --mode review \
-  --issue "local_test_run"
-```
 
-### 6.3 Developer Mode: Starting with initial dataset filtering
-To rebuild the index from the raw arXiv dataset: (Note: Using a personal computer may take more than a day)
-**Prerequisites:**
-- Python 3.12+
-- OpenAI API Key (`export OPENAI_API_KEY='sk-...'`)
+0.  **Prerequisites**:
+      * Python 3.12+
+      * OpenAI API Key (`export OPENAI_API_KEY='sk-...'`)
 
-1. **Download Data**: Place `arxiv-metadata-oai-snapshot.json` in `data/preprocess/`.
-2. **Filter Categories**:
+1.  **Setup Environment**:
+    ```bash
+    pip install -r requirements.txt
     ```
-	pip install -r requirements.txt
-	python src/preprocess_data/0_1_reduce_categories.py
+2.  **Download Data**:
+
+      * Download the artifacts from the **[GitHub Releases](https://github.com/xinhuangcs/PaperTrail/releases/tag/data-papertrail-v2)** (Recommend: `data-action-v2`; Only 4 files from `papertrail_data.tar.gz.aa` to `papertrail_data.tar.gz.ad`).
+      * Extract them and put the `data/` directory in your project root.
+    ```bash
+    cat papertrail_data.tar.gz.* > papertrail_data.tar.gz
+    tar -xzf papertrail_data.tar.gz
     ```
-3. **Text Cleaning**:
-    ```
-    python src/preprocess_data/2_data_filtering.py
-    ```
-4. **Build Search Index (TF-IDF & LSA)**:
-    ```
-    python src/tf_idf/build_tfidf_manual.py  # Generates sparse matrix
-    python src/lsa_and_clustering/build_lsa.py  # Generates LSA model
-    ```
-5. **Export Artifacts for Search Engine**:
-    ```
-    python src/search/export_artifacts_v2.py  # Prepares fast-loading artifacts
-    ```
-6. **Run using the calculated results**:
-    ```
+
+3.  **Run the Pipeline**:
+    ```bash
     # This runs: Search (v4) -> Recommend (v3) -> Standardize -> Generate Plan (v2)
     python scripts/run_pipeline.py \
-      --goal "Graph Neural Networks" \
+      --goal "Graph Neural Networks" \ 
       --top_k 10 \
       --method lsa_lsh \
       --mode review \
       --issue "local_test_run"
+    #goal:what do u want to learn;  top_k:How many paper do you want? ; method: method of search; mode: paper types
+    ```
+
+### 6.3 Developer Mode: Starting from initial dataset filtering
+**👉🏻 Best for:** Developers who want to run our code from the start using the latest data.  
+**⏱️ Estimated runtime (excluding data-download time):** more than 200 Hours
+  * **\>200 Hours**: Get the newest original [ArXiv Dataset](https://www.kaggle.com/Cornell-University/arxiv) and call OpenAlex API to insert citation data.  
+   * **\<10 Hours**: For data cleaning, feature extraction, and indexing of the \~700k CS papers.  
+     (You can also download our [preprocessed dataset](https://github.com/xinhuangcs/PaperTrail/releases/tag/data-papertrail-v1) and start from Step 4 to save time.)
+
+0.  **Prerequisites**:
+      * Python 3.12+
+      * OpenAI API Key (`export OPENAI_API_KEY='sk-...'`)
+
+1.  **Setup Environment**:
+    ```bash
+    pip install -r requirements.txt
+    ```
+    
+2.  **Download Data**: Get the newest original [ArXiv Dataset](https://www.kaggle.com/Cornell-University/arxiv) and place `arxiv-metadata-oai-snapshot.json` in `data/preprocess/`.
+
+3. **Filter & Enrich & Data Cleaning** (The time-consuming step):
+    ```bash
+    pip install -r requirements.txt
+    python src/preprocess_data/0_1_reduce_categories.py
+    python src/preprocess_data/1_0_add_incite_num.py
+    python src/preprocess_data/1_2_retry_record_of_negone.py
+    # Note: The citation enrichment script will takes >200h.
+    python src/preprocess_data/2_data_filtering.py
+    ```
+    
+4.  **Compute Data for Search-Recommend-Generate Pipeline**:
+    ```bash
+    # 1. TF-IDF
+    python src/tf_idf/build_tfidf.py
+
+    # 2. LSA Reduction and Clustering (K-Means)
+    python src/lsa_and_clustering/build_lsa.py        # Generates LSA matrix
+    python src/lsa_and_clustering/lsa_cluster_v2.py   # Generates K-Means clusters
+
+    # 3. SBERT Embedding & HDBSCAN Clustering (Optional)
+    python src/lsa_and_clustering/sbert_hdbscan_lite.py
+    # Export artifacts for fast loading
+    python src/search/export_artifacts_v2.py 
+    
+    # Test Search Engines (Optional)
+    python src/search/similarity_search_v4.py --query "graph neural networks" --method lsa_lsh
+    python src/search/similarity_search_sbert.py
+    ```
+
+5.  **Run Pipeline**:
+    ```bash
+    python scripts/run_pipeline.py --goal "Graph Neural Networks" --top_k 10 --method lsa_lsh --mode review --issue "local_test_run"
     ```
 
 ---

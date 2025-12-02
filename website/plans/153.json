@@ -1,0 +1,220 @@
+{
+  "goal": "Edge Computing for AI Acceleration",
+  "study_level": "intermediate",
+  "source_papers": [
+    "2407.04053",
+    "2309.08918",
+    "2207.01209",
+    "2310.04467",
+    "2304.06035",
+    "2411.00859",
+    "2403.09141",
+    "2210.10514",
+    "2411.13717",
+    "2409.12939"
+  ],
+  "metadata": {
+    "prompt_version": "PT-20251102-1",
+    "model": "gpt-4.1-mini",
+    "created_at": "2025-12-02T09:56:33.673570+00:00"
+  },
+  "plan_overview": "This learning plan guides you through foundational concepts and recent advances in Edge AI and hardware acceleration for AI workloads. Starting with a broad taxonomy and systematic review, you will then explore specialized hardware like TPUs and accelerators, sustainable and lifelong learning approaches, and practical deployment challenges. The plan culminates in understanding heterogeneous edge systems and real-world applications, enabling you to design and optimize AI acceleration at the edge effectively.",
+  "reading_order": [
+    {
+      "paper_id": "2407.04053",
+      "why_first": "Provides a comprehensive taxonomy and systematic review of Edge AI, establishing foundational knowledge and current research trends.",
+      "key_questions": [
+        "What are the main components and challenges of Edge AI systems?",
+        "How does Edge AI differ from traditional cloud AI?",
+        "What future directions are identified for Edge AI research?"
+      ],
+      "paper_title": "Edge AI: A Taxonomy, Systematic Review and Future Directions"
+    },
+    {
+      "paper_id": "2411.13717",
+      "why_first": "Introduces specialized hardware accelerators for AI, explaining their necessity and types, which is essential before diving into specific edge hardware.",
+      "key_questions": [
+        "What are the main types of AI hardware accelerators?",
+        "How do GPUs, FPGAs, and ASICs differ in AI acceleration?",
+        "What are the design challenges for AI accelerators?"
+      ],
+      "paper_title": "Hardware Accelerators for Artificial Intelligence"
+    },
+    {
+      "paper_id": "2309.08918",
+      "why_first": "Focuses on TPUs, a key AI accelerator, comparing cloud and edge deployments, helping you understand hardware performance trade-offs.",
+      "key_questions": [
+        "What is the architecture of TPUs and how do they accelerate AI?",
+        "How do Edge TPUs differ from Cloud TPUs?",
+        "What optimization techniques improve TPU deployment at the edge?"
+      ],
+      "paper_title": "Exploration of TPUs for AI Applications"
+    },
+    {
+      "paper_id": "2207.01209",
+      "why_first": "Explores sustainable AI processing at the edge, addressing energy and environmental considerations critical for real-world edge deployments.",
+      "key_questions": [
+        "What are the SWaP constraints in edge AI?",
+        "How do different accelerators compare in energy efficiency?",
+        "What is the impact of embodied energy and carbon in edge AI?"
+      ],
+      "paper_title": "Sustainable AI Processing at the Edge"
+    },
+    {
+      "paper_id": "2310.04467",
+      "why_first": "Discusses design principles for lifelong learning AI accelerators, expanding your understanding of adaptive AI hardware for edge environments.",
+      "key_questions": [
+        "What capabilities are essential for lifelong learning accelerators?",
+        "How do size, weight, and power constraints affect design?",
+        "What metrics evaluate lifelong learning accelerators?"
+      ],
+      "paper_title": "Design Principles for Lifelong Learning AI Accelerators"
+    },
+    {
+      "paper_id": "2411.00859",
+      "why_first": "Presents profiling techniques for efficient computation offloading in heterogeneous edge AI systems, addressing resource optimization challenges.",
+      "key_questions": [
+        "How can AI model profiling improve resource allocation?",
+        "What are the challenges of heterogeneous edge architectures?",
+        "How does profiling impact task completion time predictions?"
+      ],
+      "paper_title": "Profiling AI Models: Towards Efficient Computation Offloading in\n  Heterogeneous Edge AI Systems"
+    },
+    {
+      "paper_id": "2403.09141",
+      "why_first": "Examines uncertainty estimation in multi-agent distributed learning on edge devices, important for collaborative and reliable edge AI.",
+      "key_questions": [
+        "How is uncertainty estimated in distributed edge learning?",
+        "What are the challenges of spatial and temporal data variability?",
+        "How can confidence levels improve edge AI decision-making?"
+      ],
+      "paper_title": "Uncertainty Estimation in Multi-Agent Distributed Learning for\n  AI-Enabled Edge Devices"
+    },
+    {
+      "paper_id": "2210.10514",
+      "why_first": "Introduces the future paradigm of consumer Edge-AI computing, focusing on collaborative and privacy-preserving edge AI systems.",
+      "key_questions": [
+        "What is the EdgeAI-Hub concept?",
+        "How can compute resources be shared across devices?",
+        "What challenges arise in consumer edge AI environments?"
+      ],
+      "paper_title": "The Future of Consumer Edge-AI Computing"
+    },
+    {
+      "paper_id": "2409.12939",
+      "why_first": "Provides a case study of accelerating AI and computer vision on a heterogeneous embedded SoC, illustrating practical deployment on edge hardware.",
+      "key_questions": [
+        "How is AI workload partitioned on heterogeneous SoCs?",
+        "What are the benefits of Intel Myriad X for edge AI?",
+        "How are AI and CV tasks integrated for satellite pose estimation?"
+      ],
+      "paper_title": "Accelerating AI and Computer Vision for Satellite Pose Estimation on the\n  Intel Myriad X Embedded SoC"
+    },
+    {
+      "paper_id": "2304.06035",
+      "why_first": "Offers perspective on academic survival strategies in AI research, helping you navigate resource constraints and stay competitive in edge AI research.",
+      "key_questions": [
+        "What challenges do AI academics face in resource access?",
+        "What strategies help maintain competitiveness?",
+        "How can collaborations and resource sharing be leveraged?"
+      ],
+      "paper_title": "Choose Your Weapon: Survival Strategies for Depressed AI Academics"
+    }
+  ],
+  "actions": [
+    {
+      "label": "Summarize Edge AI Fundamentals",
+      "how_to": "Read paper 2407.04053 and write a concise summary of Edge AI components, challenges, and future directions.",
+      "expected_outcome": "Clear understanding of Edge AI landscape and research gaps."
+    },
+    {
+      "label": "Compare AI Hardware Accelerators",
+      "how_to": "Study papers 2411.13717 and 2309.08918 to create a comparison chart of GPUs, FPGAs, ASICs, and TPUs focusing on architecture and edge suitability.",
+      "expected_outcome": "Ability to select appropriate hardware for specific edge AI tasks."
+    },
+    {
+      "label": "Evaluate Sustainability Metrics",
+      "how_to": "Analyze paper 2207.01209 to identify key sustainability metrics and evaluate a chosen edge AI accelerator's environmental impact.",
+      "expected_outcome": "Insight into energy and carbon trade-offs in edge AI deployments."
+    },
+    {
+      "label": "Design Lifelong Learning Accelerator Features",
+      "how_to": "From paper 2310.04467, list essential features and metrics for lifelong learning accelerators and propose a conceptual design for edge deployment.",
+      "expected_outcome": "Conceptual framework for adaptive AI hardware at the edge."
+    },
+    {
+      "label": "Profile AI Models for Offloading",
+      "how_to": "Using paper 2411.00859, collect profiling data on sample AI models and simulate resource allocation improvements in heterogeneous edge systems.",
+      "expected_outcome": "Practical skills in optimizing computation offloading."
+    },
+    {
+      "label": "Implement Uncertainty Estimation",
+      "how_to": "Based on paper 2403.09141, implement a simple uncertainty estimation method for a multi-agent edge learning scenario.",
+      "expected_outcome": "Enhanced understanding of reliability in distributed edge AI."
+    },
+    {
+      "label": "Explore Consumer Edge-AI Hub Architecture",
+      "how_to": "Review paper 2210.10514 and draft a design proposal for a consumer EdgeAI-Hub device addressing privacy and resource sharing.",
+      "expected_outcome": "Preparedness to design collaborative edge AI systems."
+    },
+    {
+      "label": "Develop Edge AI Application on Heterogeneous SoC",
+      "how_to": "Follow paper 2409.12939 to implement a prototype AI application on Intel Myriad X or similar hardware, focusing on workload partitioning.",
+      "expected_outcome": "Hands-on experience with heterogeneous edge AI deployment."
+    },
+    {
+      "label": "Plan Academic Research Strategy",
+      "how_to": "Reflect on paper 2304.06035 to develop a personal strategy for conducting competitive edge AI research with limited resources.",
+      "expected_outcome": "Sustainable approach to academic research in edge AI."
+    }
+  ],
+  "metrics": [
+    "Number of papers thoroughly summarized",
+    "Comparison chart completeness and accuracy",
+    "Sustainability evaluation report quality",
+    "Design proposal clarity for lifelong learning accelerators",
+    "Profiling experiment success rate and resource savings",
+    "Accuracy and robustness of uncertainty estimation implementation",
+    "Completeness of EdgeAI-Hub design proposal",
+    "Functionality and performance of edge AI prototype",
+    "Feasibility and clarity of academic research strategy"
+  ],
+  "timeline_weeks": [
+    {
+      "week": 1,
+      "focus": "Understand Edge AI fundamentals and hardware accelerators",
+      "deliverable": "Summary of Edge AI taxonomy and comparison chart of AI accelerators"
+    },
+    {
+      "week": 2,
+      "focus": "Study sustainability and lifelong learning accelerator design",
+      "deliverable": "Sustainability evaluation report and conceptual design proposal"
+    },
+    {
+      "week": 3,
+      "focus": "Profile AI models and implement uncertainty estimation",
+      "deliverable": "Profiling data analysis and uncertainty estimation prototype"
+    },
+    {
+      "week": 4,
+      "focus": "Explore consumer EdgeAI-Hub and develop edge AI application",
+      "deliverable": "Design proposal for EdgeAI-Hub and edge AI prototype on heterogeneous SoC"
+    },
+    {
+      "week": 5,
+      "focus": "Plan academic research strategy and consolidate learning",
+      "deliverable": "Personal academic research strategy document and overall learning summary"
+    }
+  ],
+  "risks": [
+    {
+      "risk": "Limited practical access to specialized hardware like TPUs or Intel Myriad X may hinder hands-on implementation.",
+      "mitigation": "Use simulation tools or cloud-based emulators where possible; focus on conceptual understanding if hardware is unavailable."
+    },
+    {
+      "risk": "Rapid evolution of Edge AI hardware and software may outdate some research findings quickly.",
+      "mitigation": "Focus on fundamental principles and adaptable design strategies rather than specific technologies."
+    }
+  ],
+  "_topics_suggestion": "The selected papers may also cover research areas including: Applied Machine Learning, General Algorithms, Large Language Models, Network Optimization, Neural Networks, Prompting & Alignment, Wireless Communications. You may gain a broader understand of the field by exploring these related research directions"
+}

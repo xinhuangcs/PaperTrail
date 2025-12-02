@@ -1,0 +1,227 @@
+{
+  "goal": "I want to learn Graph Neural Networks",
+  "study_level": "intermediate",
+  "source_papers": [
+    "2412.19419",
+    "2311.06323",
+    "2303.03704",
+    "2403.13849",
+    "2402.13001",
+    "2111.06679",
+    "2306.04265",
+    "2007.06559",
+    "2204.07634",
+    "2307.00865"
+  ],
+  "metadata": {
+    "prompt_version": "PT-20251102-1",
+    "model": "gpt-4.1-mini",
+    "created_at": "2025-12-02T09:56:53.257906+00:00"
+  },
+  "plan_overview": "This learning plan guides you through foundational concepts, architectures, and applications of Graph Neural Networks (GNNs). Starting with introductory surveys to build core understanding, you will then explore specialized models, applications in recommendation and misinformation detection, advanced theoretical frameworks including quantum GNNs, and recent developments in graph generation and heterophilous graph learning. The plan emphasizes both theoretical knowledge and practical insights to equip you with a comprehensive grasp of GNNs.",
+  "reading_order": [
+    {
+      "paper_id": "2412.19419",
+      "why_first": "This paper provides a clear introduction to GNNs using the encoder-decoder framework, ideal for building foundational understanding.",
+      "key_questions": [
+        "What is the encoder-decoder framework for GNNs?",
+        "How do GNNs handle node and edge attributes?",
+        "What are typical tasks and decoders used in GNNs?"
+      ],
+      "paper_title": "Introduction to Graph Neural Networks: A Starting Point for Machine\n  Learning Engineers"
+    },
+    {
+      "paper_id": "2307.00865",
+      "why_first": "It extends foundational knowledge by reviewing graph convolutional operators and pooling, key to understanding GNN architectures and applications.",
+      "key_questions": [
+        "How are graph convolutional and pooling operators constructed?",
+        "What are the main GNN models based on attention and autoencoders?",
+        "How are GNNs applied in node classification, graph classification, and link prediction?"
+      ],
+      "paper_title": "A Survey on Graph Classification and Link Prediction based on GNN"
+    },
+    {
+      "paper_id": "2403.13849",
+      "why_first": "This survey broadens your perspective on GNN applications and introduces graph generation, an advanced topic in GNN research.",
+      "key_questions": [
+        "What are the main application domains of GNNs?",
+        "What challenges arise from graph data complexity?",
+        "What is graph generation and how is it related to GNNs?"
+      ],
+      "paper_title": "Graphs Unveiled: Graph Neural Networks and Graph Generation"
+    },
+    {
+      "paper_id": "2311.06323",
+      "why_first": "Focuses on GNNs in recommender systems, illustrating practical use cases and challenges in real-world graph data.",
+      "key_questions": [
+        "Why are GNNs effective for recommender systems?",
+        "What are spectral vs spatial GNN models?",
+        "What challenges exist in graph construction and embedding propagation?"
+      ],
+      "paper_title": "Reviewing Developments of Graph Convolutional Network Techniques for\n  Recommendation Systems"
+    },
+    {
+      "paper_id": "2303.03704",
+      "why_first": "Demonstrates application of GNNs for misinformation detection, showing semi-supervised learning on social network graphs.",
+      "key_questions": [
+        "How do GCN, GraphSAGE, and DGCNN differ?",
+        "What makes DGCNN effective for misinformation spreader identification?",
+        "How is semi-supervised learning applied on graphs?"
+      ],
+      "paper_title": "Identifying Misinformation Spreaders: A Graph-Based Semi-Supervised\n  Learning Approach"
+    },
+    {
+      "paper_id": "2306.04265",
+      "why_first": "Introduces advanced techniques for heterophilous graph learning using permutation equivariant graph framelets, expanding your understanding of GNNs beyond homophilous graphs.",
+      "key_questions": [
+        "What are heterophilous graphs and why are they challenging?",
+        "How do graph framelets improve multi-scale feature extraction?",
+        "What is permutation equivariance in GNNs?"
+      ],
+      "paper_title": "Permutation Equivariant Graph Framelets for Heterophilous Graph Learning"
+    },
+    {
+      "paper_id": "2007.06559",
+      "why_first": "Explores the relationship between neural network graph structures and performance, linking graph theory and deep learning architectures.",
+      "key_questions": [
+        "What is the relational graph representation of neural networks?",
+        "How does graph structure affect predictive performance?",
+        "What is the 'sweet spot' in relational graphs?"
+      ],
+      "paper_title": "Graph Structure of Neural Networks"
+    },
+    {
+      "paper_id": "2111.06679",
+      "why_first": "Connects deep learning and graph theory by imposing graph structures on neural networks and extracting graphs from trained models, useful for architecture design.",
+      "key_questions": [
+        "How can graph structures be imposed on neural networks?",
+        "What tools exist for extracting graph structures from models?",
+        "How does this relate to pruning and neural architecture search?"
+      ],
+      "paper_title": "deepstruct -- linking deep learning and graph theory"
+    },
+    {
+      "paper_id": "2204.07634",
+      "why_first": "Presents a generative neural network model for random graphs, useful for understanding graph data generation and modeling.",
+      "key_questions": [
+        "How does GraphMoE generate random graphs?",
+        "What role do graphlets play in training?",
+        "How can generated graphs imitate real-world data?"
+      ],
+      "paper_title": "A generative neural network model for random dot product graphs"
+    },
+    {
+      "paper_id": "2402.13001",
+      "why_first": "Introduces quantum graph neural networks, providing insight into cutting-edge quantum approaches to GNNs.",
+      "key_questions": [
+        "What are quantum graph states and how do they represent graphs?",
+        "How can quantum circuits implement GNNs?",
+        "What advantages do quantum GNNs offer over classical ones?"
+      ],
+      "paper_title": "A unifying primary framework for quantum graph neural networks from\n  quantum graph states"
+    }
+  ],
+  "actions": [
+    {
+      "label": "Implement basic GNN encoder-decoder model",
+      "how_to": "Use a standard deep learning framework to build a simple GNN following the encoder-decoder framework from paper 2412.19419. Train on a small homogeneous graph dataset.",
+      "expected_outcome": "You will understand the core components and training process of GNNs."
+    },
+    {
+      "label": "Explore graph convolution and pooling operators",
+      "how_to": "Study and implement graph convolutional and pooling layers as described in paper 2307.00865. Apply them to node classification tasks.",
+      "expected_outcome": "You will grasp how graph convolutions and pooling work and their impact on performance."
+    },
+    {
+      "label": "Apply GNNs to a recommendation system dataset",
+      "how_to": "Using insights from paper 2311.06323, build a GNN-based recommender system model. Experiment with spectral and spatial GNN variants.",
+      "expected_outcome": "You will gain practical experience applying GNNs to real-world recommendation problems."
+    },
+    {
+      "label": "Experiment with heterophilous graph learning",
+      "how_to": "Implement the PEGFAN model or similar from paper 2306.04265 on a heterophilous graph dataset. Analyze performance compared to standard GNNs.",
+      "expected_outcome": "You will learn challenges and solutions for graphs with diverse node labels and structures."
+    },
+    {
+      "label": "Analyze graph structure impact on neural networks",
+      "how_to": "Replicate experiments from paper 2007.06559 to observe how different graph structures affect neural network performance.",
+      "expected_outcome": "You will understand the importance of graph topology in neural network design."
+    },
+    {
+      "label": "Explore graph generation with GraphMoE",
+      "how_to": "Implement or use GraphMoE from paper 2204.07634 to generate synthetic graphs and evaluate their similarity to real data.",
+      "expected_outcome": "You will learn generative modeling techniques for graph data."
+    },
+    {
+      "label": "Study quantum graph neural networks",
+      "how_to": "Review paper 2402.13001 and simulate simple quantum graph states and quantum GNN circuits using available quantum computing frameworks.",
+      "expected_outcome": "You will gain introductory knowledge of quantum approaches to GNNs and their potential."
+    }
+  ],
+  "metrics": [
+    "Number of implemented GNN models",
+    "Accuracy on benchmark graph datasets",
+    "Ability to explain GNN architectures and applications",
+    "Performance improvement on heterophilous graph tasks",
+    "Quality of generated synthetic graphs",
+    "Understanding of quantum GNN concepts"
+  ],
+  "timeline_weeks": [
+    {
+      "week": 1,
+      "focus": "Foundations of GNNs and basic architectures",
+      "deliverable": "Summary notes and implementation of encoder-decoder GNN"
+    },
+    {
+      "week": 2,
+      "focus": "Graph convolution and pooling operators",
+      "deliverable": "Implemented graph convolution and pooling layers with experiments"
+    },
+    {
+      "week": 3,
+      "focus": "GNN applications in recommendation systems",
+      "deliverable": "GNN-based recommender system prototype"
+    },
+    {
+      "week": 4,
+      "focus": "Semi-supervised learning and misinformation detection",
+      "deliverable": "Experiment results on misinformation spreader detection using GNNs"
+    },
+    {
+      "week": 5,
+      "focus": "Advanced graph learning on heterophilous graphs",
+      "deliverable": "Performance analysis of PEGFAN or similar models"
+    },
+    {
+      "week": 6,
+      "focus": "Graph structure effects on neural networks",
+      "deliverable": "Report on relational graph experiments and insights"
+    },
+    {
+      "week": 7,
+      "focus": "Graph generation techniques",
+      "deliverable": "Generated synthetic graphs using GraphMoE and evaluation"
+    },
+    {
+      "week": 8,
+      "focus": "Quantum graph neural networks introduction",
+      "deliverable": "Simulation of quantum graph states and quantum GNN circuits"
+    },
+    {
+      "week": 9,
+      "focus": "Integration and review",
+      "deliverable": "Comprehensive summary and presentation of learned concepts and implementations"
+    }
+  ],
+  "risks": [
+    {
+      "risk": "The quantum graph neural network paper is theoretical and may require specialized knowledge and tools, limiting practical implementation.",
+      "mitigation": "Focus on conceptual understanding and use available quantum simulators with simplified examples."
+    },
+    {
+      "risk": "Some papers have limited experimental details or code availability, which may hinder reproducibility.",
+      "mitigation": "Supplement learning with standard GNN libraries and frameworks to implement core concepts."
+    }
+  ],
+  "_topics_suggestion": "The selected papers may also cover research areas including: Combinatorics, Deep Learning Architectures. You may gain a broader understand of the field by exploring these related research directions"
+}

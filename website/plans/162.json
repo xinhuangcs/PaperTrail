@@ -1,0 +1,229 @@
+{
+  "goal": "I want to learn quantum physics",
+  "study_level": "intermediate",
+  "source_papers": [
+    "2303.09491",
+    "2105.01109",
+    "2006.12025",
+    "2305.00598",
+    "2111.11332",
+    "2112.00778",
+    "2108.07909",
+    "2312.06624",
+    "2004.01329",
+    "2410.14357"
+  ],
+  "metadata": {
+    "prompt_version": "PT-20251102-1",
+    "model": "gpt-4.1-mini",
+    "created_at": "2025-12-02T09:58:04.518232+00:00"
+  },
+  "plan_overview": "This learning plan is designed to build your understanding of quantum physics with a focus on quantum computing and its applications. Starting from foundational concepts and programming basics, you will progress through quantum computing models, quantum walks, and quantum machine learning, then explore quantum networking and experimental implementations, culminating in advanced quantum algorithms for physics and chemistry. This structured approach ensures you grasp both theoretical and practical aspects of quantum physics relevant to current research and technology.",
+  "reading_order": [
+    {
+      "paper_id": "2312.06624",
+      "why_first": "Introduces quantum computing fundamentals and programming in an accessible way, requiring minimal prior physics knowledge, ideal for building a practical foundation.",
+      "key_questions": [
+        "What are the basic principles of quantum computing?",
+        "How can quantum states and operations be represented and simulated in Python?",
+        "What are the essential linear algebra operations used in quantum computing?"
+      ],
+      "paper_title": "How To Program Your Own Quantum Computer or QUBE: QUantum computing for\n  BEginners"
+    },
+    {
+      "paper_id": "2108.07909",
+      "why_first": "Provides a unifying perspective on universal quantum computing models, deepening your theoretical understanding after initial programming exposure.",
+      "key_questions": [
+        "What are the main universal quantum computing models?",
+        "How do different quantum computing models relate and differ?",
+        "What physical principles underlie these models?"
+      ],
+      "paper_title": "A comparative study of universal quantum computing models: towards a\n  physical unification"
+    },
+    {
+      "paper_id": "2004.01329",
+      "why_first": "Explains quantum walks as computational tools and models, linking theory to computation and illustrating quantum algorithms' power.",
+      "key_questions": [
+        "What is a quantum walk and how does it differ from classical walks?",
+        "How are quantum walks used for universal quantum computation?",
+        "What are examples of quantum walk applications in physics?"
+      ],
+      "paper_title": "How to Compute Using Quantum Walks"
+    },
+    {
+      "paper_id": "2006.12025",
+      "why_first": "Introduces quantum computing methods applied to supervised learning, bridging quantum physics and machine learning concepts.",
+      "key_questions": [
+        "How can quantum computing enhance supervised learning?",
+        "What quantum algorithms are used for machine learning?",
+        "What are the challenges in applying quantum computing to ML?"
+      ],
+      "paper_title": "Quantum Computing Methods for Supervised Learning"
+    },
+    {
+      "paper_id": "2303.09491",
+      "why_first": "Reviews quantum machine learning challenges and opportunities, expanding on quantum algorithms and their practical implications.",
+      "key_questions": [
+        "What distinguishes quantum machine learning from classical ML?",
+        "What are quantum neural networks and quantum deep learning?",
+        "What are current challenges in training QML models?"
+      ],
+      "paper_title": "Challenges and Opportunities in Quantum Machine Learning"
+    },
+    {
+      "paper_id": "2112.00778",
+      "why_first": "Demonstrates quantum advantage in learning from experiments, showing practical benefits of quantum methods in physics data analysis.",
+      "key_questions": [
+        "How do quantum machines learn from fewer experiments?",
+        "What tasks show exponential quantum advantage?",
+        "How can quantum principal component analysis be applied?"
+      ],
+      "paper_title": "Quantum advantage in learning from experiments"
+    },
+    {
+      "paper_id": "2305.00598",
+      "why_first": "Introduces the quantum internet and networking, essential for understanding quantum communication and distributed quantum computing.",
+      "key_questions": [
+        "What is the quantum internet and its key capabilities?",
+        "How does quantum entanglement enable new communication tasks?",
+        "What are the challenges in building quantum networks?"
+      ],
+      "paper_title": "Quantum Internet: The Future of Internetworking"
+    },
+    {
+      "paper_id": "2111.11332",
+      "why_first": "Presents an experimental demonstration of entanglement delivery in quantum networks, linking theory to real-world quantum communication systems.",
+      "key_questions": [
+        "How is entanglement delivered using a quantum network stack?",
+        "What protocols enable robust entanglement distribution?",
+        "How do physical and link layers interact in quantum networks?"
+      ],
+      "paper_title": "Experimental demonstration of entanglement delivery using a quantum\n  network stack"
+    },
+    {
+      "paper_id": "2105.01109",
+      "why_first": "Explores distributed quantum computing with QMPI, addressing scalability and resource management in multi-processor quantum systems.",
+      "key_questions": [
+        "What is distributed quantum computing?",
+        "How does QMPI extend classical MPI for quantum processors?",
+        "What are the resource requirements for distributed quantum algorithms?"
+      ],
+      "paper_title": "Distributed Quantum Computing with QMPI"
+    },
+    {
+      "paper_id": "2410.14357",
+      "why_first": "Covers advanced variational quantum algorithms for excited state preparation, applying quantum computing to physics and chemistry problems.",
+      "key_questions": [
+        "What is the charge-preserving variational quantum deflation algorithm?",
+        "How does symmetry improve excited state computations?",
+        "What are the applications of VQE and its variants in quantum physics?"
+      ],
+      "paper_title": "Efficient charge-preserving excited state preparation with variational\n  quantum algorithms"
+    }
+  ],
+  "actions": [
+    {
+      "label": "Implement a basic quantum computer simulator in Python",
+      "how_to": "Follow the methods in paper 2312.06624 to write Python code simulating qubits and quantum gates using numpy.",
+      "expected_outcome": "You will have a working quantum simulator and understand quantum state manipulation."
+    },
+    {
+      "label": "Study universal quantum computing models",
+      "how_to": "Read paper 2108.07909 and summarize the main models and their physical principles.",
+      "expected_outcome": "You will grasp the theoretical foundations of quantum computing models."
+    },
+    {
+      "label": "Explore quantum walks and their computational use",
+      "how_to": "Analyze paper 2004.01329 and implement a simple quantum walk simulation.",
+      "expected_outcome": "You will understand quantum walks and their role in quantum algorithms."
+    },
+    {
+      "label": "Learn quantum machine learning basics",
+      "how_to": "Read papers 2006.12025 and 2303.09491, focusing on quantum algorithms for supervised learning and QML challenges.",
+      "expected_outcome": "You will understand how quantum computing applies to machine learning and current research challenges."
+    },
+    {
+      "label": "Understand quantum advantage in experimental learning",
+      "how_to": "Study paper 2112.00778 and identify tasks where quantum methods outperform classical ones.",
+      "expected_outcome": "You will appreciate the practical benefits of quantum computing in physics experiments."
+    },
+    {
+      "label": "Study quantum networking fundamentals",
+      "how_to": "Read papers 2305.00598 and 2111.11332 to learn about quantum internet concepts and experimental entanglement delivery.",
+      "expected_outcome": "You will understand quantum communication protocols and network architectures."
+    },
+    {
+      "label": "Investigate distributed quantum computing",
+      "how_to": "Examine paper 2105.01109 and understand how multiple quantum processors can be coordinated.",
+      "expected_outcome": "You will learn about scalability challenges and solutions in quantum computing."
+    },
+    {
+      "label": "Explore advanced quantum algorithms for physics",
+      "how_to": "Read paper 2410.14357 and study variational quantum algorithms for excited state preparation.",
+      "expected_outcome": "You will understand cutting-edge quantum algorithms applied to physics and chemistry."
+    }
+  ],
+  "metrics": [
+    "Number of implemented quantum computing simulations",
+    "Number of summarized key concepts from each paper",
+    "Ability to explain quantum computing models and algorithms",
+    "Completion of quantum programming exercises",
+    "Understanding of quantum networking protocols",
+    "Ability to describe quantum advantage in learning tasks",
+    "Comprehension of distributed quantum computing concepts",
+    "Familiarity with variational quantum algorithms"
+  ],
+  "timeline_weeks": [
+    {
+      "week": 1,
+      "focus": "Quantum computing basics and programming",
+      "deliverable": "Python quantum simulator implementation"
+    },
+    {
+      "week": 2,
+      "focus": "Universal quantum computing models",
+      "deliverable": "Summary report on quantum computing models"
+    },
+    {
+      "week": 3,
+      "focus": "Quantum walks and computation",
+      "deliverable": "Quantum walk simulation and explanation"
+    },
+    {
+      "week": 4,
+      "focus": "Quantum machine learning fundamentals",
+      "deliverable": "Notes on QML methods and challenges"
+    },
+    {
+      "week": 5,
+      "focus": "Quantum advantage in experiments",
+      "deliverable": "Presentation on quantum learning advantages"
+    },
+    {
+      "week": 6,
+      "focus": "Quantum internet and networking",
+      "deliverable": "Report on quantum networking concepts and protocols"
+    },
+    {
+      "week": 7,
+      "focus": "Distributed quantum computing",
+      "deliverable": "Analysis of QMPI and distributed quantum algorithms"
+    },
+    {
+      "week": 8,
+      "focus": "Advanced quantum algorithms for physics",
+      "deliverable": "Summary and understanding of variational quantum algorithms for excited states"
+    }
+  ],
+  "risks": [
+    {
+      "risk": "The selected papers focus heavily on quantum computing and networking rather than foundational quantum physics theory, which may limit understanding of core quantum physics concepts.",
+      "mitigation": "Supplement this plan with standard quantum physics textbooks or introductory materials to cover fundamental physics concepts not addressed in these papers."
+    },
+    {
+      "risk": "Some papers are highly technical and assume prior knowledge in quantum computing and physics, which may be challenging for beginners.",
+      "mitigation": "Start with the introductory programming paper (2312.06624) and allocate extra time for background study as needed."
+    }
+  ],
+  "_topics_suggestion": "The selected papers may also cover research areas including: Applied Machine Learning, Deep Learning Architectures, General Algorithms, Wireless Communications. You may gain a broader understand of the field by exploring these related research directions"
+}

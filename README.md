@@ -51,11 +51,20 @@ To build the project website quickly and enable users to start using PaperTrail 
 ---
 ## 3. Data Source
 The project uses the [arXiv Dataset](https://www.kaggle.com/Cornell-University/arxiv). We also provide the [processed dataset](https://github.com/xinhuangcs/PaperTrail/releases) for direct use.
-* **Original Size**: ~2.84M papers.
+* **Original Size**: ~2.84M papers\*.
 * **Filtering**: We filter for categories starting with `cs.` (Computer Science), `stat.` (Statistics), and `eess.` (Electrical Engineering and Systems Science), etc.
 * **Add citation data**: Use the OpenAlex API to add citation data to papers.
-* **Final Dataset**: Contains ~730,000 papers used for the search index.
-* **Preprocessing**: Text cleaning, stop word removal, and stemming are applied before indexing.
+* **Final Dataset**: Contains ~730,000 papers used for the search index\*.
+* **Preprocessing**: Text cleaning, stop word removal, and stemming are applied before indexing.  
+
+<small>
+* Our dataset was downloaded on September 26, 2025, and the statistics are based on this date.  <br>  
+</small>
+
+<small>
+* When we expanded our citation data, we discovered that OpenAlex has not yet indexed some publications released since 2025. Therefore, our dataset currently only includes papers published up to the end of 2024.
+</small>
+
 ---
 ## 4. Technical Architecture
 The project structure follows the data processing pipeline:

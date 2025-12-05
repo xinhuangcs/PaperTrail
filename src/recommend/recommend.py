@@ -95,7 +95,7 @@ def now_year() -> int:
     return datetime.now().year
 
 def count_keywords(text: str, keywords: List[str]) -> int:
-    """Count how many keywords appear (出现次数，粗略匹配)"""
+    """Count how many keywords appear """
     if not text:
         return 0
     cnt = 0
@@ -153,7 +153,7 @@ def score_papers(papers: List[Dict], mode: str, top_n: int) -> Tuple[List[Dict],
 
     mode = mode.lower().strip()
     if mode not in CONFIG["WEIGHTS"]:
-        raise ValueError(f"未知模式/Unknown mode: {mode}; 可选：{list(CONFIG['WEIGHTS'].keys())}")
+        raise ValueError(f"Unknown mode: {mode}; available: {list(CONFIG['WEIGHTS'].keys())}")
 
     W = CONFIG["WEIGHTS"][mode]
 
@@ -207,7 +207,7 @@ def score_papers(papers: List[Dict], mode: str, top_n: int) -> Tuple[List[Dict],
         Y = now_year()
         for i, y in enumerate(years):
             if y and (Y - y) <= CONFIG["RECENT_YEARS"]:
-                recent_bonus[i] = 0.05  # 小幅奖励 small bonus（可调）
+                recent_bonus[i] = 0.05  
 
     # 4) Weighted linear combination
     scores = []
@@ -300,7 +300,7 @@ def main():
     else:
         topn = int(args.topn)
 
-    # 读取候选集合 / Load candidates
+    #  Load candidates
     if not os.path.exists(CONFIG["INPUT_JSONL"]):
         raise FileNotFoundError(f"输入文件不存在：{CONFIG['INPUT_JSONL']}")
 

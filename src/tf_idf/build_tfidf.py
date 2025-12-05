@@ -69,20 +69,17 @@ TOP_TERMS_PER_DOC = 5     # show top-K terms per doc
 
 def read_corpus_and_meta(jsonl_path):
     """
-    读取语料与元数据：返回 texts(list), ids(list), titles(list)
     Read corpus & metadata: return (texts, ids, titles)
     """
     texts, ids, titles = [], [], []
     with open(jsonl_path, "r", encoding="utf-8") as f:
         for line in tqdm(f, desc="Reading JSONL"):
-            # ---- 修复：空行/坏行保护 / guard for blank or malformed lines ----
             line = line.strip()
             if not line:
                 continue
             try:
                 rec = json.loads(line)
             except json.JSONDecodeError:
-                # 可选：打印警告定位问题行
                 # print("[warn] malformed JSON line skipped")
                 continue
             # --------------------------------------------------------------

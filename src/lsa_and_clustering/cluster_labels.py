@@ -148,7 +148,7 @@ def main():
 
             # 3) HDBSCAN to find subclusters (automatic number of clusters)
             hdb = hdbscan.HDBSCAN(
-                min_cluster_size=50,   # 如果 cluster 小可以调更小
+                min_cluster_size=50,  
                 min_samples=10
             )
             sub_labels = hdb.fit_predict(X_umap)

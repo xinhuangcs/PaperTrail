@@ -24,6 +24,7 @@
     * [6.1 User Mode](#61-user-mode-web-interface)
     * [6.2 Developer Mode: Start directly using our pre-calculated results](#62-developer-mode-start-directly-using-our-pre-calculated-results)
     * [6.3 Developer Mode: Starting with initial dataset filtering](#63-developer-mode-starting-with-initial-dataset-filtering)
+    * [6.4 Developer Mode: Running Jupyter Notebooks](#64-developer-mode-running-jupyter-notebooks)
 
 ---
 ## 1. Introduction
@@ -139,11 +140,12 @@ Located in `src/ai_advice/`.
 ---
 
 ## 6. Usage Guide 🚀
-**PaperTrail provides three usage modes:**
+**PaperTrail provides four usage modes:**
 
 6.1 [**User Mode (Web Interface)**](#61-user-mode-web-interface) - No setup, get instant results **online**.  
 6.2 [**Developer Mode (Fast Run)**](#62-developer-mode-start-directly-using-our-pre-calculated-results) - Run **locally** using pre-computed data.  
 6.3 [**Developer Mode (Full Pipeline)**](#63-developer-mode-starting-with-initial-dataset-filtering) - Run **locally** from zero.  
+6.4 [**Developer Mode (Jupyter Notebooks)**](#64-developer-mode-running-jupyter-notebooks) - Interactive exploration of the pipeline **step-by-step**.  
 
 
 
@@ -246,6 +248,45 @@ Due to Github Action server limitations, our website utilizes the lightweight ve
     ```bash
     python scripts/run_pipeline.py --goal "Graph Neural Networks" --top_k 10 --method lsa_lsh --mode review --issue "local_test_run"
     ```
+
+### 6.4 Developer Mode: Running Jupyter Notebooks
+**👉🏻 Best for:** Developers who want to explore the pipeline interactively, understand each step in detail, and experiment with different configurations.  
+**⏱️ Estimated runtime:** Varies by notebook (from minutes to hours depending on data size)
+
+The `jupyter_notebook/` directory contains interactive notebooks that walk through each stage of the PaperTrail pipeline:
+
+* `1_preprocess_data.ipynb` - Data preprocessing and filtering
+* `2_Clustering.ipynb` - TF-IDF, LSA, K-Means, and SBERT/HDBSCAN clustering analysis
+* `3.1_search.ipynb` - Similarity search implementations (TF-IDF, LSA+LSH, SBERT)
+* `3.2_recommendation_system.ipynb` - Recommendation and re-ranking algorithms
+* `4_AI_generation.ipynb` - AI-powered learning plan generation
+* `5.1_eval_lsa.ipynb` - Evaluation metrics for LSA-based clustering
+* `5.2_eval_hdbscan.ipynb` - Evaluation metrics for HDBSCAN clustering
+
+**Prerequisites**:
+* Python 3.12+
+* Jupyter Notebook or JupyterLab installed
+* All dependencies from `requirements.txt`
+
+**Setup and Run**:
+
+1. **Install Jupyter** (if not already installed):
+    ```bash
+    pip install jupyter jupyterlab
+    ```
+
+2. **Navigate to the notebooks directory**:
+    ```bash
+    cd jupyter_notebook
+    ```
+
+3. **Run notebooks in order**:
+    Start with `1_preprocess_data.ipynb` if you want to explore data preprocessing
+
+**Note**: Some notebooks require pre-computed data artifacts. You may need to either:
+* Download pre-computed results from [GitHub Releases](https://github.com/xinhuangcs/PaperTrail/releases) and place them in the `data/` directory, or Run the corresponding Python scripts to generate the required artifacts.
+
+**Due to huge raw dataset, Here, we manually constructed a minimal dataset to test whether Jupyter can run.**
 
 ---
 ## 🙏 Acknowledgements

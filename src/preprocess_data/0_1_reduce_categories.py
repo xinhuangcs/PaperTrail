@@ -84,7 +84,7 @@ def filter_file(in_path, out_path, limit=0, precount=True, chunk_bytes=8*1024*10
     kept = skipped = total_read = 0
     by_domain = Counter()
 
-    with open_text(out_path, "w") as fout, tqdm(total=total, unit="line", desc="过滤中", mininterval=0.5) as pbar:
+    with open_text(out_path, "w") as fout, tqdm(total=total, unit="line", desc="filtering", mininterval=0.5) as pbar:
         for raw in line_iter:
             total_read += 1
             line = raw.strip()

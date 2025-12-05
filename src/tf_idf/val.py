@@ -111,7 +111,7 @@ def main():
     print(f"B: {DIR_B}")
     
     # 1. compare matrix
-    print(f"\n[1] 比较 {MATRIX_FILE}...")
+    print(f"\n[1] compare {MATRIX_FILE}...")
     path_a = os.path.join(DIR_A, MATRIX_FILE)
     path_b = os.path.join(DIR_B, MATRIX_FILE)
     if compare_matrices(path_a, path_b):

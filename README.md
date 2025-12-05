@@ -140,7 +140,7 @@ Located in `src/ai_advice/`.
 ---
 
 ## 6. Usage Guide 🚀
-**PaperTrail provides four usage modes:**
+**PaperTrail provides 4 ways to use our code, highly recommends user mode:**
 
 6.1 [**User Mode (Web Interface)**](#61-user-mode-web-interface) - No setup, get instant results **online**.  
 6.2 [**Developer Mode (Fast Run)**](#62-developer-mode-start-directly-using-our-pre-calculated-results) - Run **locally** using pre-computed data.  

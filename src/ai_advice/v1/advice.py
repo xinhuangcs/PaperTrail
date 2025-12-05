@@ -50,7 +50,6 @@ result = response.output_text
 print("\n===== advice =====\n")
 print(result)
 
-# 保存结果到文件
 output_path = "plan_reading_result.txt"
 with open(output_path, "w", encoding="utf-8") as f:
     f.write(result)

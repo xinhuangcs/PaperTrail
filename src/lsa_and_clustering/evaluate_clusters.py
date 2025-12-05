@@ -67,10 +67,8 @@ def _load_lsa_array(npz_path: Path) -> np.ndarray:
         for k in ["X_reduced", "X", "lsa", "data", "arr_0"]:
             if k in z.files:
                 return z[k]
-        # 回退：取第一个
         return z[z.files[0]]
 
-# ---------------- 评估 LSA + KMeans ----------------
 def eval_lsa_kmeans():
     print("\n[1] Evaluating LSA + KMeans ...")
     if not LSA_REDUCED_NPZ.exists() or not KMEANS_LABELS_NPY.exists():

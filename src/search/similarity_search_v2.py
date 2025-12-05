@@ -125,11 +125,11 @@ def search_lsa(query: str, top_k: int) -> List[Tuple[str, str, float]]:
     return results
 
 def save_results_jsonl(query: str, method: str, results: List[Tuple[str, str, float]]) -> Path:
-    # 收集需要的 paper id
+
     need_ids = {pid for (pid, _title, _s) in results}
     raw_meta = load_raw_meta(need_ids)
 
-    # 输出文件路径（仍然是 jsonl 格式内容）
+
     ts = int(time.time())
     out_path = OUT_DIR / f"similarity_for_recommend_{method}_{ts}.json"
 

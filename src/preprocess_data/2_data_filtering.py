@@ -84,7 +84,6 @@ def process_large_dataset_batch(input_file_path: str, batch_size: int = 1000) ->
     print(f"Processing large dataset in batches of {batch_size}...")
 
     def sanitize(s: str) -> str:
-        # 去掉常见的不可见/非法起始字符
         return s.lstrip('\ufeff').replace('\x00', '').strip()
 
     with open(input_file_path, 'r', encoding='utf-8-sig') as infile, \

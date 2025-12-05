@@ -1,0 +1,215 @@
+{
+  "goal": "I want to learn software engineering.",
+  "study_level": "intermediate",
+  "source_papers": [
+    "2103.11249",
+    "0711.0538",
+    "2110.12937",
+    "2002.10163",
+    "2010.07381",
+    "2303.17271",
+    "1812.01791",
+    "2406.03342",
+    "2206.09303",
+    "2010.04660"
+  ],
+  "metadata": {
+    "prompt_version": "PT-20251102-1",
+    "model": "gpt-4.1-mini",
+    "created_at": "2025-12-05T20:39:51.771588+00:00"
+  },
+  "plan_overview": "This learning plan guides you through foundational concepts, frameworks, and current challenges in software engineering by leveraging a curated set of research papers. Starting with an overview of the discipline and its evolution, you will explore frameworks and methodologies, practical engineering challenges, and interdisciplinary approaches including behavioral and continuous engineering aspects. The plan emphasizes understanding both theoretical foundations and applied research to build a comprehensive and practical knowledge base in software engineering.",
+  "reading_order": [
+    {
+      "paper_id": "2002.10163",
+      "why_first": "Provides a broad historical overview and major milestones in software engineering, setting the context for all subsequent learning.",
+      "key_questions": [
+        "What are the major milestones in software engineering history?",
+        "Which software engineering practices remain relevant today?",
+        "What future trends are anticipated in software engineering?"
+      ],
+      "paper_title": "Software Engineering Timeline: major areas of interest and\n  multidisciplinary trends"
+    },
+    {
+      "paper_id": "2206.09303",
+      "why_first": "Clarifies the foundational framework of software engineering as a discipline and its relation to information technology, deepening your conceptual understanding.",
+      "key_questions": [
+        "How is software engineering defined as a distinct discipline?",
+        "What are the links and differences between software engineering and IT?",
+        "What frameworks support software engineering as an academic field?"
+      ],
+      "paper_title": "The Framework For The Discipline Of Software Engineering in Connection\n  to Information Technology Discipline"
+    },
+    {
+      "paper_id": "1812.01791",
+      "why_first": "Introduces formal methods to map software engineering practices to core frameworks, helping you understand structured approaches to software engineering.",
+      "key_questions": [
+        "What is the Essence Framework and how does it relate to software engineering?",
+        "How can software engineering practices be formally mapped and evaluated?"
+      ],
+      "paper_title": "A Formal Method for Mapping Software Engineering Practices to Essence"
+    },
+    {
+      "paper_id": "0711.0538",
+      "why_first": "Focuses on spreadsheet engineering as a specialized area applying software engineering principles, illustrating practical adaptation of concepts.",
+      "key_questions": [
+        "What are the eight principles of spreadsheet engineering?",
+        "How do spreadsheet users differ from traditional programmers?",
+        "What challenges arise in deploying best practices in spreadsheet engineering?"
+      ],
+      "paper_title": "Spreadsheet Engineering: A Research Framework"
+    },
+    {
+      "paper_id": "2103.11249",
+      "why_first": "Explores the intersection of software engineering and machine learning, showing interdisciplinary applications and efficiency improvements.",
+      "key_questions": [
+        "How does the SELM framework improve machine learning model engineering?",
+        "What interdisciplinary approaches enhance machine learning processes?",
+        "How can software engineering principles optimize resource usage in ML?"
+      ],
+      "paper_title": "SELM: Software Engineering of Machine Learning Models"
+    },
+    {
+      "paper_id": "2303.17271",
+      "why_first": "Examines real-world challenges in adopting continuous software engineering, providing insight into current industry obstacles and priorities.",
+      "key_questions": [
+        "What are the main challenges practitioners face in continuous software engineering?",
+        "How are these challenges prioritized?",
+        "What strategies can mitigate these challenges?"
+      ],
+      "paper_title": "What Practitioners Really Think About Continuous Software Engineering: A\n  Taxonomy of Challenges"
+    },
+    {
+      "paper_id": "2110.12937",
+      "why_first": "Presents experimentation workbenches to improve software engineering research, emphasizing reproducibility and experimental rigor.",
+      "key_questions": [
+        "What are experimentation workbenches in software engineering?",
+        "What core requirements make an experimentation workbench effective?",
+        "How do these workbenches support replicable research?"
+      ],
+      "paper_title": "Improving Software Engineering Research through Experimentation\n  Workbenches"
+    },
+    {
+      "paper_id": "2010.07381",
+      "why_first": "Highlights the role of research software engineers in scientific software, emphasizing quality and best practices in specialized domains.",
+      "key_questions": [
+        "How can research software engineers improve scientific software quality?",
+        "What best practices yield high rigor and repeatability?",
+        "How do software engineering principles apply in scientific research contexts?"
+      ],
+      "paper_title": "How Research Software Engineers Can Support Scientific Software"
+    },
+    {
+      "paper_id": "2010.04660",
+      "why_first": "Describes a full-spectrum software engineering and research department model, illustrating organizational strategies for sustainable software engineering careers.",
+      "key_questions": [
+        "What is the Research, Develop, Deploy (RDD) workflow?",
+        "How does interdisciplinary collaboration enhance software engineering impact?",
+        "What organizational tactics support research software engineers?"
+      ],
+      "paper_title": "Research, Develop, Deploy: Building a Full Spectrum Software Engineering\n  and Research Department"
+    },
+    {
+      "paper_id": "2406.03342",
+      "why_first": "Explores behavioral aspects of software engineers, integrating behavioral sciences to understand and measure engineer behavior for improved practice.",
+      "key_questions": [
+        "What methods help understand software engineer behavior?",
+        "How can behavioral sciences inform software engineering?",
+        "What are the implications of measuring engineer behavior for practice and research?"
+      ],
+      "paper_title": "Understanding and measuring software engineer behavior: What can we\n  learn from the behavioral sciences?"
+    }
+  ],
+  "actions": [
+    {
+      "label": "Summarize foundational concepts",
+      "how_to": "Read papers 2002.10163 and 2206.09303 to write a summary of software engineering history, discipline foundations, and frameworks.",
+      "expected_outcome": "A concise document outlining software engineering evolution and its academic framework."
+    },
+    {
+      "label": "Map practices to frameworks",
+      "how_to": "Study paper 1812.01791 and create a diagram linking common software engineering practices to the Essence Framework.",
+      "expected_outcome": "Visual mapping of practices to formal frameworks enhancing conceptual clarity."
+    },
+    {
+      "label": "Analyze specialized engineering area",
+      "how_to": "Review paper 0711.0538 and prepare a report on spreadsheet engineering principles and challenges.",
+      "expected_outcome": "Understanding of how software engineering adapts to domain-specific contexts."
+    },
+    {
+      "label": "Explore interdisciplinary applications",
+      "how_to": "Read paper 2103.11249 and summarize how software engineering improves machine learning model development.",
+      "expected_outcome": "Insight into interdisciplinary approaches and efficiency gains in ML engineering."
+    },
+    {
+      "label": "Identify industry challenges",
+      "how_to": "Analyze paper 2303.17271 to list and prioritize challenges in continuous software engineering adoption.",
+      "expected_outcome": "Prioritized taxonomy of challenges faced by practitioners."
+    },
+    {
+      "label": "Understand research support tools",
+      "how_to": "Study paper 2110.12937 and describe the concept and requirements of experimentation workbenches.",
+      "expected_outcome": "Clear understanding of tools that improve software engineering research reproducibility."
+    },
+    {
+      "label": "Assess role of research software engineers",
+      "how_to": "Read paper 2010.07381 and summarize best practices for scientific software quality improvement.",
+      "expected_outcome": "Knowledge of RSE contributions to scientific software rigor."
+    },
+    {
+      "label": "Examine organizational models",
+      "how_to": "Review paper 2010.04660 and outline the RDD workflow and organizational tactics for software engineering departments.",
+      "expected_outcome": "Understanding of sustainable career and organizational models in software engineering."
+    },
+    {
+      "label": "Integrate behavioral insights",
+      "how_to": "Read paper 2406.03342 and prepare notes on behavioral measurement methods and their relevance to software engineering.",
+      "expected_outcome": "Awareness of behavioral science integration in software engineering research and practice."
+    }
+  ],
+  "metrics": [
+    "Number of papers read and summarized",
+    "Quality and completeness of summaries and diagrams",
+    "Ability to explain key frameworks and challenges",
+    "Identification of interdisciplinary and organizational insights",
+    "Understanding of behavioral and experimental research methods"
+  ],
+  "timeline_weeks": [
+    {
+      "week": 1,
+      "focus": "Foundations and frameworks",
+      "deliverable": "Summary document of software engineering history and discipline frameworks"
+    },
+    {
+      "week": 2,
+      "focus": "Formal mapping and specialized engineering",
+      "deliverable": "Diagram mapping practices to Essence Framework and report on spreadsheet engineering"
+    },
+    {
+      "week": 3,
+      "focus": "Interdisciplinary applications and challenges",
+      "deliverable": "Summary of SELM framework and prioritized challenges in continuous software engineering"
+    },
+    {
+      "week": 4,
+      "focus": "Research tools and roles",
+      "deliverable": "Description of experimentation workbenches and best practices for research software engineers"
+    },
+    {
+      "week": 5,
+      "focus": "Organizational models and behavioral insights",
+      "deliverable": "Outline of RDD workflow and notes on behavioral measurement in software engineering"
+    }
+  ],
+  "risks": [
+    {
+      "risk": "The selected papers provide limited practical coding or tool-based tutorials, which may limit hands-on skill development.",
+      "mitigation": "Supplement this plan with practical software engineering tutorials or projects outside the provided papers."
+    },
+    {
+      "risk": "Some papers have low citation counts and may represent emerging or less validated ideas.",
+      "mitigation": "Critically evaluate the content and cross-reference with more established sources when possible."
+    }
+  ],
+  "_topics_suggestion": "The selected papers may also cover research areas including: Applied Machine Learning, General Algorithms. You may gain a broader understand of the field by exploring these related research directions"
+}

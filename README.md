@@ -20,10 +20,10 @@
 * [3. Data Source](#3-data-source)
 * [4. Technical Architecture ](#4-technical-architecture)
 * [5. Version History & Iteration](#5-version-history--iteration)
-* [6. Usage Guide 🚀](#6-usage-guide-)
+* [6. Usage Guide (4 ways to use our code) 🚀](#6-usage-guide-)
     * [6.1 User Mode](#61-user-mode-web-interface)
-    * [6.2 Developer Mode: Start directly using our pre-calculated results](#62-developer-mode-start-directly-using-our-pre-calculated-results)
-    * [6.3 Developer Mode: Starting with initial dataset filtering](#63-developer-mode-starting-with-initial-dataset-filtering)
+    * [6.2 Developer Mode: Start directly using our pre-calculated results](#62-developer-mode-start-from-using-our-pre-computed-results)
+    * [6.3 Developer Mode: Starting with initial dataset filtering](#63-developer-mode-starting-from-initial-dataset-filtering)
     * [6.4 Developer Mode: Running Jupyter Notebooks](#64-developer-mode-running-jupyter-notebooks)
 
 ---
@@ -140,7 +140,7 @@ Located in `src/ai_advice/`.
 ---
 
 ## 6. Usage Guide 🚀
-**PaperTrail provides 4 ways to use our code, highly recommends user mode:**
+PaperTrail provides **4 ways** to use our code, highly recommends **user mode**:
 
 6.1 [**User Mode (Web Interface)**](#61-user-mode-web-interface) - No setup, get instant results **online**.  
 6.2 [**Developer Mode (Fast Run)**](#62-developer-mode-start-directly-using-our-pre-calculated-results) - Run **locally** using pre-computed data.  

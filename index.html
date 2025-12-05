@@ -458,10 +458,13 @@
     .project-keywords {
       margin-top: 10px;
       display: flex;
+      justify-content: center;
       flex-wrap: wrap;
       gap: 8px;
       font-size: 12px;
     }
+
+
 
     .keyword {
       padding: 3px 9px;
@@ -749,29 +752,23 @@
         <div class="hero-intro">
           <div class="hero-intro-body">
             <p class="hero-intro-lead">
-              PaperTrail is an intelligent literature exploration tool designed for academic researchers.
-            </p>
-            <p class="hero-intro-p">
-              <strong>Based on the topics you care about, it quickly identifies the most relevant papers from over 700,000
-              recent computer science publications and maps out a clear, step-by-step reading path. </strong>
-            </p>
+              PaperTrail is an intelligent literature exploration tool for computer science researchers, especially beginners and interdisciplinary learners.             </p>
+
             <p class="hero-intro-p hero-intro-p-last">
-              By combining multiple relevance signals, PaperTrail generates personalized paper recommendations to help
-              you focus on what truly matters. Powered by state-of-the-art large language models, it also provides clear
-              reading guidance for each paper, making your literature review faster, more accurate, and more directed.
+              Based on the arXiv dataset containing over 700,000 computer science papers, PaperTrail helps you go beyond the limitations of simple keyword searches by providing semantically relevant papers tailored to your preferences. Leveraging advanced large language models, it also offers clear reading guidance for each paper, making your paper reading more efficient, precise, and directed.
             </p>
           </div>
         </div>
 
 
         <div class="hero-tags">
-          <span class="pill">TF-IDF & LSA</span>
-          <span class="pill">Semantic Search</span>
-          <span class="pill">Document Clustering</span>
-          <span class="pill">Personalized Recommendation</span>
+          <span class="pill">Arxiv dataset</span>
+          <span class="pill">Clustering</span>
+          <span class="pill">Hybrid Retrieval</span>
+          <span class="pill">Weakly Supervised Ranking</span>
           <span class="pill">LLM-based Learning Planning</span>
-          <span class="pill">MMR & Multi-feature Ranking</span>
-          <span class="pill">GitHub Actions workflows</span>
+          <span class="pill">RAG</span>
+          <span class="pill">GitHub Actions</span>
         </div>
 
         <div class="request-card">
@@ -858,6 +855,8 @@
         <div class="scroll-hint">
             <span>Scroll to see more about the project</span>
             <div class="scroll-arrow">⌄</div>
+          <div class="scroll-arrow">⌄</div>
+          <div class="scroll-arrow">⌄</div>
         </div>
 
       </div>
@@ -873,24 +872,10 @@
         <h3 class="project-main-title">Technical overview</h3>
         <div class="project-main-body">
           <p>
-            PaperTrail is a research prototype that explores how to turn a large arXiv CS corpus into guided learning
-            experiences. Instead of returning a long list of search results, the system tries to construct a small
-            reading path that can be used as a starting syllabus.
+            PaperTrail is a research prototype integrating unsupervised clustering, hybrid retrieval, recommendation algorithms, and LLM technologies.
           </p>
           <p>
-            All heavy computation happens in offline GitHub Actions pipelines, which makes the system easy to inspect
-            and reproduce. The front-end stays simple and stable, while the retrieval models and ranking logic
-            can evolve in the background.
-          </p>
-          <p>
-            Behind this setup, PaperTrail runs a fairly standard data-science pipeline: we clean and preprocess more
-            than 700k arXiv papers, build TF-IDF features, and use LSA to get a compact semantic representation of
-            the corpus. We also run topic discovery with K-Means and HDBSCAN so that related papers are grouped together
-            in a meaningful way. For retrieval, we combine several methods—TF-IDF, LSA, LSH, and SBERT—and mix in simple
-            metadata such as citations, recency, and paper type. After ranking the candidates with an MMR-based approach
-            to avoid duplicates, we pass the final recommendation to an LLM, which turns them into a structured study
-            plan, completing a reproducible end-to-end system that integrates large-scale data processing with AI-driven
-            guidance.
+          Based on an arXiv dataset containing over 700,000 computer science papers, PaperTrail uses OpenAlex to add citation data, enhancing the evaluation dimensions of the literature. Methodologically, PaperTrail implements a multi-stage data processing and recommendation pipeline. During the semantic mining phase, after comparing two approaches – ‘TF-IDF + LSA + K-Means’ versus ‘SBERT + UMAP + HDBSCAN’ – our web page finally adopted the classic TF-IDF + LSA + K-Means combination. For retrieval, we explored three different approaches: TF-IDF, LSA+LSH, and HDBSCAN to rapidly recall the top 100 candidate papers. Our web page finally adopted LSA+LSH. For ranking unlabelled data, we employed a weakly supervised MMR re-ranking algorithm. Pseudo-labels were generated via heuristic rules to learn feature weights, whilst the Maximum Margin Relevance (MMR) algorithm maximised content diversity whilst ensuring relevance. Results were intelligently partitioned into four major categories: Trending, Theory, Application, and Review. Finally, the system integrates Retrieval-Augmented Generation (RAG) technology, employing an LLM strictly constrained by JSON Schema to generate structured learning plan. A closed-loop automated pipeline, built upon GitHub Actions, spans from data updates to front-end feedback, ensuring efficient deployment and instant service delivery.
           </p>
           <img
               src="./website/pictures/diagram.png"
@@ -900,21 +885,21 @@
         </div>
 
         <div class="project-keywords">
-          <span class="keyword">TF-IDF & LSA</span>
-          <span class="keyword">Semantic Search</span>
+          <span class="keyword">Arxiv Dataset</span>
           <span class="keyword">Clustering</span>
-          <span class="keyword">Personalized Recommendation</span>
-          <span class="keyword">LLM-based Learning Planning</span>
-          <span class="keyword">MMR & Multi-feature Ranking</span>
-          <span class="keyword">GitHub Actions workflows</span>
+          <span class="keyword">Hybrid Retrieval</span>
+          <span class="keyword">Weakly Supervised Ranking</span>
+          <span class="keyword">RAG</span>
+          <span class="keyword">GitHub Actions</span>
         </div>
+
 
         <div class="project-grid">
           <div class="project-card">
             <div class="project-card-marker">01</div>
             <div class="project-card-key">Data Processing: From Raw Text to Latent Semantics</div>
             <p>
-              PaperTrail is built on a large, real-world scientific corpus, containing roughly 2.84M papers. In total, we observe about 816k CS papers, 714k math papers, 136k statistics papers, and 112k EESS papers, with overlaps because a single paper can be tagged with multiple categories. Within CS, there are 40 subcategories; the biggest ones are cs.LG (≈234k papers), cs.CV (≈168k), cs.AI (≈143k), and cs.CL (≈93k),. This large-scale category analysis motivated us to focus PaperTrail on the computer science centric portion of the corpus, containing over 700,000 computer science papers from the arXiv dataset. From each paper, we extract key fields such as the title, abstract, authors, and categories, and then run a full preprocessing pipeline that includes lowercasing, symbol filtering, stopword removal, and Porter stemming.
+              To build a high-quality dataset, we filtered over 700,000 papers in computer science and related fields (such as mathematics and electronics) based on arXiv metadata provided by Kaggle. To address the limitation of missing citation information in the raw arXiv data, we performed large-scale data enrichment using the OpenAlex API. By matching DOIs and titles, we supplemented critical citation data, providing foundational support for the “trust score” in subsequent algorithms. For the constructed dataset, we implemented standardized cleaning procedures: including text concatenation, regularization noise reduction, NLTK stopword filtering, and Porter stemming.
             </p>
 
             <img
@@ -923,21 +908,16 @@
               class="project-card-image"
             />
 
-            <p>
-              After preprocessing, the text is converted into TF-IDF features with a vocabulary capped at 100,000 terms, covering both unigrams and bigrams. Extremely common or rare terms are filtered using max_df and min_df, and we also include a custom stopword list. The final output is a highly sparse CSR matrix (less than 1% density), which keeps memory usage low and makes later computations efficient. Because the original TF-IDF space is too high-dimensional and to capture semantic relationships beyond surface-level keyword matching, we apply Truncated SVD to perform LSA, reducing the vectors from around 100,000 dimensions to about 1,000. In this semantic space, relationships between papers reflect thematic similarity rather than just lexical overlap. All reduced vectors are L2-normalized to support fast similarity search. Topic keywords are also extracted through LSA’s back-projection mechanism, which lets us identify representative terms directly from the reduced space.
-            </p>
 
           </div>
 
           <div class="project-card">
             <div class="project-card-marker">02</div>
-            <div class="project-card-key">Cluster and Hybrid Search</div>
+            <div class="project-card-key">Clustering</div>
             <p>
-              To support different kinds of user queries, we implemented a hybrid retrieval system. Traditional TF-IDF search works well for keyword-driven queries, using cosine similarity and precomputed norms to rank results quickly at scale. For more meaning-focused searches, LSA projects the query into the 1,000-dimensional semantic space before computing similarity, helping match papers that phrase the same idea differently. To keep latency low on a corpus this large, we also incorporate LSH acceleration, hashing papers into multiple buckets using random hyperplanes and running exact ranking only within narrowed candidate sets. All user queries go through the same cleaning pipeline as the training data to ensure consistency. In addition, clustering information is also integrated into search: each paper’s similarity to the 40 discovered research themes is computed with TF-IDF, allowing us to identify the most relevant topic for the query and filter out unrelated ones. This keeps the final result set focused and more useful for learning.
+              To overcome the limitations of arXiv's coarse-grained classifications (such as cs.AI and cs.LG), we employ an unsupervised clustering approach to automatically extract more fine-grained thematic structures from the text, enabling precise recommendations that exceed traditional labels. We first employ a manually implemented and rigorously validated TF-IDF algorithm for feature extraction. Subsequently, we utilize LSA to reduce the dimensionality of high-dimensional sparse matrices to a 1000-dimensional latent space through singular value decomposition. LSA effectively captures co-occurrence relationships among words, leveraging the “blurred boundaries” between subfields (e.g., deep learning and reinforcement learning) to uncover cross-domain knowledge with distinct terminology yet intrinsic connections, thereby supporting heuristic recommendations. Finally, by integrating the efficient MiniBatch K-Means algorithm, we rapidly iteratively clustered a large-scale document collection into 40 clusters while maintaining high performance, extracting interpretable topic dictionaries. Additionally, we conducted comparative experiments based on the SBERT+HDBSCAN approach utilizing deep semantic embeddings.
             </p>
-            <p>
-              Beyond simple similarity, search results are grounded in the global research landscape. By mapping queries to adaptive semantic clusters discovered via HDBSCAN, the system filters out domain-irrelevant noise (e.g., distinguishing "Attention" in NLP from "Attention" in Psychology), ensuring recommendations remain pedagogically coherent.
-            </p>
+
             <img
               src="./website/pictures/cluster.png"
               alt="Data processing pipeline"
@@ -947,8 +927,23 @@
 
           <div class="project-card">
             <div class="project-card-marker">03</div>
-            <div class="project-card-key">Recommendation Algorithm</div>
+            <div class="project-card-key">Hybrid Search & Recommendation Algorithm</div>
             <div class="project-card-content">
+              <p><strong>Hybrid Retrieval</strong></p>
+              <p>
+                For each user query, PaperTrail employs three different retrieval methods to rapidly identify the top 100 most relevant papers for subsequent recommendation steps:
+              </p>
+              <p>
+                TF-IDF Retrieval: Keyword-based sparse matching using cosine similarity to accurately capture papers containing specific terms.
+              </p>
+              <p>
+                LSA Retrieval: Maps queries to a low-dimensional semantic space for similarity calculation, effectively retrieving documents with different wording but consistent topics. Incorporates LSH acceleration: Compresses high-dimensional vectors into binary hash codes using random hyperplanes, performing approximate nearest neighbor search within hash buckets to significantly boost speed in large-scale retrieval scenarios.
+              </p>
+              <p>
+              HDBSCAN Retrieval: Integrates precomputed density clustering results to map documents to semantic clusters (Cluster IDs), while utilizing Apriori-mined associative topic terms to enhance semantic retrieval capabilities.
+              </p>
+
+              <p><strong>Recommendation Algorithm</strong></p>
               <p><strong>Stage 1: Weak Supervision via Heuristic Labeling</strong></p>
               <p>
                 To address the scarcity of manual relevance labels, we employ a heuristic weak supervision
@@ -964,7 +959,7 @@
                 <em>w</em> with our weak supervision signals.
               </p>
               <img
-              src="./website/pictures/optimization.svg"
+              src="./website/pictures/optimization.png"
               alt="Data processing pipeline"
               class="project-card-image"
               />
@@ -980,7 +975,7 @@
                 penalize low-quality metadata.
               </p>
               <img
-              src="./website/pictures/ranking.svg"
+              src="./website/pictures/ranking.png"
               alt="Data processing pipeline"
               class="project-card-image"
               />
@@ -989,7 +984,7 @@
                 balances the learned relevance score against information novelty within the selected set.
               </p>
               <img
-              src="./website/pictures/algorithm.svg"
+              src="./website/pictures/algorithm.png"
               alt="Data processing pipeline"
               class="project-card-image"
               />
@@ -1001,8 +996,8 @@
             <div class="project-card-marker">04</div>
             <div class="project-card-key">AI Model</div>
             <p>
-              In the final stage, the pipeline transforms raw papers into a Structured Learning Plan. We utilize a versioned System Prompt to strictly enforce a JSON Schema, ensuring the output contains executable modules like Reading Order, Actions, and Timeline rather than unstructured text.
-To guarantee reliability, the system performs double validation: it checks the JSON structure and programmatically verifies that no non-existent papers are hallucinated. Every execution is tagged with a unique Trace ID for full reproducibility. Token usage is optimized by truncating abstracts, and all artifacts are automatically archived by enabling integration with CI/CD workflows like GitHub Actions.
+              In the final stage, the pipeline transforms raw papers into a Structured Learning Plan. We utilize a versioned System Prompt to strictly enforce a JSON Schema, ensuring the output contains executable modules like Reading Order and relevant advice rather than unstructured text.
+To guarantee reliability, the system performs double validation: it checks the JSON structure and programmatically verifies that no non-existent papers are hallucinated. Every execution is tagged with a unique Trace ID for full reproducibility. And all artifacts are automatically archived by enabling integration with CI/CD workflows like GitHub Actions.
 
             </p>
           </div>
@@ -1011,7 +1006,7 @@ To guarantee reliability, the system performs double validation: it checks the J
     </section>
 
     <footer>
-      PaperTrail · Prototype interface ·
+      PaperTrail  ·
       <a href="https://github.com/xinhuangcs/PaperTrail" target="_blank">View source on GitHub</a>
     </footer>
   </div>
@@ -1023,7 +1018,7 @@ To guarantee reliability, the system performs double validation: it checks the J
 
 
       let redirectTimer = null;
-      const REDIRECT_SECONDS = 1;
+      const REDIRECT_SECONDS = 15;
 
       function openIssue() {
         const goal = (document.getElementById('goal').value || '').trim();

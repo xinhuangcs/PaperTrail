@@ -1,0 +1,243 @@
+{
+  "goal": "homomorphism indistinguishability",
+  "study_level": "intermediate",
+  "source_papers": [
+    "2410.17106",
+    "2301.12060",
+    "1811.12365",
+    "2103.11065",
+    "2204.12557",
+    "2301.11995",
+    "2210.05560",
+    "2106.13560",
+    "1606.03304",
+    "2302.07572"
+  ],
+  "metadata": {
+    "prompt_version": "PT-20251102-1",
+    "model": "gpt-4.1-mini",
+    "created_at": "2026-01-24T15:27:18.570628+00:00"
+  },
+  "plan_overview": "This learning plan guides you through foundational and advanced concepts of homomorphic encryption and its applications, focusing on homomorphism indistinguishability. Starting with fundamental cryptographic schemes and theoretical underpinnings, you will progress to practical implementations and specialized applications such as encrypted control, graph algorithms, and similarity calculations. The plan emphasizes understanding both the mathematical structures and real-world constraints to build a comprehensive grasp of homomorphic indistinguishability.",
+  "reading_order": [
+    {
+      "paper_id": "2301.12060",
+      "why_first": "Introduces a foundational unbounded fully homomorphic encryption scheme, providing the theoretical basis for understanding homomorphic operations and their limits.",
+      "key_questions": [
+        "What is the construction of the unbounded FHE scheme using ideal lattices and CRT?",
+        "How does this scheme differ from Gentry's bootstrapping approach?",
+        "What are the security assumptions and efficiency trade-offs?"
+      ],
+      "paper_title": "An Unbounded Fully Homomorphic Encryption Scheme Based on Ideal Lattices\n  and Chinese Remainder Theorem"
+    },
+    {
+      "paper_id": "2410.17106",
+      "why_first": "Builds on homomorphic concepts by proposing Feature Homomorphism, a new cryptographic scheme for data verification under ciphertext-only conditions, expanding understanding of homomorphism applications.",
+      "key_questions": [
+        "What defines Feature Homomorphism and how does it differ from traditional homomorphisms?",
+        "How does the scheme ensure data verification without decryption?",
+        "What algorithms are involved in the scheme?"
+      ],
+      "paper_title": "Feature Homomorphism -- A Cryptographic Scheme For Data Verification\n  Under Ciphertext-Only Conditions"
+    },
+    {
+      "paper_id": "2301.11995",
+      "why_first": "Explores symmetric homomorphic functional encryption over hidden rings, extending homomorphic operations to polynomial public key encapsulations, deepening knowledge of functional encryption.",
+      "key_questions": [
+        "How does homomorphic functional encryption operate over a hidden ring?",
+        "What are the capabilities for polynomial evaluation on encrypted data?",
+        "How does this scheme maintain privacy of polynomial coefficients?"
+      ],
+      "paper_title": "A New Symmetric Homomorphic Functional Encryption over a Hidden Ring for\n  Polynomial Public Key Encapsulations"
+    },
+    {
+      "paper_id": "1811.12365",
+      "why_first": "Examines indistinguishability obfuscation in the context of encrypted computing, directly addressing indistinguishability concepts relevant to homomorphism.",
+      "key_questions": [
+        "What is the relationship between encrypted computing and indistinguishability obfuscation?",
+        "How does the obfuscating compiler technology work?",
+        "What are the implications for homomorphic encryption?"
+      ],
+      "paper_title": "(Un)Encrypted Computing and Indistinguishability Obfuscation"
+    },
+    {
+      "paper_id": "2210.05560",
+      "why_first": "Provides a tutorial and comparison of encrypted control approaches using LWE-based homomorphic encryption, illustrating practical challenges and solutions in dynamic systems.",
+      "key_questions": [
+        "What are the main encrypted control approaches and their trade-offs?",
+        "How does LWE-based homomorphic encryption apply to dynamic systems?",
+        "What limitations exist for arithmetic operations in these contexts?"
+      ],
+      "paper_title": "Comparison of encrypted control approaches and tutorial on dynamic\n  systems using LWE-based homomorphic encryption"
+    },
+    {
+      "paper_id": "2103.11065",
+      "why_first": "Demonstrates encrypted value iteration and temporal difference learning over leveled homomorphic encryption, showcasing applications in reinforcement learning and control synthesis.",
+      "key_questions": [
+        "How does leveled homomorphic encryption affect convergence in value iteration?",
+        "What are the noise impacts and how are they bounded?",
+        "How is secure implementation achieved in RL architectures?"
+      ],
+      "paper_title": "Encrypted Value Iteration and Temporal Difference Learning over Leveled\n  Homomorphic Encryption"
+    },
+    {
+      "paper_id": "2106.13560",
+      "why_first": "Focuses on graph algorithms under homomorphic encryption, specifically checking chordality, highlighting algorithmic adaptations for encrypted data structures.",
+      "key_questions": [
+        "How can chordality be checked on homomorphically encrypted graphs?",
+        "What are the computational costs and limitations?",
+        "How are queries redesigned to fit encryption constraints?"
+      ],
+      "paper_title": "Checking chordality on homomorphically encrypted graphs"
+    },
+    {
+      "paper_id": "1606.03304",
+      "why_first": "Introduces homomorphic evaluation of database queries, providing insight into secure search techniques over encrypted data, a practical application of homomorphic encryption.",
+      "key_questions": [
+        "How are database queries evaluated homomorphically?",
+        "What is the proposed search technique using ring-based FHE?",
+        "What are the performance considerations?"
+      ],
+      "paper_title": "Homomorphic Evaluation of Database Queries"
+    },
+    {
+      "paper_id": "2302.07572",
+      "why_first": "Presents similarity calculations based on homomorphic encryption, addressing the challenge of performing similarity measures on encrypted data, relevant for search and query applications.",
+      "key_questions": [
+        "How are cosine, angular, Tanimoto, and soft cosine similarities computed homomorphically?",
+        "What mathematical models support these methods?",
+        "How is performance evaluated under different encryption parameters?"
+      ],
+      "paper_title": "Similarity Calculation Based on Homomorphic Encryption"
+    },
+    {
+      "paper_id": "2204.12557",
+      "why_first": "Covers end-to-end computing with fully homomorphic encryption in memory, addressing hardware and system-level challenges to enable practical FHE applications.",
+      "key_questions": [
+        "What architectural innovations enable FHE in memory?",
+        "How does MemFHE address ciphertext size and computational overhead?",
+        "What are the security and performance trade-offs?"
+      ],
+      "paper_title": "MemFHE: End-to-End Computing with Fully Homomorphic Encryption in Memory"
+    }
+  ],
+  "actions": [
+    {
+      "label": "Study foundational FHE scheme",
+      "how_to": "Read paper 2301.12060 carefully, summarize the construction and security assumptions, and compare with Gentry's approach.",
+      "expected_outcome": "Clear understanding of unbounded FHE schemes and their theoretical foundations."
+    },
+    {
+      "label": "Analyze Feature Homomorphism scheme",
+      "how_to": "Examine paper 2410.17106, implement simplified pseudocode for the Feature Homomorphic Algorithm, and verify data verification properties.",
+      "expected_outcome": "Practical grasp of Feature Homomorphism and its cryptographic mechanisms."
+    },
+    {
+      "label": "Explore functional encryption over hidden rings",
+      "how_to": "Study paper 2301.11995, work through polynomial encryption examples, and simulate polynomial evaluation on encrypted inputs.",
+      "expected_outcome": "Ability to apply homomorphic functional encryption to polynomial computations."
+    },
+    {
+      "label": "Understand indistinguishability obfuscation",
+      "how_to": "Review paper 1811.12365, focus on compiler technology and indistinguishability concepts, and write a summary relating to homomorphic encryption.",
+      "expected_outcome": "Conceptual clarity on indistinguishability obfuscation in encrypted computing."
+    },
+    {
+      "label": "Compare encrypted control methods",
+      "how_to": "Read paper 2210.05560, create a comparison table of encrypted control approaches, and simulate a simple LWE-based encrypted control example.",
+      "expected_outcome": "Insight into practical encrypted control challenges and solutions."
+    },
+    {
+      "label": "Implement encrypted RL algorithms",
+      "how_to": "Study paper 2103.11065, replicate value iteration under leveled homomorphic encryption in a controlled environment, and analyze noise impact.",
+      "expected_outcome": "Hands-on experience with encrypted reinforcement learning techniques."
+    },
+    {
+      "label": "Adapt graph algorithms for encrypted data",
+      "how_to": "Analyze paper 2106.13560, implement a prototype for chordality checking on encrypted graphs, and evaluate computational overhead.",
+      "expected_outcome": "Understanding of algorithm redesign for encrypted graph processing."
+    },
+    {
+      "label": "Develop homomorphic database queries",
+      "how_to": "Examine paper 1606.03304, implement basic homomorphic search queries, and measure performance metrics.",
+      "expected_outcome": "Ability to perform secure database queries on encrypted data."
+    },
+    {
+      "label": "Calculate similarity on encrypted data",
+      "how_to": "Study paper 2302.07572, implement homomorphic similarity measures, and test accuracy and efficiency under encryption.",
+      "expected_outcome": "Capability to compute similarity metrics on encrypted datasets."
+    },
+    {
+      "label": "Explore hardware support for FHE",
+      "how_to": "Read paper 2204.12557, analyze MemFHE architecture, and simulate memory-based FHE operations if possible.",
+      "expected_outcome": "Awareness of system-level optimizations for practical FHE deployment."
+    }
+  ],
+  "metrics": [
+    "Number of papers thoroughly understood and summarized",
+    "Successful implementation of at least three homomorphic encryption algorithms or schemes",
+    "Ability to simulate encrypted control and RL algorithms with measurable noise impact",
+    "Prototype implementation of encrypted graph and database query algorithms",
+    "Performance benchmarks of similarity calculations under homomorphic encryption",
+    "Comparative analysis of encrypted control approaches documented",
+    "Completion of a summary report on indistinguishability obfuscation concepts",
+    "Understanding of hardware-level FHE optimizations demonstrated"
+  ],
+  "timeline_weeks": [
+    {
+      "week": 1,
+      "focus": "Foundational theory of unbounded FHE and Feature Homomorphism",
+      "deliverable": "Summary notes and pseudocode implementation of Feature Homomorphism"
+    },
+    {
+      "week": 2,
+      "focus": "Homomorphic functional encryption and indistinguishability obfuscation",
+      "deliverable": "Polynomial encryption examples and conceptual summary report"
+    },
+    {
+      "week": 3,
+      "focus": "Encrypted control approaches and LWE-based systems",
+      "deliverable": "Comparison table and simple encrypted control simulation"
+    },
+    {
+      "week": 4,
+      "focus": "Encrypted reinforcement learning algorithms",
+      "deliverable": "Value iteration implementation and noise impact analysis"
+    },
+    {
+      "week": 5,
+      "focus": "Graph algorithms on encrypted data",
+      "deliverable": "Prototype for chordality checking and performance evaluation"
+    },
+    {
+      "week": 6,
+      "focus": "Homomorphic database queries and similarity calculations",
+      "deliverable": "Implemented search queries and similarity measure tests"
+    },
+    {
+      "week": 7,
+      "focus": "Hardware and system-level FHE optimizations",
+      "deliverable": "Analysis report on MemFHE architecture and simulation results if available"
+    },
+    {
+      "week": 8,
+      "focus": "Integration and review",
+      "deliverable": "Comprehensive report summarizing all findings and implementations"
+    }
+  ],
+  "risks": [
+    {
+      "risk": "High computational complexity and resource requirements may limit practical implementation of some schemes.",
+      "mitigation": "Focus on simplified prototypes and simulations; use theoretical analysis where full implementation is infeasible."
+    },
+    {
+      "risk": "Limited prior knowledge of advanced cryptographic concepts may slow progress.",
+      "mitigation": "Supplement study with foundational cryptography resources and seek expert guidance if needed."
+    },
+    {
+      "risk": "Some papers have low citation counts and may lack extensive validation.",
+      "mitigation": "Cross-reference concepts with more established works and critically evaluate assumptions."
+    }
+  ],
+  "_topics_suggestion": "The selected papers may also cover research areas including: Applied Machine Learning, Combinatorics, General Algorithms, Robotics & Control. You may gain a broader understand of the field by exploring these related research directions"
+}

@@ -1,0 +1,257 @@
+{
+  "goal": "mip*=re",
+  "study_level": "intermediate",
+  "source_papers": [
+    "2112.01059",
+    "1811.02074",
+    "1612.01341",
+    "2311.00603",
+    "1701.08398",
+    "2003.08303",
+    "1708.04169",
+    "1807.10591",
+    "2005.07862",
+    "2410.00348"
+  ],
+  "metadata": {
+    "prompt_version": "PT-20251102-1",
+    "model": "gpt-4.1-mini",
+    "created_at": "2026-01-25T11:44:51.686639+00:00"
+  },
+  "plan_overview": "This learning plan guides you through foundational and advanced concepts in person re-identification (re-ID), starting from strong baseline models and unsupervised learning techniques, progressing through scalable and occlusion-aware methods, and concluding with texture and 3D model enhancements. The strategy is to build a solid understanding of core re-ID challenges and solutions, then explore state-of-the-art improvements and specialized scenarios such as clothes changing and 3D texture use, enabling you to develop robust re-ID systems.",
+  "reading_order": [
+    {
+      "paper_id": "2112.01059",
+      "why_first": "Introduces a strong baseline model for person re-ID with practical improvements and faster convergence, establishing a solid foundation for understanding re-ID model design.",
+      "key_questions": [
+        "What modifications improve the Strong Baseline to Stronger Baseline?",
+        "How does faster convergence impact training efficiency?",
+        "What are the key performance metrics achieved?"
+      ],
+      "paper_title": "Stronger Baseline for Person Re-Identification"
+    },
+    {
+      "paper_id": "1811.02074",
+      "why_first": "Builds on baseline knowledge by addressing unsupervised person re-ID using virtual and real data, critical for scenarios lacking labeled data.",
+      "key_questions": [
+        "How are virtual persons generated and used for training?",
+        "What is the role of camera style transfer?",
+        "How does unsupervised training improve model generalization?"
+      ],
+      "paper_title": "Leveraging Virtual and Real Person for Unsupervised Person\n  Re-identification"
+    },
+    {
+      "paper_id": "1612.01341",
+      "why_first": "Focuses on scalability and efficiency in re-ID model training, important for real-world large-scale applications and incremental learning.",
+      "key_questions": [
+        "How does the Highly Efficient Regression (HER) model work?",
+        "What makes HER suitable for incremental updates?",
+        "How does it balance performance and computational cost?"
+      ],
+      "paper_title": "Highly Efficient Regression for Scalable Person Re-Identification"
+    },
+    {
+      "paper_id": "2311.00603",
+      "why_first": "Surveys occluded person re-ID methods, highlighting challenges and solutions for handling occlusions, a common real-world problem.",
+      "key_questions": [
+        "What are the main challenges caused by occlusion in re-ID?",
+        "Which methods effectively address occlusion?",
+        "How are datasets and evaluation metrics designed for occluded re-ID?"
+      ],
+      "paper_title": "Occluded Person Re-Identification with Deep Learning: A Survey and\n  Perspectives"
+    },
+    {
+      "paper_id": "1701.08398",
+      "why_first": "Introduces a re-ranking technique using k-reciprocal encoding to improve retrieval accuracy, a key post-processing step in re-ID pipelines.",
+      "key_questions": [
+        "What is k-reciprocal encoding and how is it computed?",
+        "How does re-ranking improve final matching results?",
+        "What are the benefits of combining original and Jaccard distances?"
+      ],
+      "paper_title": "Re-ranking Person Re-identification with k-reciprocal Encoding"
+    },
+    {
+      "paper_id": "2003.08303",
+      "why_first": "Presents a novel triplet permutation method to reduce overfitting in single-shot re-ID, enhancing training data diversity and model robustness.",
+      "key_questions": [
+        "How does triplet permutation generate multiple training sets?",
+        "Why is overfitting a problem in single-shot re-ID?",
+        "What performance gains are demonstrated?"
+      ],
+      "paper_title": "Triplet Permutation Method for Deep Learning of Single-Shot Person\n  Re-Identification"
+    },
+    {
+      "paper_id": "1708.04169",
+      "why_first": "Proposes a divide and fuse re-ranking approach exploiting feature diversity from sub-features, useful when only one feature type is available.",
+      "key_questions": [
+        "How are features divided and fused for re-ranking?",
+        "What is the iterative encoding process?",
+        "How does this method improve re-ID performance?"
+      ],
+      "paper_title": "Divide and Fuse: A Re-ranking Approach for Person Re-identification"
+    },
+    {
+      "paper_id": "1807.10591",
+      "why_first": "Explores unsupervised cross-dataset transfer learning with metric embedding autoencoders, addressing domain adaptation challenges in re-ID.",
+      "key_questions": [
+        "How does the autoencoder separate metric embedding and nuisance variables?",
+        "What unsupervised training methods are used?",
+        "How does this approach improve transfer learning?"
+      ],
+      "paper_title": "Metric Embedding Autoencoders for Unsupervised Cross-Dataset Transfer\n  Learning"
+    },
+    {
+      "paper_id": "2005.07862",
+      "why_first": "Introduces a large-scale clothes changing person dataset and setting, addressing the challenge of re-ID under clothing variation.",
+      "key_questions": [
+        "What are the characteristics of the COCAS dataset?",
+        "How does clothes changing impact re-ID?",
+        "What new evaluation protocols are proposed?"
+      ],
+      "paper_title": "COCAS: A Large-Scale Clothes Changing Person Dataset for\n  Re-identification"
+    },
+    {
+      "paper_id": "2410.00348",
+      "why_first": "Presents a novel 3D person re-ID framework emphasizing texture via UVTexture mapping, enhancing model explainability and performance.",
+      "key_questions": [
+        "How is texture emphasized in 3D re-ID models?",
+        "What role do activation and attention maps play?",
+        "How does 3D texture integration improve re-ID accuracy?"
+      ],
+      "paper_title": "Revisiting the Role of Texture in 3D Person Re-identification"
+    }
+  ],
+  "actions": [
+    {
+      "label": "Implement Stronger Baseline Model",
+      "how_to": "Reproduce the Stronger Baseline method from paper 2112.01059 using provided code or from scratch, train on a standard re-ID dataset, and evaluate mAP and rank-1 accuracy.",
+      "expected_outcome": "You will understand baseline model design and achieve competitive re-ID performance."
+    },
+    {
+      "label": "Generate Virtual Persons for Unsupervised Training",
+      "how_to": "Use techniques from paper 1811.02074 to generate virtual persons with pose and camera style variations, then train a deep re-ID model without labels.",
+      "expected_outcome": "You will gain experience in unsupervised re-ID and data augmentation strategies."
+    },
+    {
+      "label": "Apply Highly Efficient Regression Model",
+      "how_to": "Implement the HER model from paper 1612.01341, train on a large-scale dataset, and test incremental update capabilities with new data.",
+      "expected_outcome": "You will learn scalable re-ID model training and real-time update methods."
+    },
+    {
+      "label": "Evaluate Occlusion Handling Methods",
+      "how_to": "Study occlusion-aware methods from paper 2311.00603, implement a selected approach, and test on occluded re-ID datasets.",
+      "expected_outcome": "You will understand occlusion challenges and improve robustness of re-ID models."
+    },
+    {
+      "label": "Integrate k-Reciprocal Re-ranking",
+      "how_to": "Implement the k-reciprocal encoding re-ranking method from paper 1701.08398 and apply it to baseline re-ID results to improve retrieval accuracy.",
+      "expected_outcome": "You will enhance re-ID ranking performance through effective post-processing."
+    },
+    {
+      "label": "Experiment with Triplet Permutation Training",
+      "how_to": "Apply the triplet permutation method from paper 2003.08303 to augment training data for single-shot re-ID and measure overfitting reduction.",
+      "expected_outcome": "You will reduce overfitting and improve model generalization on limited data."
+    },
+    {
+      "label": "Implement Divide and Fuse Re-ranking",
+      "how_to": "Divide high-dimensional features into sub-features and apply iterative encoding fusion as per paper 1708.04169, then evaluate re-ranking improvements.",
+      "expected_outcome": "You will exploit feature diversity to boost re-ID accuracy without additional features."
+    },
+    {
+      "label": "Train Metric Embedding Autoencoder for Transfer Learning",
+      "how_to": "Build the autoencoder model from paper 1807.10591, train on source and target datasets unsupervisedly, and evaluate cross-dataset performance.",
+      "expected_outcome": "You will improve domain adaptation and transfer learning in re-ID."
+    },
+    {
+      "label": "Explore Clothes Changing Re-ID Dataset",
+      "how_to": "Analyze the COCAS dataset from paper 2005.07862, train models under clothes changing settings, and evaluate robustness to appearance changes.",
+      "expected_outcome": "You will handle re-ID challenges caused by clothing variations."
+    },
+    {
+      "label": "Incorporate 3D Texture in Re-ID Models",
+      "how_to": "Implement the UVTexture mapping and attention mechanisms from paper 2410.00348, train on 3D re-ID data, and visualize feature importance.",
+      "expected_outcome": "You will enhance re-ID accuracy and interpretability using 3D texture information."
+    }
+  ],
+  "metrics": [
+    "mean Average Precision (mAP)",
+    "Rank-1 Accuracy",
+    "Training Convergence Speed",
+    "Model Incremental Update Time",
+    "Re-ranking Improvement Percentage",
+    "Overfitting Reduction (Validation Gap)",
+    "Cross-Dataset Transfer Accuracy",
+    "Occlusion Robustness Score"
+  ],
+  "timeline_weeks": [
+    {
+      "week": 1,
+      "focus": "Strong Baseline Implementation and Evaluation",
+      "deliverable": "Trained Stronger Baseline model with baseline metrics"
+    },
+    {
+      "week": 2,
+      "focus": "Unsupervised Virtual Person Generation and Training",
+      "deliverable": "Unsupervised re-ID model trained with virtual data"
+    },
+    {
+      "week": 3,
+      "focus": "Scalable Regression Model and Incremental Learning",
+      "deliverable": "HER model implemented and incremental update tested"
+    },
+    {
+      "week": 4,
+      "focus": "Occlusion Handling Methods Study and Implementation",
+      "deliverable": "Occlusion-aware re-ID model evaluated on occluded datasets"
+    },
+    {
+      "week": 5,
+      "focus": "Re-ranking Techniques: k-Reciprocal Encoding",
+      "deliverable": "Re-ranking module integrated and performance improved"
+    },
+    {
+      "week": 6,
+      "focus": "Triplet Permutation Data Augmentation",
+      "deliverable": "Reduced overfitting in single-shot re-ID model"
+    },
+    {
+      "week": 7,
+      "focus": "Divide and Fuse Re-ranking Approach",
+      "deliverable": "Feature fusion re-ranking implemented and tested"
+    },
+    {
+      "week": 8,
+      "focus": "Metric Embedding Autoencoder for Transfer Learning",
+      "deliverable": "Cross-dataset transfer learning model trained and evaluated"
+    },
+    {
+      "week": 9,
+      "focus": "Clothes Changing Dataset Exploration and Model Training",
+      "deliverable": "Model trained on COCAS dataset with clothes changing setting"
+    },
+    {
+      "week": 10,
+      "focus": "3D Texture Emphasis and Visualization in Re-ID",
+      "deliverable": "3D re-ID model with texture emphasis and activation maps"
+    }
+  ],
+  "risks": [
+    {
+      "risk": "Limited labeled data may hinder supervised training effectiveness.",
+      "mitigation": "Use unsupervised and virtual data generation methods to augment training."
+    },
+    {
+      "risk": "High computational cost for 3D texture and large-scale datasets.",
+      "mitigation": "Optimize code, use efficient models, and leverage scalable regression methods."
+    },
+    {
+      "risk": "Occlusion and clothes changing introduce significant variability.",
+      "mitigation": "Incorporate occlusion-aware and clothes changing datasets early to adapt models."
+    },
+    {
+      "risk": "Domain shift between datasets may reduce transfer learning performance.",
+      "mitigation": "Apply metric embedding autoencoder and unsupervised transfer learning techniques."
+    }
+  ],
+  "_topics_suggestion": "The selected papers may also cover research areas including: 3D Scene Understanding, Applied Machine Learning, General Algorithms, Medical Imaging, Neural Networks, Object Detection & Pose Estimation. You may gain a broader understand of the field by exploring these related research directions"
+}

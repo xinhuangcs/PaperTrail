@@ -1,0 +1,141 @@
+{
+  "goal": "deep learning",
+  "study_level": "beginner",
+  "source_papers": [
+    "2002.01053",
+    "2304.12602",
+    "2205.01069",
+    "2003.09585",
+    "2003.03253"
+  ],
+  "metadata": {
+    "prompt_version": "PT-20251102-1",
+    "model": "gpt-4.1-mini",
+    "created_at": "2026-04-01T18:36:54.209091+00:00"
+  },
+  "plan_overview": "This learning plan is designed to guide you from foundational concepts of deep learning to advanced, domain-specific applications. Starting with an accessible introduction, you will build a solid understanding of deep neural networks and their practical implementation in Python. Then, you will explore specialized applications in computer vision and microscopy, followed by insights into the interpretability and utility of deep learning in pure mathematics. This progression ensures a comprehensive grasp of both theory and practice.",
+  "reading_order": [
+    {
+      "paper_id": "2205.01069",
+      "why_first": "This paper is a beginner-friendly introduction to deep learning fundamentals and Python implementation, providing the essential groundwork.",
+      "key_questions": [
+        "What are the basic concepts and components of deep learning?",
+        "How to implement simple deep neural networks in Python?",
+        "What are common activation functions and loss functions?"
+      ],
+      "paper_title": "Deep Learning: From Basics to Building Deep Neural Networks with Python"
+    },
+    {
+      "paper_id": "2003.03253",
+      "why_first": "This paper builds on the basics by introducing core deep learning structures and popular use cases, deepening your theoretical understanding.",
+      "key_questions": [
+        "What are the main architectures used in deep learning?",
+        "How do different network layers function?",
+        "What are typical applications of deep learning?"
+      ],
+      "paper_title": "Introduction to deep learning"
+    },
+    {
+      "paper_id": "2002.01053",
+      "why_first": "This paper introduces an interpretable deep learning model for blind deconvolution, illustrating the integration of classical methods with deep learning for improved performance.",
+      "key_questions": [
+        "What is the Deep Unfolded Richardson-Lucy framework?",
+        "How does model interpretability improve deep learning applications?",
+        "How is blind deconvolution approached using deep learning?"
+      ],
+      "paper_title": "Deep-URL: A Model-Aware Approach To Blind Deconvolution Based On Deep\n  Unfolded Richardson-Lucy Network"
+    },
+    {
+      "paper_id": "2003.09585",
+      "why_first": "This paper demonstrates a practical application of deep learning in microscopy autofocusing, showing real-world impact and performance benefits.",
+      "key_questions": [
+        "How is deep learning applied to single-shot autofocusing?",
+        "What are the advantages of Deep-R over traditional methods?",
+        "How does deep learning handle different microscopy modalities?"
+      ],
+      "paper_title": "Single-shot autofocusing of microscopy images using deep learning"
+    },
+    {
+      "paper_id": "2304.12602",
+      "why_first": "This paper offers a perspective on the usefulness of deep learning for pure mathematicians, expanding your view on interdisciplinary applications and theoretical implications.",
+      "key_questions": [
+        "How can deep learning tools assist pure mathematics research?",
+        "What are the limitations and potentials of deep learning in abstract fields?",
+        "What insights does deep learning provide beyond traditional mathematical methods?"
+      ],
+      "paper_title": "Is deep learning a useful tool for the pure mathematician?"
+    }
+  ],
+  "actions": [
+    {
+      "label": "Implement basic deep neural networks in Python",
+      "how_to": "Follow the examples and exercises in paper 2205.01069 to build and train simple models using Python libraries like TensorFlow or PyTorch.",
+      "expected_outcome": "You will gain hands-on experience coding and training basic deep learning models."
+    },
+    {
+      "label": "Study core deep learning architectures and use cases",
+      "how_to": "Read paper 2003.03253 carefully, summarizing key architectures and their applications.",
+      "expected_outcome": "You will understand the main building blocks and practical scenarios for deep learning."
+    },
+    {
+      "label": "Analyze the Deep-URL model for blind deconvolution",
+      "how_to": "Review paper 2002.01053, focusing on the model design and interpretability aspects; attempt to replicate key results if code is available.",
+      "expected_outcome": "You will comprehend how classical methods can be integrated with deep learning for interpretable models."
+    },
+    {
+      "label": "Explore deep learning for microscopy autofocusing",
+      "how_to": "Study paper 2003.09585 and understand the Deep-R method; consider experimenting with sample microscopy data if accessible.",
+      "expected_outcome": "You will appreciate deep learning's impact on real-time imaging and autofocus tasks."
+    },
+    {
+      "label": "Reflect on deep learning's role in pure mathematics",
+      "how_to": "Read paper 2304.12602 and write a brief essay on potential interdisciplinary applications and challenges.",
+      "expected_outcome": "You will develop a broader perspective on deep learning beyond typical engineering domains."
+    }
+  ],
+  "metrics": [
+    "Number of implemented deep learning models",
+    "Accuracy and loss metrics from training experiments",
+    "Summary notes on architectures and applications",
+    "Replication success of Deep-URL or Deep-R results",
+    "Written reflection on deep learning in mathematics"
+  ],
+  "timeline_weeks": [
+    {
+      "week": 1,
+      "focus": "Foundations of deep learning and Python implementation",
+      "deliverable": "Implement and train a basic neural network"
+    },
+    {
+      "week": 2,
+      "focus": "Deep learning architectures and use cases",
+      "deliverable": "Summary notes and concept map of architectures"
+    },
+    {
+      "week": 3,
+      "focus": "Interpretable deep learning models (Deep-URL)",
+      "deliverable": "Report on model design and attempt replication"
+    },
+    {
+      "week": 4,
+      "focus": "Application to microscopy autofocusing (Deep-R)",
+      "deliverable": "Analysis of Deep-R method and experimental results if possible"
+    },
+    {
+      "week": 5,
+      "focus": "Deep learning in pure mathematics",
+      "deliverable": "Essay reflecting on interdisciplinary applications and challenges"
+    }
+  ],
+  "risks": [
+    {
+      "risk": "Limited access to code or datasets for replicating Deep-URL and Deep-R experiments.",
+      "mitigation": "Focus on understanding the methodology and theoretical contributions; seek alternative open datasets or simplified implementations."
+    },
+    {
+      "risk": "The mathematical depth in paper 2304.12602 may be challenging without advanced math background.",
+      "mitigation": "Focus on the conceptual insights and practical implications rather than technical proofs."
+    }
+  ],
+  "_topics_suggestion": "The selected papers may also cover research areas including: Applied Machine Learning, General Algorithms, Neural Networks. You may gain a broader understand of the field by exploring these related research directions"
+}

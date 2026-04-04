@@ -1,0 +1,156 @@
+{
+  "goal": "RSI",
+  "study_level": "intermediate",
+  "source_papers": [
+    "2404.02668",
+    "2412.18136",
+    "2401.09083",
+    "2209.12480",
+    "2005.01094"
+  ],
+  "metadata": {
+    "prompt_version": "PT-20251102-1",
+    "model": "gpt-4.1-mini",
+    "created_at": "2026-04-04T19:03:03.842230+00:00"
+  },
+  "plan_overview": "This learning plan is designed to build your expertise in Remote Sensing Image (RSI) analysis by progressing from foundational knowledge of scene classification and datasets to advanced model architectures and recent innovations integrating large language models. The strategy begins with understanding the challenges and methods in RSI scene classification, followed by familiarizing yourself with key datasets, then advancing to state-of-the-art dense prediction and retrieval models, and finally exploring the integration of language models for remote sensing tasks.",
+  "reading_order": [
+    {
+      "paper_id": "2005.01094",
+      "why_first": "This paper provides a comprehensive survey of deep learning methods for remote sensing image scene classification, establishing foundational knowledge and understanding of challenges and benchmarks in RSI.",
+      "key_questions": [
+        "What are the main challenges in remote sensing image scene classification?",
+        "Which deep learning architectures are most effective for RSI classification?",
+        "What benchmarks and datasets are commonly used?"
+      ],
+      "paper_title": "Remote Sensing Image Scene Classification Meets Deep Learning:\n  Challenges, Methods, Benchmarks, and Opportunities"
+    },
+    {
+      "paper_id": "2209.12480",
+      "why_first": "Understanding available datasets is crucial for practical RSI work; this paper introduces the IEEE GRSS Earth Observation Database, a key resource for accessing diverse remote sensing datasets.",
+      "key_questions": [
+        "What types of datasets are catalogued in the EOD?",
+        "How can these datasets be accessed and utilized for training models?",
+        "What are the characteristics of datasets suitable for different RSI tasks?"
+      ],
+      "paper_title": "EOD: The IEEE GRSS Earth Observation Database"
+    },
+    {
+      "paper_id": "2404.02668",
+      "why_first": "This paper presents RS-Mamba, a novel model addressing the computational challenges of large very-high-resolution images, advancing your knowledge on efficient dense prediction in RSI.",
+      "key_questions": [
+        "How does RS-Mamba achieve linear complexity in context modeling?",
+        "What are the advantages over traditional transformer-based models?",
+        "How is RS-Mamba applied to large VHR images?"
+      ],
+      "paper_title": "RS-Mamba for Large Remote Sensing Image Dense Prediction"
+    },
+    {
+      "paper_id": "2412.18136",
+      "why_first": "Building on model architectures, this paper introduces an efficient and robust ViT-based distillation framework for RSI retrieval, expanding your understanding of model optimization and retrieval tasks.",
+      "key_questions": [
+        "What is the ViT-based distillation framework proposed?",
+        "How does it improve efficiency and robustness in RSI retrieval?",
+        "What are the key components of the ERVD framework?"
+      ],
+      "paper_title": "ERVD: An Efficient and Robust ViT-Based Distillation Framework for\n  Remote Sensing Image Retrieval"
+    },
+    {
+      "paper_id": "2401.09083",
+      "why_first": "This paper explores the novel integration of large language models like ChatGPT with visual models for remote sensing tasks, highlighting cutting-edge AI applications in RSI interpretation and automation.",
+      "key_questions": [
+        "How does ChatGPT enhance remote sensing task planning and interpretation?",
+        "What is the architecture of the Remote Sensing ChatGPT agent?",
+        "How can LLMs be combined with visual models for RSI tasks?"
+      ],
+      "paper_title": "Remote Sensing ChatGPT: Solving Remote Sensing Tasks with ChatGPT and\n  Visual Models"
+    }
+  ],
+  "actions": [
+    {
+      "label": "Summarize RSI Scene Classification Methods",
+      "how_to": "Read paper 2005.01094 and write a summary of key challenges, methods, and benchmarks in RSI scene classification.",
+      "expected_outcome": "A concise document outlining foundational concepts and state-of-the-art methods in RSI scene classification."
+    },
+    {
+      "label": "Explore and Download Datasets from EOD",
+      "how_to": "Use paper 2209.12480 to identify relevant datasets in the IEEE GRSS Earth Observation Database and download sample datasets for experimentation.",
+      "expected_outcome": "A collection of remote sensing datasets ready for model training and evaluation."
+    },
+    {
+      "label": "Implement RS-Mamba Model",
+      "how_to": "Study paper 2404.02668 and implement the RS-Mamba architecture for dense prediction on a selected VHR remote sensing dataset.",
+      "expected_outcome": "A working implementation of RS-Mamba demonstrating efficient context modeling on large images."
+    },
+    {
+      "label": "Experiment with ERVD Framework",
+      "how_to": "Based on paper 2412.18136, implement or adapt the ViT-based distillation framework and evaluate its performance on RSI retrieval tasks.",
+      "expected_outcome": "An experimental setup showing improved retrieval efficiency and robustness using ERVD."
+    },
+    {
+      "label": "Develop a Remote Sensing ChatGPT Prototype",
+      "how_to": "Using insights from paper 2401.09083, integrate a large language model with visual remote sensing models to automate interpretation tasks.",
+      "expected_outcome": "A prototype system demonstrating LLM-powered remote sensing task planning and interpretation."
+    }
+  ],
+  "metrics": [
+    "Number of RSI datasets successfully accessed and explored",
+    "Accuracy and efficiency metrics of RS-Mamba implementation on VHR images",
+    "Retrieval performance improvements using ERVD framework",
+    "Quality and usability of the Remote Sensing ChatGPT prototype",
+    "Comprehensiveness of the summary document on RSI scene classification"
+  ],
+  "timeline_weeks": [
+    {
+      "week": 1,
+      "focus": "Foundations of RSI Scene Classification",
+      "deliverable": "Summary document of deep learning methods and challenges from paper 2005.01094"
+    },
+    {
+      "week": 2,
+      "focus": "Dataset Exploration and Preparation",
+      "deliverable": "Downloaded and organized datasets from IEEE GRSS Earth Observation Database"
+    },
+    {
+      "week": 3,
+      "focus": "RS-Mamba Model Study and Implementation",
+      "deliverable": "Initial RS-Mamba implementation for dense prediction"
+    },
+    {
+      "week": 4,
+      "focus": "RS-Mamba Evaluation and Optimization",
+      "deliverable": "Performance report on RS-Mamba with VHR images"
+    },
+    {
+      "week": 5,
+      "focus": "ERVD Framework Implementation",
+      "deliverable": "Prototype of ViT-based distillation framework for RSI retrieval"
+    },
+    {
+      "week": 6,
+      "focus": "ERVD Evaluation and Refinement",
+      "deliverable": "Evaluation report showing retrieval improvements using ERVD"
+    },
+    {
+      "week": 7,
+      "focus": "Remote Sensing ChatGPT Integration",
+      "deliverable": "Prototype integrating LLM with visual models for RSI tasks"
+    },
+    {
+      "week": 8,
+      "focus": "Prototype Testing and Documentation",
+      "deliverable": "Demonstration and documentation of Remote Sensing ChatGPT system"
+    }
+  ],
+  "risks": [
+    {
+      "risk": "Limited practical implementation details in some papers may hinder reproducibility.",
+      "mitigation": "Focus on conceptual understanding and supplement with related open-source implementations where available."
+    },
+    {
+      "risk": "Computational resources required for large VHR image processing and transformer models may be high.",
+      "mitigation": "Use smaller datasets or cloud resources; optimize code for efficiency."
+    }
+  ],
+  "_topics_suggestion": "The selected papers may also cover research areas including: Applied Machine Learning, General Algorithms, Medical Imaging. You may gain a broader understand of the field by exploring these related research directions"
+}

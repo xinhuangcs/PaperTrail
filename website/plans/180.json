@@ -1,0 +1,252 @@
+{
+  "goal": "STG",
+  "study_level": "intermediate",
+  "source_papers": [
+    "2406.11244",
+    "2112.03558",
+    "2310.17678",
+    "2308.07496",
+    "2308.10425",
+    "2412.11393",
+    "2411.09251",
+    "2408.12116",
+    "2207.10830",
+    "2211.14701"
+  ],
+  "metadata": {
+    "prompt_version": "PT-20251102-1",
+    "model": "gpt-4.1-mini",
+    "created_at": "2026-04-04T19:07:20.947125+00:00"
+  },
+  "plan_overview": "This learning plan is designed to build your expertise in spatio-temporal graph (STG) forecasting by progressing from foundational models and concepts to advanced architectures and applications. Starting with core methods that address long-range dependencies and neural differential equations, you will then explore meta-learning, linear frameworks, and transformer adaptations. The plan concludes with specialized topics such as hypergraph learning, unified spatio-temporal modeling, and leveraging large language models for geolocation representation. This structured approach ensures a comprehensive understanding of current state-of-the-art techniques and practical challenges in STG forecasting.",
+  "reading_order": [
+    {
+      "paper_id": "2112.03558",
+      "why_first": "Introduces foundational concepts of neural controlled differential equations applied to spatio-temporal graphs, establishing a baseline for understanding advanced STG forecasting methods.",
+      "key_questions": [
+        "What are neural controlled differential equations and how are they applied to spatio-temporal graphs?",
+        "How does STG-NCDE model temporal and spatial dependencies separately and jointly?",
+        "What are the benchmark datasets and evaluation metrics used?"
+      ],
+      "paper_title": "Graph Neural Controlled Differential Equations for Traffic Forecasting"
+    },
+    {
+      "paper_id": "2207.10830",
+      "why_first": "Builds on foundational knowledge by presenting an automated dilated spatio-temporal synchronous graph model, emphasizing efficient and adaptive graph construction for traffic prediction.",
+      "key_questions": [
+        "How does automated dilated graph modeling improve spatio-temporal representation?",
+        "What are the limitations of fixed graph construction methods?",
+        "How does the model balance short-term and long-term dependencies?"
+      ],
+      "paper_title": "Automated Dilated Spatio-Temporal Synchronous Graph Modeling for Traffic\n  Prediction"
+    },
+    {
+      "paper_id": "2406.11244",
+      "why_first": "Focuses on capturing long-range spatio-temporal dependencies using selective state space models, extending the understanding of temporal dynamics in STGs.",
+      "key_questions": [
+        "What is the SpoT-Mamba framework and how does it utilize selective state spaces?",
+        "How are node embeddings generated from walk sequences?",
+        "What improvements does SpoT-Mamba offer over previous models?"
+      ],
+      "paper_title": "SpoT-Mamba: Learning Long-Range Dependency on Spatio-Temporal Graphs\n  with Selective State Spaces"
+    },
+    {
+      "paper_id": "2211.14701",
+      "why_first": "Introduces meta-graph learning to address spatio-temporal heterogeneity and non-stationarity, providing insights into adaptive graph structure learning.",
+      "key_questions": [
+        "What is the Meta-Graph Learner and Meta-Node Bank?",
+        "How does MegaCRN handle spatio-temporal heterogeneity?",
+        "What datasets demonstrate the model's effectiveness?"
+      ],
+      "paper_title": "Spatio-Temporal Meta-Graph Learning for Traffic Forecasting"
+    },
+    {
+      "paper_id": "2310.17678",
+      "why_first": "Explores meta contrastive learning to tackle data scarcity and noise, enhancing robustness and generalization in STG prediction.",
+      "key_questions": [
+        "How does spatio-temporal meta contrastive learning improve data quality issues?",
+        "What are the augmentation strategies used?",
+        "How does this approach integrate with STGNNs?"
+      ],
+      "paper_title": "Spatio-Temporal Meta Contrastive Learning"
+    },
+    {
+      "paper_id": "2308.07496",
+      "why_first": "Presents a simpler, efficient spatio-temporal linear framework (ST-MLP) that challenges complex architectures, highlighting the channel-independence strategy.",
+      "key_questions": [
+        "What is the channel-independence strategy and how does it improve efficiency?",
+        "How does ST-MLP incorporate spatial and temporal information?",
+        "What are the trade-offs between complexity and accuracy?"
+      ],
+      "paper_title": "ST-MLP: A Cascaded Spatio-Temporal Linear Framework with\n  Channel-Independence Strategy for Traffic Forecasting"
+    },
+    {
+      "paper_id": "2308.10425",
+      "why_first": "Demonstrates the power of spatio-temporal adaptive embedding combined with vanilla transformers, achieving state-of-the-art results in traffic forecasting.",
+      "key_questions": [
+        "What is spatio-temporal adaptive embedding?",
+        "How does STAEformer leverage vanilla transformers for STG tasks?",
+        "What datasets and metrics validate its performance?"
+      ],
+      "paper_title": "STAEformer: Spatio-Temporal Adaptive Embedding Makes Vanilla Transformer\n  SOTA for Traffic Forecasting"
+    },
+    {
+      "paper_id": "2411.09251",
+      "why_first": "Introduces a unified spatio-temporal model (STUM) that jointly models spatial and temporal dependencies with heterogeneity considerations, advancing integrated modeling approaches.",
+      "key_questions": [
+        "What is the Adaptive Spatio-temporal Unitized Cell (ASTUC)?",
+        "How does STUM address spatio-temporal heterogeneity and distribution alignment?",
+        "What are the computational benefits of this unified approach?"
+      ],
+      "paper_title": "Cross Space and Time: A Spatio-Temporal Unitized Model for Traffic Flow\n  Forecasting"
+    },
+    {
+      "paper_id": "2412.11393",
+      "why_first": "Focuses on dynamic hypergraph learning for wind power forecasting, expanding the application of spatio-temporal models to higher-order spatial relationships.",
+      "key_questions": [
+        "How does the dynamic hypergraph convolutional layer model spatial correlations?",
+        "What advantages do hypergraphs offer over traditional graphs?",
+        "How is temporal convolution integrated in STDHL?"
+      ],
+      "paper_title": "STDHL: Spatio-Temporal Dynamic Hypergraph Learning for Wind Power\n  Forecasting"
+    },
+    {
+      "paper_id": "2408.12116",
+      "why_first": "Concludes with a novel approach using large language models for geolocation representation, enhancing spatio-temporal learning with geographic semantic features.",
+      "key_questions": [
+        "How are large language models used to generate geolocation representations?",
+        "What is the LLMGeovec method and its benefits?",
+        "How does geographic semantic enhancement improve STG models?"
+      ],
+      "paper_title": "Geolocation Representation from Large Language Models are Generic\n  Enhancers for Spatio-Temporal Learning"
+    }
+  ],
+  "actions": [
+    {
+      "label": "Implement STG-NCDE baseline",
+      "how_to": "Reproduce the STG-NCDE model from paper 2112.03558 using provided datasets to understand neural controlled differential equations in STG forecasting.",
+      "expected_outcome": "A working baseline model demonstrating temporal and spatial processing via NCDEs with benchmark performance metrics."
+    },
+    {
+      "label": "Experiment with automated dilated graph modeling",
+      "how_to": "Implement the automated dilated spatio-temporal synchronous graph model from paper 2207.10830 and compare its performance and efficiency against the baseline.",
+      "expected_outcome": "Insights into adaptive graph construction benefits and improved spatio-temporal dependency capture."
+    },
+    {
+      "label": "Develop SpoT-Mamba model",
+      "how_to": "Build the SpoT-Mamba framework from paper 2406.11244 focusing on selective state space modeling and node embedding generation from walk sequences.",
+      "expected_outcome": "Enhanced long-range dependency modeling with evaluation on traffic datasets showing performance gains."
+    },
+    {
+      "label": "Apply meta-graph learning",
+      "how_to": "Implement MegaCRN from paper 2211.14701 to explore meta-graph convolutional recurrent networks and meta-node bank concepts.",
+      "expected_outcome": "Improved handling of spatio-temporal heterogeneity and non-stationarity with quantitative results."
+    },
+    {
+      "label": "Integrate meta contrastive learning",
+      "how_to": "Incorporate spatio-temporal meta contrastive learning techniques from paper 2310.17678 to improve robustness against data scarcity and noise.",
+      "expected_outcome": "Increased model robustness and generalization in low-data or noisy scenarios."
+    },
+    {
+      "label": "Build and test ST-MLP model",
+      "how_to": "Construct the ST-MLP model from paper 2308.07496 emphasizing channel-independence and linear cascaded MLPs for efficient forecasting.",
+      "expected_outcome": "A lightweight model with competitive accuracy and reduced computational cost."
+    },
+    {
+      "label": "Experiment with STAEformer",
+      "how_to": "Implement the STAEformer model from paper 2308.10425 using spatio-temporal adaptive embedding combined with vanilla transformers.",
+      "expected_outcome": "State-of-the-art forecasting accuracy demonstrating transformer effectiveness in STG tasks."
+    },
+    {
+      "label": "Explore unified spatio-temporal modeling",
+      "how_to": "Develop the STUM framework from paper 2411.09251 focusing on the Adaptive Spatio-temporal Unitized Cell and heterogeneity handling.",
+      "expected_outcome": "A unified model capturing complex space-time interactions with improved predictive accuracy and efficiency."
+    },
+    {
+      "label": "Implement dynamic hypergraph learning",
+      "how_to": "Build the STDHL model from paper 2412.11393 to capture higher-order spatial correlations in wind power forecasting using dynamic hypergraphs.",
+      "expected_outcome": "Demonstrated benefits of hypergraph structures in modeling complex spatial dependencies."
+    },
+    {
+      "label": "Enhance models with geolocation representations",
+      "how_to": "Integrate LLMGeovec features from paper 2408.12116 into existing STG models to incorporate geographic semantic information.",
+      "expected_outcome": "Improved spatio-temporal learning performance through enhanced geolocation feature representation."
+    }
+  ],
+  "metrics": [
+    "Prediction accuracy (e.g., RMSE, MAE) on benchmark datasets",
+    "Model computational efficiency (inference time, parameter count)",
+    "Ability to capture long-range dependencies (qualitative and quantitative analysis)",
+    "Robustness to data scarcity and noise",
+    "Improvement in handling spatio-temporal heterogeneity",
+    "Effectiveness of graph structure learning (adaptive vs fixed)",
+    "Impact of geolocation semantic enhancement on model performance"
+  ],
+  "timeline_weeks": [
+    {
+      "week": 1,
+      "focus": "Understand foundational STG forecasting concepts and implement STG-NCDE baseline",
+      "deliverable": "Working STG-NCDE model with evaluation results"
+    },
+    {
+      "week": 2,
+      "focus": "Implement automated dilated graph modeling and compare with baseline",
+      "deliverable": "Performance and efficiency comparison report"
+    },
+    {
+      "week": 3,
+      "focus": "Develop SpoT-Mamba model for long-range dependency capture",
+      "deliverable": "SpoT-Mamba implementation and evaluation"
+    },
+    {
+      "week": 4,
+      "focus": "Apply meta-graph learning with MegaCRN",
+      "deliverable": "MegaCRN model and heterogeneity analysis"
+    },
+    {
+      "week": 5,
+      "focus": "Integrate meta contrastive learning for robustness",
+      "deliverable": "Enhanced model with contrastive learning and robustness evaluation"
+    },
+    {
+      "week": 6,
+      "focus": "Build and test ST-MLP for efficient forecasting",
+      "deliverable": "ST-MLP implementation and efficiency metrics"
+    },
+    {
+      "week": 7,
+      "focus": "Experiment with STAEformer using adaptive embeddings and transformers",
+      "deliverable": "STAEformer model and performance benchmarking"
+    },
+    {
+      "week": 8,
+      "focus": "Explore unified spatio-temporal modeling with STUM",
+      "deliverable": "STUM framework implementation and accuracy report"
+    },
+    {
+      "week": 9,
+      "focus": "Implement dynamic hypergraph learning for higher-order spatial modeling",
+      "deliverable": "STDHL model and spatial correlation analysis"
+    },
+    {
+      "week": 10,
+      "focus": "Enhance models with geolocation representations from LLMs",
+      "deliverable": "Integration of LLMGeovec features and performance improvement report"
+    }
+  ],
+  "risks": [
+    {
+      "risk": "Limited practical implementation details in some papers may hinder exact reproduction of models.",
+      "mitigation": "Focus on core concepts and adapt implementations using available code repositories or related literature."
+    },
+    {
+      "risk": "Computational resource constraints may limit ability to train large transformer-based models like STAEformer.",
+      "mitigation": "Use smaller datasets, model pruning, or cloud resources to manage training demands."
+    },
+    {
+      "risk": "Data scarcity and noise in real-world datasets may affect model evaluation consistency.",
+      "mitigation": "Employ data augmentation and meta contrastive learning techniques to improve robustness."
+    }
+  ],
+  "_topics_suggestion": "The selected papers may also cover research areas including: 3D Scene Understanding, Applied Machine Learning, Combinatorics, Deep Learning Architectures, Neural Networks, Object Detection & Pose Estimation. You may gain a broader understand of the field by exploring these related research directions"
+}
